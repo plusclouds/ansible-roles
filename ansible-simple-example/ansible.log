@@ -1,0 +1,815 @@
+2017-11-29 15:46:14,104 p=5033 u=vagrant |  control01 | SUCCESS => {
+    "changed": false, 
+    "failed": false, 
+    "ping": "pong"
+}
+2017-11-29 15:46:14,608 p=5033 u=vagrant |  db01 | SUCCESS => {
+    "changed": false, 
+    "failed": false, 
+    "ping": "pong"
+}
+2017-11-29 15:46:15,727 p=5033 u=vagrant |  app01 | SUCCESS => {
+    "changed": false, 
+    "failed": false, 
+    "ping": "pong"
+}
+2017-11-29 15:46:15,730 p=5033 u=vagrant |  lb01 | SUCCESS => {
+    "changed": false, 
+    "failed": false, 
+    "ping": "pong"
+}
+2017-11-29 15:46:15,736 p=5033 u=vagrant |  app02 | SUCCESS => {
+    "changed": false, 
+    "failed": false, 
+    "ping": "pong"
+}
+2017-11-30 08:58:25,890 p=6732 u=vagrant |  PLAY [webserver] ***************************************************************
+2017-11-30 08:58:25,900 p=6732 u=vagrant |  TASK [Gathering Facts] *********************************************************
+2017-11-30 08:58:28,704 p=6732 u=vagrant |  ok: [app02]
+2017-11-30 08:58:29,796 p=6732 u=vagrant |  ok: [app01]
+2017-11-30 08:58:29,805 p=6732 u=vagrant |  TASK [install web components] **************************************************
+2017-11-30 08:59:29,017 p=6732 u=vagrant |  changed: [app01] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 08:59:30,533 p=6732 u=vagrant |  changed: [app02] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 08:59:30,545 p=6732 u=vagrant |  TASK [ensure apache2 started] **************************************************
+2017-11-30 08:59:31,229 p=6732 u=vagrant |  ok: [app02]
+2017-11-30 08:59:31,318 p=6732 u=vagrant |  ok: [app01]
+2017-11-30 08:59:31,328 p=6732 u=vagrant |  TASK [ensure mod_wsgi enabled] *************************************************
+2017-11-30 08:59:31,882 p=6732 u=vagrant |  ok: [app01]
+2017-11-30 08:59:31,927 p=6732 u=vagrant |  ok: [app02]
+2017-11-30 08:59:31,936 p=6732 u=vagrant |  PLAY RECAP *********************************************************************
+2017-11-30 08:59:31,937 p=6732 u=vagrant |  app01                      : ok=4    changed=1    unreachable=0    failed=0   
+2017-11-30 08:59:31,938 p=6732 u=vagrant |  app02                      : ok=4    changed=1    unreachable=0    failed=0   
+2017-11-30 08:59:48,097 p=6932 u=vagrant |  PLAY [loadbalancer] ******************************************************************************************
+2017-11-30 08:59:48,109 p=6932 u=vagrant |  TASK [Gathering Facts] ***************************************************************************************
+2017-11-30 08:59:51,970 p=6932 u=vagrant |  ok: [lb01]
+2017-11-30 08:59:51,992 p=6932 u=vagrant |  TASK [install nginx] *****************************************************************************************
+2017-11-30 09:00:14,507 p=6932 u=vagrant |  changed: [lb01]
+2017-11-30 09:00:14,515 p=6932 u=vagrant |  TASK [ensure nginx started] **********************************************************************************
+2017-11-30 09:00:15,072 p=6932 u=vagrant |  ok: [lb01]
+2017-11-30 09:00:15,076 p=6932 u=vagrant |  PLAY RECAP ***************************************************************************************************
+2017-11-30 09:00:15,077 p=6932 u=vagrant |  lb01                       : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 12:02:03,964 p=8182 u=vagrant |  PLAY [control] *****************************************************************
+2017-11-30 12:02:03,975 p=8182 u=vagrant |  TASK [Gathering Facts] *********************************************************
+2017-11-30 12:02:07,036 p=8182 u=vagrant |  ok: [control01]
+2017-11-30 12:02:07,047 p=8182 u=vagrant |  TASK [install tools] ***********************************************************
+2017-11-30 12:02:18,654 p=8182 u=vagrant |  ok: [control01] => (item=[u'curl'])
+2017-11-30 12:02:18,743 p=8182 u=vagrant |  PLAY RECAP *********************************************************************
+2017-11-30 12:02:18,743 p=8182 u=vagrant |  control01                  : ok=2    changed=0    unreachable=0    failed=0   
+2017-11-30 12:09:14,274 p=8610 u=vagrant |  PLAY [database] ****************************************************************
+2017-11-30 12:09:14,287 p=8610 u=vagrant |  TASK [Gathering Facts] *********************************************************
+2017-11-30 12:09:19,110 p=8610 u=vagrant |  ok: [db01]
+2017-11-30 12:09:19,130 p=8610 u=vagrant |  TASK [install mysql-server] ****************************************************
+2017-11-30 12:10:02,357 p=8610 u=vagrant |  changed: [db01]
+2017-11-30 12:10:02,368 p=8610 u=vagrant |  TASK [ensure mysql started] ****************************************************
+2017-11-30 12:10:03,031 p=8610 u=vagrant |  ok: [db01]
+2017-11-30 12:10:03,033 p=8610 u=vagrant |  PLAY RECAP *********************************************************************
+2017-11-30 12:10:03,034 p=8610 u=vagrant |  db01                       : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 12:34:56,188 p=9357 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 12:34:56,200 p=9357 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 12:35:01,085 p=9357 u=vagrant |  ok: [app02]
+2017-11-30 12:35:01,142 p=9357 u=vagrant |  ok: [app01]
+2017-11-30 12:35:01,152 p=9357 u=vagrant |  TASK [install web components] **************************************************************************************
+2017-11-30 12:35:12,478 p=9357 u=vagrant |  ok: [app02] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:35:13,975 p=9357 u=vagrant |  ok: [app01] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:35:13,986 p=9357 u=vagrant |  TASK [ensure apache2 started] **************************************************************************************
+2017-11-30 12:35:14,678 p=9357 u=vagrant |  ok: [app01]
+2017-11-30 12:35:14,720 p=9357 u=vagrant |  ok: [app02]
+2017-11-30 12:35:14,735 p=9357 u=vagrant |  TASK [ensure mod_wsgi enabled] *************************************************************************************
+2017-11-30 12:35:15,424 p=9357 u=vagrant |  ok: [app02]
+2017-11-30 12:35:15,476 p=9357 u=vagrant |  ok: [app01]
+2017-11-30 12:35:15,501 p=9357 u=vagrant |  TASK [copy demo app source] ****************************************************************************************
+2017-11-30 12:35:18,168 p=9357 u=vagrant |  changed: [app02]
+2017-11-30 12:35:18,171 p=9357 u=vagrant |  changed: [app01]
+2017-11-30 12:35:18,180 p=9357 u=vagrant |  TASK [copy apache virtual host config] *****************************************************************************
+2017-11-30 12:35:19,237 p=9357 u=vagrant |  changed: [app01]
+2017-11-30 12:35:19,372 p=9357 u=vagrant |  changed: [app02]
+2017-11-30 12:35:19,374 p=9357 u=vagrant |  RUNNING HANDLER [restart apache2] **********************************************************************************
+2017-11-30 12:35:22,137 p=9357 u=vagrant |  changed: [app01]
+2017-11-30 12:35:22,157 p=9357 u=vagrant |  changed: [app02]
+2017-11-30 12:35:22,162 p=9357 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 12:35:22,164 p=9357 u=vagrant |  app01                      : ok=7    changed=3    unreachable=0    failed=0   
+2017-11-30 12:35:22,165 p=9357 u=vagrant |  app02                      : ok=7    changed=3    unreachable=0    failed=0   
+2017-11-30 12:45:54,767 p=9586 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 12:45:54,780 p=9586 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 12:46:03,528 p=9586 u=vagrant |  ok: [app01]
+2017-11-30 12:46:03,640 p=9586 u=vagrant |  ok: [app02]
+2017-11-30 12:46:03,652 p=9586 u=vagrant |  TASK [install web components] **************************************************************************************
+2017-11-30 12:46:11,578 p=9586 u=vagrant |  ok: [app01] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:46:11,585 p=9586 u=vagrant |  ok: [app02] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:46:11,597 p=9586 u=vagrant |  TASK [ensure apache2 started] **************************************************************************************
+2017-11-30 12:46:12,260 p=9586 u=vagrant |  ok: [app02]
+2017-11-30 12:46:12,271 p=9586 u=vagrant |  ok: [app01]
+2017-11-30 12:46:12,282 p=9586 u=vagrant |  TASK [ensure mod_wsgi enabled] *************************************************************************************
+2017-11-30 12:46:12,886 p=9586 u=vagrant |  ok: [app02]
+2017-11-30 12:46:12,972 p=9586 u=vagrant |  ok: [app01]
+2017-11-30 12:46:12,987 p=9586 u=vagrant |  TASK [copy demo app source] ****************************************************************************************
+2017-11-30 12:46:15,313 p=9586 u=vagrant |  ok: [app01]
+2017-11-30 12:46:15,365 p=9586 u=vagrant |  ok: [app02]
+2017-11-30 12:46:15,384 p=9586 u=vagrant |  TASK [copy apache virtual host config] *****************************************************************************
+2017-11-30 12:46:16,779 p=9586 u=vagrant |  ok: [app01]
+2017-11-30 12:46:16,858 p=9586 u=vagrant |  ok: [app02]
+2017-11-30 12:46:16,876 p=9586 u=vagrant |  TASK [setup python virtualenv] *************************************************************************************
+2017-11-30 12:46:33,173 p=9586 u=vagrant |  changed: [app01]
+2017-11-30 12:46:34,803 p=9586 u=vagrant |  changed: [app02]
+2017-11-30 12:46:34,808 p=9586 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 12:46:34,809 p=9586 u=vagrant |  app01                      : ok=7    changed=1    unreachable=0    failed=0   
+2017-11-30 12:46:34,810 p=9586 u=vagrant |  app02                      : ok=7    changed=1    unreachable=0    failed=0   
+2017-11-30 12:55:26,495 p=9789 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 12:55:26,506 p=9789 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 12:55:30,120 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:30,231 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:30,240 p=9789 u=vagrant |  TASK [install web components] **************************************************************************************
+2017-11-30 12:55:35,031 p=9789 u=vagrant |  ok: [app01] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:55:35,034 p=9789 u=vagrant |  ok: [app02] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv'])
+2017-11-30 12:55:35,045 p=9789 u=vagrant |  TASK [ensure apache2 started] **************************************************************************************
+2017-11-30 12:55:35,672 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:35,721 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:35,733 p=9789 u=vagrant |  TASK [ensure mod_wsgi enabled] *************************************************************************************
+2017-11-30 12:55:36,308 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:36,360 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:36,372 p=9789 u=vagrant |  TASK [copy demo app source] ****************************************************************************************
+2017-11-30 12:55:38,408 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:38,496 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:38,507 p=9789 u=vagrant |  TASK [copy apache virtual host config] *****************************************************************************
+2017-11-30 12:55:39,397 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:39,612 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:39,623 p=9789 u=vagrant |  TASK [setup python virtualenv] *************************************************************************************
+2017-11-30 12:55:41,194 p=9789 u=vagrant |  ok: [app02]
+2017-11-30 12:55:41,194 p=9789 u=vagrant |  ok: [app01]
+2017-11-30 12:55:41,207 p=9789 u=vagrant |  TASK [de-activate default apache site] *****************************************************************************
+2017-11-30 12:55:41,596 p=9789 u=vagrant |  changed: [app01]
+2017-11-30 12:55:41,666 p=9789 u=vagrant |  changed: [app02]
+2017-11-30 12:55:41,675 p=9789 u=vagrant |  TASK [activate demo apache sites] **********************************************************************************
+2017-11-30 12:55:42,100 p=9789 u=vagrant |  changed: [app01]
+2017-11-30 12:55:42,169 p=9789 u=vagrant |  changed: [app02]
+2017-11-30 12:55:42,173 p=9789 u=vagrant |  RUNNING HANDLER [restart apache2] **********************************************************************************
+2017-11-30 12:55:44,797 p=9789 u=vagrant |  changed: [app01]
+2017-11-30 12:55:44,866 p=9789 u=vagrant |  changed: [app02]
+2017-11-30 12:55:44,870 p=9789 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 12:55:44,870 p=9789 u=vagrant |  app01                      : ok=10   changed=3    unreachable=0    failed=0   
+2017-11-30 12:55:44,871 p=9789 u=vagrant |  app02                      : ok=10   changed=3    unreachable=0    failed=0   
+2017-11-30 13:28:13,872 p=1952 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 13:28:13,939 p=1952 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 13:28:17,666 p=1952 u=vagrant |  ok: [lb01]
+2017-11-30 13:28:17,677 p=1952 u=vagrant |  TASK [install nginx] ***********************************************************************************************
+2017-11-30 13:28:30,574 p=1952 u=vagrant |  ok: [lb01]
+2017-11-30 13:28:30,588 p=1952 u=vagrant |  TASK [ensure nginx started] ****************************************************************************************
+2017-11-30 13:28:31,053 p=1952 u=vagrant |  ok: [lb01]
+2017-11-30 13:28:31,064 p=1952 u=vagrant |  TASK [configure nginx site] ****************************************************************************************
+2017-11-30 13:28:31,703 p=1952 u=vagrant |  changed: [lb01]
+2017-11-30 13:28:31,712 p=1952 u=vagrant |  TASK [de-activate default nginx site] ******************************************************************************
+2017-11-30 13:28:32,136 p=1952 u=vagrant |  changed: [lb01]
+2017-11-30 13:28:32,154 p=1952 u=vagrant |  TASK [activate demo nginx site] ************************************************************************************
+2017-11-30 13:28:32,448 p=1952 u=vagrant |  changed: [lb01]
+2017-11-30 13:28:32,450 p=1952 u=vagrant |  RUNNING HANDLER [restart nginx] ************************************************************************************
+2017-11-30 13:28:33,822 p=1952 u=vagrant |  changed: [lb01]
+2017-11-30 13:28:33,826 p=1952 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 13:28:33,827 p=1952 u=vagrant |  lb01                       : ok=7    changed=4    unreachable=0    failed=0   
+2017-11-30 13:42:43,327 p=2218 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 13:42:43,337 p=2218 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 13:42:47,076 p=2218 u=vagrant |  ok: [db01]
+2017-11-30 13:42:47,088 p=2218 u=vagrant |  TASK [install mysql-server] ****************************************************************************************
+2017-11-30 13:42:56,468 p=2218 u=vagrant |  ok: [db01]
+2017-11-30 13:42:56,482 p=2218 u=vagrant |  TASK [ensure mysql started] ****************************************************************************************
+2017-11-30 13:42:57,034 p=2218 u=vagrant |  ok: [db01]
+2017-11-30 13:42:57,042 p=2218 u=vagrant |  TASK [ensure mysql listening on all ports] *************************************************************************
+2017-11-30 13:42:57,421 p=2218 u=vagrant |  changed: [db01]
+2017-11-30 13:42:57,423 p=2218 u=vagrant |  RUNNING HANDLER [restart mysql] ************************************************************************************
+2017-11-30 13:43:04,570 p=2218 u=vagrant |  fatal: [db01]: FAILED! => {"changed": false, "failed": true, "msg": "initctl: Job failed to start\n"}
+2017-11-30 13:43:04,573 p=2218 u=vagrant |  	to retry, use: --limit @/home/vagrant/Ansible-Playbooks/ansible-simple-example/database.retry
+
+2017-11-30 13:43:04,573 p=2218 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 13:43:04,574 p=2218 u=vagrant |  db01                       : ok=4    changed=1    unreachable=0    failed=1   
+2017-11-30 13:45:16,572 p=2275 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 13:45:16,584 p=2275 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 13:45:20,289 p=2275 u=vagrant |  ok: [db01]
+2017-11-30 13:45:20,299 p=2275 u=vagrant |  TASK [install mysql-server] ****************************************************************************************
+2017-11-30 13:45:24,736 p=2275 u=vagrant |  ok: [db01]
+2017-11-30 13:45:24,745 p=2275 u=vagrant |  TASK [ensure mysql started] ****************************************************************************************
+2017-11-30 13:45:31,137 p=2275 u=vagrant |  fatal: [db01]: FAILED! => {"changed": false, "failed": true, "msg": "initctl: Job failed to start\n"}
+2017-11-30 13:45:31,141 p=2275 u=vagrant |  	to retry, use: --limit @/home/vagrant/Ansible-Playbooks/ansible-simple-example/database.retry
+
+2017-11-30 13:45:31,143 p=2275 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 13:45:31,143 p=2275 u=vagrant |  db01                       : ok=2    changed=0    unreachable=0    failed=1   
+2017-11-30 13:47:51,460 p=2334 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 13:47:51,470 p=2334 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 13:47:54,570 p=2334 u=vagrant |  ok: [db01]
+2017-11-30 13:47:54,579 p=2334 u=vagrant |  TASK [install mysql-server] ****************************************************************************************
+2017-11-30 13:47:58,917 p=2334 u=vagrant |  ok: [db01]
+2017-11-30 13:47:58,927 p=2334 u=vagrant |  TASK [ensure mysql started] ****************************************************************************************
+2017-11-30 13:47:59,308 p=2334 u=vagrant |  ok: [db01]
+2017-11-30 13:47:59,318 p=2334 u=vagrant |  TASK [ensure mysql listening on all ports] *************************************************************************
+2017-11-30 13:47:59,611 p=2334 u=vagrant |  ok: [db01]
+2017-11-30 13:47:59,613 p=2334 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 13:47:59,614 p=2334 u=vagrant |  db01                       : ok=4    changed=0    unreachable=0    failed=0   
+2017-11-30 13:48:24,722 p=2380 u=vagrant |  db01 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:51018           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.121:22      192.168.135.10:41163    ESTABLISHED
+tcp        0      0 10.0.2.15:54931         91.189.91.26:80         TIME_WAIT  
+tcp        0      0 10.0.2.15:49741         91.189.88.149:80        TIME_WAIT  
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::39131                :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:840             0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 127.0.0.1:902           0.0.0.0:*                          
+udp        0      0 0.0.0.0:6818            0.0.0.0:*                          
+udp        0      0 0.0.0.0:59891           0.0.0.0:*                          
+udp6       0      0 :::840                  :::*                               
+udp6       0      0 :::11594                :::*                               
+udp6       0      0 :::60503                :::*                               
+udp6       0      0 :::111                  :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  7      [ ]         DGRAM                    8730     /dev/log
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7225     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     6540     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8567     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     7825     /run/rpcbind.sock
+unix  2      [ ACC ]     STREAM     LISTENING     16788    /var/run/mysqld/mysqld.sock
+unix  2      [ ACC ]     STREAM     LISTENING     8937     /var/run/acpid.socket
+unix  3      [ ]         STREAM     CONNECTED     8705     /var/run/dbus/system_bus_socket
+unix  2      [ ]         DGRAM                    8934     
+unix  3      [ ]         DGRAM                    7260     
+unix  2      [ ]         DGRAM                    17031    
+unix  3      [ ]         STREAM     CONNECTED     8608     
+unix  2      [ ]         DGRAM                    9266     
+unix  3      [ ]         STREAM     CONNECTED     7798     
+unix  2      [ ]         DGRAM                    18543    
+unix  3      [ ]         STREAM     CONNECTED     8631     
+unix  3      [ ]         STREAM     CONNECTED     8704     
+unix  3      [ ]         STREAM     CONNECTED     9193     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8628     
+unix  3      [ ]         STREAM     CONNECTED     8555     
+unix  2      [ ]         DGRAM                    10302    
+unix  3      [ ]         STREAM     CONNECTED     17185    
+unix  3      [ ]         STREAM     CONNECTED     7209     
+unix  3      [ ]         STREAM     CONNECTED     17184    
+unix  3      [ ]         STREAM     CONNECTED     8646     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8629     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     9192     
+unix  3      [ ]         DGRAM                    7261     
+unix  3      [ ]         STREAM     CONNECTED     8607     
+unix  3      [ ]         STREAM     CONNECTED     7216     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     7813     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     18527    
+unix  3      [ ]         STREAM     CONNECTED     18528    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8630     
+
+2017-11-30 13:49:36,234 p=2400 u=vagrant |  control01 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:36949           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.10:51729    192.168.135.112:22      ESTABLISHED
+tcp        0      0 10.0.2.15:22            10.0.2.2:58433          ESTABLISHED
+tcp        0      0 192.168.135.10:41166    192.168.135.121:22      ESTABLISHED
+tcp        0      0 192.168.135.10:54722    192.168.135.101:22      ESTABLISHED
+tcp        0      0 192.168.135.10:41163    192.168.135.121:22      TIME_WAIT  
+tcp        0      0 192.168.135.10:44001    192.168.135.111:22      ESTABLISHED
+tcp        0      0 10.0.2.15:22            10.0.2.2:58432          ESTABLISHED
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::56861                :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 127.0.0.1:898           0.0.0.0:*                          
+udp        0      0 0.0.0.0:35265           0.0.0.0:*                          
+udp        0      0 0.0.0.0:49107           0.0.0.0:*                          
+udp        0      0 0.0.0.0:828             0.0.0.0:*                          
+udp6       0      0 :::111                  :::*                               
+udp6       0      0 :::25022                :::*                               
+udp6       0      0 :::54811                :::*                               
+udp6       0      0 :::828                  :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  8      [ ]         DGRAM                    8710     /dev/log
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7207     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     6530     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8549     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     7792     /run/rpcbind.sock
+unix  2      [ ACC ]     STREAM     LISTENING     16744    /home/vagrant/.ansible/cp/5d63f02899.EWG5zCm651w0xz1r
+unix  2      [ ACC ]     STREAM     LISTENING     16747    /home/vagrant/.ansible/cp/8e99c4f2b7.ELNGXxzO6FhMTf5V
+unix  2      [ ACC ]     STREAM     LISTENING     16749    /home/vagrant/.ansible/cp/68b9a7be89.bZkJaXM6fi0OmGfn
+unix  2      [ ACC ]     STREAM     LISTENING     16751    /home/vagrant/.ansible/cp/19dd9587ff.zEj2ElQ7y0zpsOCs
+unix  2      [ ACC ]     STREAM     LISTENING     8891     /var/run/acpid.socket
+unix  2      [ ]         DGRAM                    8888     
+unix  2      [ ]         DGRAM                    9163     
+unix  3      [ ]         STREAM     CONNECTED     12148    
+unix  3      [ ]         STREAM     CONNECTED     8606     
+unix  2      [ ]         DGRAM                    11995    
+unix  3      [ ]         STREAM     CONNECTED     8624     @/com/ubuntu/upstart
+unix  2      [ ]         DGRAM                    12250    
+unix  3      [ ]         STREAM     CONNECTED     7191     
+unix  2      [ ]         DGRAM                    16760    
+unix  3      [ ]         STREAM     CONNECTED     16753    /home/vagrant/.ansible/cp/68b9a7be89.bZkJaXM6fi0OmGfn
+unix  3      [ ]         STREAM     CONNECTED     9107     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     12156    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8585     
+unix  3      [ ]         STREAM     CONNECTED     7759     
+unix  3      [ ]         DGRAM                    7243     
+unix  3      [ ]         STREAM     CONNECTED     16745    
+unix  3      [ ]         STREAM     CONNECTED     8609     
+unix  3      [ ]         STREAM     CONNECTED     16754    /home/vagrant/.ansible/cp/8e99c4f2b7.ELNGXxzO6FhMTf5V
+unix  3      [ ]         STREAM     CONNECTED     8584     
+unix  3      [ ]         STREAM     CONNECTED     12380    
+unix  3      [ ]         STREAM     CONNECTED     9106     
+unix  3      [ ]         STREAM     CONNECTED     8608     
+unix  2      [ ]         DGRAM                    10447    
+unix  3      [ ]         STREAM     CONNECTED     8680     
+unix  3      [ ]         STREAM     CONNECTED     7781     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     16752    
+unix  3      [ ]         STREAM     CONNECTED     12155    
+unix  3      [ ]         STREAM     CONNECTED     12147    
+unix  3      [ ]         STREAM     CONNECTED     16748    
+unix  3      [ ]         STREAM     CONNECTED     16746    /home/vagrant/.ansible/cp/5d63f02899.EWG5zCm651w0xz1r
+unix  3      [ ]         STREAM     CONNECTED     12381    
+unix  3      [ ]         STREAM     CONNECTED     8537     
+unix  3      [ ]         STREAM     CONNECTED     7198     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8607     /var/run/dbus/system_bus_socket
+unix  3      [ ]         DGRAM                    7242     
+unix  3      [ ]         STREAM     CONNECTED     8681     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     16759    /home/vagrant/.ansible/cp/19dd9587ff.zEj2ElQ7y0zpsOCs
+unix  3      [ ]         STREAM     CONNECTED     16750    
+
+2017-11-30 13:49:36,786 p=2400 u=vagrant |  app02 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:60228           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.112:22      192.168.135.10:51729    ESTABLISHED
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::80                   :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::39196                :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:853             0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 127.0.0.1:903           0.0.0.0:*                          
+udp        0      0 0.0.0.0:14484           0.0.0.0:*                          
+udp        0      0 0.0.0.0:59385           0.0.0.0:*                          
+udp6       0      0 :::32082                :::*                               
+udp6       0      0 :::853                  :::*                               
+udp6       0      0 :::49242                :::*                               
+udp6       0      0 :::111                  :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  2      [ ACC ]     STREAM     LISTENING     9239     /var/run/apache2/wsgi.1171.0.1.sock
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7213     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     8538     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     6530     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8882     /var/run/acpid.socket
+unix  2      [ ACC ]     STREAM     LISTENING     7893     /run/rpcbind.sock
+unix  7      [ ]         DGRAM                    8701     /dev/log
+unix  3      [ ]         STREAM     CONNECTED     8597     
+unix  2      [ ]         DGRAM                    9155     
+unix  3      [ ]         STREAM     CONNECTED     7202     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8671     
+unix  2      [ ]         DGRAM                    12737    
+unix  3      [ ]         STREAM     CONNECTED     12722    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8615     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8576     
+unix  3      [ ]         STREAM     CONNECTED     9099     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     7890     @/com/ubuntu/upstart
+unix  2      [ ]         DGRAM                    10134    
+unix  3      [ ]         STREAM     CONNECTED     8672     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     7196     
+unix  3      [ ]         STREAM     CONNECTED     9098     
+unix  3      [ ]         STREAM     CONNECTED     8601     
+unix  3      [ ]         STREAM     CONNECTED     12658    
+unix  3      [ ]         STREAM     CONNECTED     12657    
+unix  3      [ ]         STREAM     CONNECTED     8575     
+unix  2      [ ]         DGRAM                    8879     
+unix  3      [ ]         STREAM     CONNECTED     8600     
+unix  3      [ ]         STREAM     CONNECTED     7872     
+unix  3      [ ]         STREAM     CONNECTED     8525     
+unix  2      [ ]         DGRAM                    12507    
+unix  3      [ ]         DGRAM                    7246     
+unix  3      [ ]         DGRAM                    7247     
+unix  3      [ ]         STREAM     CONNECTED     8598     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     12721    
+
+2017-11-30 13:49:36,787 p=2400 u=vagrant |  db01 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:51018           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.121:22      192.168.135.10:41166    ESTABLISHED
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::39131                :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:840             0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 127.0.0.1:902           0.0.0.0:*                          
+udp        0      0 0.0.0.0:6818            0.0.0.0:*                          
+udp        0      0 0.0.0.0:59891           0.0.0.0:*                          
+udp6       0      0 :::840                  :::*                               
+udp6       0      0 :::11594                :::*                               
+udp6       0      0 :::60503                :::*                               
+udp6       0      0 :::111                  :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  7      [ ]         DGRAM                    8730     /dev/log
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7225     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     6540     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8567     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     7825     /run/rpcbind.sock
+unix  2      [ ACC ]     STREAM     LISTENING     16788    /var/run/mysqld/mysqld.sock
+unix  2      [ ACC ]     STREAM     LISTENING     8937     /var/run/acpid.socket
+unix  3      [ ]         STREAM     CONNECTED     8705     /var/run/dbus/system_bus_socket
+unix  2      [ ]         DGRAM                    8934     
+unix  3      [ ]         DGRAM                    7260     
+unix  3      [ ]         STREAM     CONNECTED     18756    
+unix  3      [ ]         STREAM     CONNECTED     8608     
+unix  2      [ ]         DGRAM                    9266     
+unix  3      [ ]         STREAM     CONNECTED     7798     
+unix  2      [ ]         DGRAM                    18836    
+unix  3      [ ]         STREAM     CONNECTED     8631     
+unix  3      [ ]         STREAM     CONNECTED     8704     
+unix  3      [ ]         STREAM     CONNECTED     9193     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8628     
+unix  3      [ ]         STREAM     CONNECTED     8555     
+unix  2      [ ]         DGRAM                    10302    
+unix  3      [ ]         STREAM     CONNECTED     18820    
+unix  3      [ ]         STREAM     CONNECTED     7209     
+unix  3      [ ]         STREAM     CONNECTED     18821    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8646     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8629     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     9192     
+unix  3      [ ]         DGRAM                    7261     
+unix  3      [ ]         STREAM     CONNECTED     8607     
+unix  3      [ ]         STREAM     CONNECTED     7216     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     7813     @/com/ubuntu/upstart
+unix  2      [ ]         DGRAM                    18607    
+unix  3      [ ]         STREAM     CONNECTED     18757    
+unix  3      [ ]         STREAM     CONNECTED     8630     
+
+2017-11-30 13:49:37,757 p=2400 u=vagrant |  lb01 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:60731           0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.101:22      192.168.135.10:54722    ESTABLISHED
+tcp6       0      0 :::41774                :::*                    LISTEN     
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+udp        0      0 0.0.0.0:836             0.0.0.0:*                          
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 0.0.0.0:35706           0.0.0.0:*                          
+udp        0      0 127.0.0.1:895           0.0.0.0:*                          
+udp        0      0 0.0.0.0:62108           0.0.0.0:*                          
+udp6       0      0 :::836                  :::*                               
+udp6       0      0 :::111                  :::*                               
+udp6       0      0 :::4596                 :::*                               
+udp6       0      0 :::58939                :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  7      [ ]         DGRAM                    8717     /dev/log
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7225     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     6542     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8552     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     7822     /run/rpcbind.sock
+unix  2      [ ACC ]     STREAM     LISTENING     8904     /var/run/acpid.socket
+unix  3      [ ]         STREAM     CONNECTED     14019    
+unix  3      [ ]         STREAM     CONNECTED     14014    
+unix  3      [ ]         STREAM     CONNECTED     8613     
+unix  3      [ ]         STREAM     CONNECTED     9155     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     7214     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8688     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     15060    
+unix  3      [ ]         STREAM     CONNECTED     7778     
+unix  3      [ ]         STREAM     CONNECTED     8539     
+unix  3      [ ]         STREAM     CONNECTED     8592     
+unix  3      [ ]         STREAM     CONNECTED     14018    
+unix  3      [ ]         STREAM     CONNECTED     8687     
+unix  3      [ ]         STREAM     CONNECTED     14015    
+unix  2      [ ]         DGRAM                    9208     
+unix  3      [ ]         STREAM     CONNECTED     8616     
+unix  3      [ ]         STREAM     CONNECTED     7207     
+unix  3      [ ]         STREAM     CONNECTED     15059    
+unix  2      [ ]         DGRAM                    10542    
+unix  3      [ ]         STREAM     CONNECTED     8591     
+unix  3      [ ]         STREAM     CONNECTED     14017    
+unix  2      [ ]         DGRAM                    14926    
+unix  3      [ ]         STREAM     CONNECTED     8615     
+unix  3      [ ]         STREAM     CONNECTED     14016    
+unix  3      [ ]         STREAM     CONNECTED     15123    
+unix  3      [ ]         STREAM     CONNECTED     14013    
+unix  2      [ ]         DGRAM                    8901     
+unix  2      [ ]         DGRAM                    15139    
+unix  3      [ ]         STREAM     CONNECTED     14020    
+unix  3      [ ]         STREAM     CONNECTED     9154     
+unix  3      [ ]         STREAM     CONNECTED     8614     /var/run/dbus/system_bus_socket
+unix  3      [ ]         DGRAM                    7259     
+unix  3      [ ]         STREAM     CONNECTED     7813     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     15124    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8631     @/com/ubuntu/upstart
+unix  3      [ ]         DGRAM                    7258     
+
+2017-11-30 13:49:37,784 p=2400 u=vagrant |  app01 | SUCCESS | rc=0 >>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:52935           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.135.111:22      192.168.135.10:44001    ESTABLISHED
+tcp6       0      0 :::111                  :::*                    LISTEN     
+tcp6       0      0 :::80                   :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 :::48354                :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                          
+udp        0      0 0.0.0.0:33864           0.0.0.0:*                          
+udp        0      0 0.0.0.0:860             0.0.0.0:*                          
+udp        0      0 0.0.0.0:18789           0.0.0.0:*                          
+udp        0      0 0.0.0.0:111             0.0.0.0:*                          
+udp        0      0 127.0.0.1:906           0.0.0.0:*                          
+udp6       0      0 :::860                  :::*                               
+udp6       0      0 :::111                  :::*                               
+udp6       0      0 :::53433                :::*                               
+udp6       0      0 :::10699                :::*                               
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  7      [ ]         DGRAM                    8729     /dev/log
+unix  2      [ ACC ]     STREAM     LISTENING     9260     /var/run/apache2/wsgi.1176.0.1.sock
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7222     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     6542     @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8554     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     8904     /var/run/acpid.socket
+unix  2      [ ACC ]     STREAM     LISTENING     7915     /run/rpcbind.sock
+unix  2      [ ]         DGRAM                    12879    
+unix  3      [ ]         STREAM     CONNECTED     7894     
+unix  3      [ ]         STREAM     CONNECTED     8705     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8625     
+unix  3      [ ]         STREAM     CONNECTED     13093    /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8619     
+unix  3      [ ]         STREAM     CONNECTED     8595     
+unix  3      [ ]         STREAM     CONNECTED     9119     
+unix  3      [ ]         STREAM     CONNECTED     8543     
+unix  3      [ ]         STREAM     CONNECTED     7215     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     13029    
+unix  3      [ ]         STREAM     CONNECTED     8704     
+unix  2      [ ]         DGRAM                    13108    
+unix  2      [ ]         DGRAM                    9176     
+unix  2      [ ]         DGRAM                    8901     
+unix  3      [ ]         STREAM     CONNECTED     13092    
+unix  3      [ ]         STREAM     CONNECTED     7204     
+unix  3      [ ]         DGRAM                    7255     
+unix  3      [ ]         STREAM     CONNECTED     8624     
+unix  3      [ ]         STREAM     CONNECTED     13028    
+unix  3      [ ]         DGRAM                    7256     
+unix  3      [ ]         STREAM     CONNECTED     7912     @/com/ubuntu/upstart
+unix  2      [ ]         DGRAM                    10155    
+unix  3      [ ]         STREAM     CONNECTED     8637     @/com/ubuntu/upstart
+unix  3      [ ]         STREAM     CONNECTED     8596     
+unix  3      [ ]         STREAM     CONNECTED     9120     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     8620     /var/run/dbus/system_bus_socket
+
+2017-11-30 14:56:03,268 p=2756 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 14:56:03,282 p=2756 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 14:56:07,491 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:07,532 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:07,552 p=2756 u=vagrant |  TASK [install web components] **************************************************************************************
+2017-11-30 14:56:26,406 p=2756 u=vagrant |  changed: [app01] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv', u'python-mysqldb'])
+2017-11-30 14:56:27,378 p=2756 u=vagrant |  changed: [app02] => (item=[u'apache2', u'libapache2-mod-wsgi', u'python-pip', u'python-virtualenv', u'python-mysqldb'])
+2017-11-30 14:56:27,392 p=2756 u=vagrant |  TASK [ensure apache2 started] **************************************************************************************
+2017-11-30 14:56:28,004 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:28,006 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:28,019 p=2756 u=vagrant |  TASK [ensure mod_wsgi enabled] *************************************************************************************
+2017-11-30 14:56:28,594 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:28,600 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:28,610 p=2756 u=vagrant |  TASK [copy demo app source] ****************************************************************************************
+2017-11-30 14:56:31,054 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:31,070 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:31,124 p=2756 u=vagrant |  TASK [copy apache virtual host config] *****************************************************************************
+2017-11-30 14:56:31,933 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:31,964 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:31,989 p=2756 u=vagrant |  TASK [setup python virtualenv] *************************************************************************************
+2017-11-30 14:56:34,321 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:34,335 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:34,348 p=2756 u=vagrant |  TASK [de-activate default apache site] *****************************************************************************
+2017-11-30 14:56:34,983 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:34,998 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:35,010 p=2756 u=vagrant |  TASK [activate demo apache sites] **********************************************************************************
+2017-11-30 14:56:35,378 p=2756 u=vagrant |  ok: [app01]
+2017-11-30 14:56:35,414 p=2756 u=vagrant |  ok: [app02]
+2017-11-30 14:56:35,434 p=2756 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 14:56:35,435 p=2756 u=vagrant |  app01                      : ok=9    changed=1    unreachable=0    failed=0   
+2017-11-30 14:56:35,436 p=2756 u=vagrant |  app02                      : ok=9    changed=1    unreachable=0    failed=0   
+2017-11-30 15:00:25,251 p=2979 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 15:00:25,262 p=2979 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:00:27,795 p=2979 u=vagrant |  ok: [db01]
+2017-11-30 15:00:27,805 p=2979 u=vagrant |  TASK [install tools] ***********************************************************************************************
+2017-11-30 15:00:39,225 p=2979 u=vagrant |  changed: [db01] => (item=[u'python-mysqldb'])
+2017-11-30 15:00:39,235 p=2979 u=vagrant |  TASK [install mysql-server] ****************************************************************************************
+2017-11-30 15:00:43,521 p=2979 u=vagrant |  ok: [db01]
+2017-11-30 15:00:43,533 p=2979 u=vagrant |  TASK [ensure mysql started] ****************************************************************************************
+2017-11-30 15:00:43,941 p=2979 u=vagrant |  ok: [db01]
+2017-11-30 15:00:43,952 p=2979 u=vagrant |  TASK [ensure mysql listening on all ports] *************************************************************************
+2017-11-30 15:00:44,271 p=2979 u=vagrant |  ok: [db01]
+2017-11-30 15:00:44,282 p=2979 u=vagrant |  TASK [create demo database] ****************************************************************************************
+2017-11-30 15:00:44,646 p=2979 u=vagrant |  changed: [db01]
+2017-11-30 15:00:44,656 p=2979 u=vagrant |  TASK [create demo user] ********************************************************************************************
+2017-11-30 15:00:45,013 p=2979 u=vagrant |  changed: [db01]
+2017-11-30 15:00:45,016 p=2979 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 15:00:45,017 p=2979 u=vagrant |  db01                       : ok=7    changed=3    unreachable=0    failed=0   
+2017-11-30 15:08:32,565 p=3101 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:08:32,579 p=3101 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:08:36,283 p=3101 u=vagrant |  ok: [lb01]
+2017-11-30 15:08:36,298 p=3101 u=vagrant |  TASK [verify nginx service] ****************************************************************************************
+2017-11-30 15:08:36,683 p=3101 u=vagrant |   [WARNING]: Consider using service module rather than running service
+
+2017-11-30 15:08:36,684 p=3101 u=vagrant |  changed: [lb01]
+2017-11-30 15:08:36,695 p=3101 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:08:36,701 p=3101 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:08:41,377 p=3101 u=vagrant |  ok: [app01]
+2017-11-30 15:08:41,523 p=3101 u=vagrant |  ok: [app02]
+2017-11-30 15:08:41,539 p=3101 u=vagrant |  TASK [verify apache2 service] **************************************************************************************
+2017-11-30 15:08:41,857 p=3101 u=vagrant |  changed: [app01]
+2017-11-30 15:08:41,875 p=3101 u=vagrant |  changed: [app02]
+2017-11-30 15:08:41,884 p=3101 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 15:08:41,892 p=3101 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:08:44,122 p=3101 u=vagrant |  ok: [db01]
+2017-11-30 15:08:44,131 p=3101 u=vagrant |  TASK [verify mysql service] ****************************************************************************************
+2017-11-30 15:08:44,355 p=3101 u=vagrant |  changed: [db01]
+2017-11-30 15:08:44,358 p=3101 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 15:08:44,360 p=3101 u=vagrant |  app01                      : ok=2    changed=1    unreachable=0    failed=0   
+2017-11-30 15:08:44,360 p=3101 u=vagrant |  app02                      : ok=2    changed=1    unreachable=0    failed=0   
+2017-11-30 15:08:44,361 p=3101 u=vagrant |  db01                       : ok=2    changed=1    unreachable=0    failed=0   
+2017-11-30 15:08:44,362 p=3101 u=vagrant |  lb01                       : ok=2    changed=1    unreachable=0    failed=0   
+2017-11-30 15:10:54,969 p=3192 u=vagrant |  ERROR! Syntax Error while loading YAML.
+
+
+The error appears to have been in '/home/vagrant/Ansible-Playbooks/ansible-simple-example/playbooks/stack_status.yml': line 17, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+      - name: verify apache2 is listening on 80
+      ^ here
+
+exception type: <class 'yaml.parser.ParserError'>
+exception: while parsing a block mapping
+  in "<unicode string>", line 14, column 7
+did not find expected key
+  in "<unicode string>", line 17, column 7
+2017-11-30 15:11:31,818 p=3313 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:11:31,833 p=3313 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:11:35,595 p=3313 u=vagrant |  ok: [lb01]
+2017-11-30 15:11:35,605 p=3313 u=vagrant |  TASK [verify nginx service] ****************************************************************************************
+2017-11-30 15:11:35,952 p=3313 u=vagrant |   [WARNING]: Consider using service module rather than running service
+
+2017-11-30 15:11:35,953 p=3313 u=vagrant |  changed: [lb01]
+2017-11-30 15:11:35,966 p=3313 u=vagrant |  TASK [verify nginx is listening on 80] *****************************************************************************
+2017-11-30 15:11:36,331 p=3313 u=vagrant |  ok: [lb01]
+2017-11-30 15:11:36,337 p=3313 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:11:36,342 p=3313 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:11:40,067 p=3313 u=vagrant |  ok: [app01]
+2017-11-30 15:11:40,126 p=3313 u=vagrant |  ok: [app02]
+2017-11-30 15:11:40,135 p=3313 u=vagrant |  TASK [verify apache2 service] **************************************************************************************
+2017-11-30 15:11:40,500 p=3313 u=vagrant |  changed: [app01]
+2017-11-30 15:11:40,510 p=3313 u=vagrant |  changed: [app02]
+2017-11-30 15:11:40,523 p=3313 u=vagrant |  TASK [verify apache2 is listening on 80] ***************************************************************************
+2017-11-30 15:11:40,893 p=3313 u=vagrant |  ok: [app01]
+2017-11-30 15:11:40,904 p=3313 u=vagrant |  ok: [app02]
+2017-11-30 15:11:40,917 p=3313 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 15:11:40,923 p=3313 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:11:44,405 p=3313 u=vagrant |  ok: [db01]
+2017-11-30 15:11:44,414 p=3313 u=vagrant |  TASK [verify mysql service] ****************************************************************************************
+2017-11-30 15:11:44,692 p=3313 u=vagrant |  changed: [db01]
+2017-11-30 15:11:44,704 p=3313 u=vagrant |  TASK [verify mysql is listening on 3306] ***************************************************************************
+2017-11-30 15:11:44,974 p=3313 u=vagrant |  ok: [db01]
+2017-11-30 15:11:44,977 p=3313 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 15:11:44,980 p=3313 u=vagrant |  app01                      : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 15:11:44,981 p=3313 u=vagrant |  app02                      : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 15:11:44,983 p=3313 u=vagrant |  db01                       : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 15:11:44,985 p=3313 u=vagrant |  lb01                       : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 15:14:04,791 p=3437 u=vagrant |  ERROR! conflicting action statements: wait_for, service
+
+The error appears to have been in '/home/vagrant/Ansible-Playbooks/ansible-simple-example/playbooks/stack_restart.yml': line 6, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  tasks:
+    - service: name=nginx state=stopped
+      ^ here
+
+
+The error appears to have been in '/home/vagrant/Ansible-Playbooks/ansible-simple-example/playbooks/stack_restart.yml': line 6, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  tasks:
+    - service: name=nginx state=stopped
+      ^ here
+
+exception type: <class 'ansible.errors.AnsibleParserError'>
+exception: conflicting action statements: wait_for, service
+
+The error appears to have been in '/home/vagrant/Ansible-Playbooks/ansible-simple-example/playbooks/stack_restart.yml': line 6, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  tasks:
+    - service: name=nginx state=stopped
+      ^ here
+
+2017-11-30 15:14:16,900 p=3442 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:14:16,935 p=3442 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:14:20,209 p=3442 u=vagrant |  ok: [lb01]
+2017-11-30 15:14:20,219 p=3442 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:14:21,617 p=3442 u=vagrant |  changed: [lb01]
+2017-11-30 15:14:21,628 p=3442 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:14:21,975 p=3442 u=vagrant |  ok: [lb01]
+2017-11-30 15:14:21,982 p=3442 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:14:21,988 p=3442 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:14:26,240 p=3442 u=vagrant |  ok: [app02]
+2017-11-30 15:14:26,252 p=3442 u=vagrant |  ok: [app01]
+2017-11-30 15:14:26,263 p=3442 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:14:27,746 p=3442 u=vagrant |  changed: [app01]
+2017-11-30 15:14:27,775 p=3442 u=vagrant |  changed: [app02]
+2017-11-30 15:14:27,788 p=3442 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 15:14:27,802 p=3442 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:14:31,130 p=3442 u=vagrant |  ok: [db01]
+2017-11-30 15:14:31,141 p=3442 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:14:34,361 p=3442 u=vagrant |  changed: [db01]
+2017-11-30 15:14:34,371 p=3442 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:14:34,382 p=3442 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:14:36,803 p=3442 u=vagrant |  ok: [app01]
+2017-11-30 15:14:36,866 p=3442 u=vagrant |  ok: [app02]
+2017-11-30 15:14:36,878 p=3442 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:14:38,393 p=3442 u=vagrant |  changed: [app02]
+2017-11-30 15:14:38,402 p=3442 u=vagrant |  changed: [app01]
+2017-11-30 15:14:38,409 p=3442 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:14:38,425 p=3442 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:14:40,297 p=3442 u=vagrant |  ok: [lb01]
+2017-11-30 15:14:40,311 p=3442 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:14:40,604 p=3442 u=vagrant |  changed: [lb01]
+2017-11-30 15:14:40,607 p=3442 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 15:14:40,610 p=3442 u=vagrant |  app01                      : ok=4    changed=2    unreachable=0    failed=0   
+2017-11-30 15:14:40,611 p=3442 u=vagrant |  app02                      : ok=4    changed=2    unreachable=0    failed=0   
+2017-11-30 15:14:40,611 p=3442 u=vagrant |  db01                       : ok=2    changed=1    unreachable=0    failed=0   
+2017-11-30 15:14:40,612 p=3442 u=vagrant |  lb01                       : ok=5    changed=2    unreachable=0    failed=0   
+2017-11-30 15:15:58,338 p=3590 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:15:58,370 p=3590 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:16:02,899 p=3590 u=vagrant |  ok: [lb01]
+2017-11-30 15:16:02,913 p=3590 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:16:04,421 p=3590 u=vagrant |  changed: [lb01]
+2017-11-30 15:16:04,436 p=3590 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:16:04,840 p=3590 u=vagrant |  ok: [lb01]
+2017-11-30 15:16:04,847 p=3590 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:16:04,854 p=3590 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:16:10,499 p=3590 u=vagrant |  ok: [app01]
+2017-11-30 15:16:10,623 p=3590 u=vagrant |  ok: [app02]
+2017-11-30 15:16:10,660 p=3590 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:16:12,314 p=3590 u=vagrant |  changed: [app01]
+2017-11-30 15:16:12,368 p=3590 u=vagrant |  changed: [app02]
+2017-11-30 15:16:12,384 p=3590 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:16:12,874 p=3590 u=vagrant |  ok: [app01]
+2017-11-30 15:16:12,896 p=3590 u=vagrant |  ok: [app02]
+2017-11-30 15:16:12,912 p=3590 u=vagrant |  PLAY [database] ****************************************************************************************************
+2017-11-30 15:16:12,929 p=3590 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:16:16,383 p=3590 u=vagrant |  ok: [db01]
+2017-11-30 15:16:16,396 p=3590 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:16:19,642 p=3590 u=vagrant |  changed: [db01]
+2017-11-30 15:16:19,654 p=3590 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:16:19,935 p=3590 u=vagrant |  ok: [db01]
+2017-11-30 15:16:19,943 p=3590 u=vagrant |  PLAY [webserver] ***************************************************************************************************
+2017-11-30 15:16:19,952 p=3590 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:16:22,745 p=3590 u=vagrant |  ok: [app01]
+2017-11-30 15:16:22,762 p=3590 u=vagrant |  ok: [app02]
+2017-11-30 15:16:22,782 p=3590 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:16:23,290 p=3590 u=vagrant |  changed: [app01]
+2017-11-30 15:16:24,280 p=3590 u=vagrant |  changed: [app02]
+2017-11-30 15:16:24,290 p=3590 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:16:24,661 p=3590 u=vagrant |  ok: [app02]
+2017-11-30 15:16:24,662 p=3590 u=vagrant |  ok: [app01]
+2017-11-30 15:16:24,671 p=3590 u=vagrant |  PLAY [loadbalancer] ************************************************************************************************
+2017-11-30 15:16:24,684 p=3590 u=vagrant |  TASK [Gathering Facts] *********************************************************************************************
+2017-11-30 15:16:26,447 p=3590 u=vagrant |  ok: [lb01]
+2017-11-30 15:16:26,456 p=3590 u=vagrant |  TASK [service] *****************************************************************************************************
+2017-11-30 15:16:26,755 p=3590 u=vagrant |  changed: [lb01]
+2017-11-30 15:16:26,766 p=3590 u=vagrant |  TASK [wait_for] ****************************************************************************************************
+2017-11-30 15:16:27,014 p=3590 u=vagrant |  ok: [lb01]
+2017-11-30 15:16:27,016 p=3590 u=vagrant |  PLAY RECAP *********************************************************************************************************
+2017-11-30 15:16:27,017 p=3590 u=vagrant |  app01                      : ok=6    changed=2    unreachable=0    failed=0   
+2017-11-30 15:16:27,018 p=3590 u=vagrant |  app02                      : ok=6    changed=2    unreachable=0    failed=0   
+2017-11-30 15:16:27,020 p=3590 u=vagrant |  db01                       : ok=3    changed=1    unreachable=0    failed=0   
+2017-11-30 15:16:27,021 p=3590 u=vagrant |  lb01                       : ok=6    changed=2    unreachable=0    failed=0   
