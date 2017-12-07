@@ -1,0 +1,6 @@
+---
+  - hosts: redhot
+    become: yes
+    roles:
+      - RHEL7-CIS
+      - ansible-openssh-openldap

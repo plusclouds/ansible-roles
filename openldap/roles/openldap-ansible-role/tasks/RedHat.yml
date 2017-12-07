@@ -1,0 +1,11 @@
+---
+- name: Install required packages
+  yum:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    - openldap
+    - openldap-servers
+    - openldap-clients
+    - python-ldap

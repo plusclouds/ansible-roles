@@ -1,0 +1,11 @@
+---
+  - hosts: redhot
+    become: yes
+    roles:
+      - openldap-ansible-role
+    vars:
+      ldap_username:  admin              # LDAP root user name
+      ldap_password:  b403034             # LDAP root password
+      ldap_basedn:    dc=nikita,dc=com   # Base DN
+      ldap_users:
+        - admin

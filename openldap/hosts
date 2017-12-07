@@ -1,0 +1,5 @@
+[debian]
+93.94.254.231:9937 ansible_user=root
+
+[redhot]
+188.132.216.215:9937 ansible_user=root
