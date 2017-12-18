@@ -1,0 +1,75 @@
+# Set log directory permissions folder 755 , files 644
+logdirectories:
+  - path: /var/log/nginx
+    owner: nginx
+    group: nginx
+
+beat_logstash_output:     
+  hosts: ["{{ elk_server }}:{{ logstash_syslog_port }}"]
+  bulk_max_size: 1024
+  
+filebeat_prospectors:
+  # System logs
+  - paths:        
+      - /var/log/messages                      
+      - /var/log/secure
+      - /var/log/maillog                       
+      - /var/log/cron
+      - /var/log/clamd.log        
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: syslog
+    input_type: log
+  # Nginx logs
+  - paths:        
+      - /var/log/nginx/*.log                             
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: nginx-access
+    input_type: log
+  # Nodejs logs
+  - paths:        
+      - /var/app/*/*.log     
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: json
+    input_type: log
+
+metricbeat_modules:
+- module: system
+  metricsets: 
+    - cpu
+    - filesystem
+    - memory
+    - network
+    - process
+    - diskio
+  enabled: true
+  period: 10s
+  cpu_ticks: false
+
+packetbeat_settings:
+  - procs:
+      enabled: true
+      monitored:
+        - process: nginx
+          cmdline_grep: nginx
+  - protocols:
+      dns:
+        ports: [53]
+        include_authorities: true
+        include_additionals: true
+      http:
+        ports: [80, 8080, 22]
+
+heartbeat_monitors:
+  # Nodejs application monitor
+  - type: http
+    schedule: '@every 1m'
+    urls: ["http://localhost:8080"]
+    check.response.status: 200    
+  # Nginx monitor
+  - type: http
+    schedule: '@every 1m'
+    urls: ["http://localhost:80"]
+    check.response.status: 200    

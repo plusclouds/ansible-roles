@@ -1,0 +1,37 @@
+# PostgreSQL version
+postgresql_version: 9.6
+
+# PostgreSQL users and roles (superuser name/password is defined inside encrypted.yml)
+postgresql_users:
+ - { name: "{{postgresql_admin}}", pass: "{{postgresql_admin_password}}", flags: "LOGIN,SUPERUSER", db: 'postgres', search_path: ['search', 'path'] }
+ - { name: "ozan", pass: "ozan", flags: "LOGIN", db: 'ozandb', search_path: ['search', 'path'] }
+
+# PostgreSQL databases and settings. Do not remove template, encoding, collate, ctype options from postgresql_database because it most certainly lead to Ansible role inoperability.
+postgresql_encoding: UTF8
+postgresql_locale: tr_TR.UTF-8
+postgresql_databases:
+ - { name: "ozandb", owner: "ozan", template: "template0", encoding: "{{ postgresql_encoding }}", collate: "{{ postgresql_locale }}", ctype: "{{ postgresql_locale }}" }
+
+# PostgreSQL extensions
+postgresql_extensions:
+ - hstore
+ - pg_stat_statements
+
+# Postgreql tuning https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server
+
+# 4GB machine - 2cpu test&dev EC2 medium
+# Without anything install free -m ==> Total: 3789 , Free: 3418
+# If we consider other agents (datadog,elastic-beats,threatstack,clamav ...)
+# We have like ~3GB memory remains for postgresql only
+
+# Typical 1/4 of your total memory
+postgresql_shared_buffers: 750MB
+
+# Default 64MB 
+postgresql_maintenance_work_mem: 128MB
+
+# 1/2 of total memory
+postgresql_effective_cache_size: 1500MB
+
+# 8MB
+postgresql_work_mem: 8MB

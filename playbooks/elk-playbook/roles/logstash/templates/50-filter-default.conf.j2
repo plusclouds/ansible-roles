@@ -1,0 +1,41 @@
+filter {
+  if [type] == "syslog" {
+      grok {
+        match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" }
+        add_field => [ "received_at", "%{@timestamp}" ]
+        add_field => [ "received_from", "%{host}" ]
+      }      
+      if [syslog_message] =~ "^\{.+\}" {
+        json {
+          source => "syslog_message"
+        }
+      } 
+  }
+  else if [type] == "json" {
+    json{
+        source => "message"
+    }
+  }
+  else if[type] == "java" {
+    grok {
+      match => { "message" =>["%{JAVASTACKTRACEPART}"] }
+    }
+  }
+  else if[type] == "redis" {
+    grok {
+      match => { "message" =>["\[%{POSINT:pid}\] %{REDISTIMESTAMP:timestamp} \* %{GREEDYDATA:redis_message}"] }
+    }
+  }
+  else if[type] == "postgresql" {
+    grok {
+      patterns_dir => ["/etc/logstash/pattern"]
+      match => { "message" => "%{POSTGRES}" }
+    }
+  }  
+  else if [type] == "nginx-access" {
+    grok {  
+      match => { "message" => "%{COMBINEDAPACHELOG}" }
+      add_field => [ "syslog_program", "nginx" ]
+    }   
+  }
+}

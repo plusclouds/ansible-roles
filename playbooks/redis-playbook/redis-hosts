@@ -1,0 +1,19 @@
+[redis:children]
+redis-master
+redis-slave
+redis-sentinel
+
+[redis:vars]
+redis_master_ip=172.31.95.94
+
+[redis-master]
+master ansible_host=172.31.95.94 __environment=test elk_server=172.31.37.219 ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos
+
+[redis-slave]
+slave_1 ansible_host=172.31.85.150 __environment=test elk_server=172.31.37.219 ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos
+slave_2 ansible_host=172.31.89.39  __environment=test elk_server=172.31.37.219 ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos
+
+[redis-sentinel]
+sentinel_1 ansible_host=172.31.95.94 __environment=test elk_server=172.31.37.219 redis_sentinel=True ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos
+sentinel_2 ansible_host=172.31.85.150 __environment=test elk_server=172.31.37.219 redis_sentinel=True ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos
+sentinel_3 ansible_host=172.31.89.39  __environment=test elk_server=172.31.37.219 redis_sentinel=True ansible_ssh_private_key_file=~/.ssh/ansible-keys/ops.pem ansible_user=centos

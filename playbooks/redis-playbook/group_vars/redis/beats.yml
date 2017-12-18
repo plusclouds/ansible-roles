@@ -1,0 +1,54 @@
+beat_logstash_output:     
+  hosts: ["{{ elk_server }}:{{ logstash_syslog_port }}"]
+  bulk_max_size: 1024
+  
+filebeat_prospectors:
+  # System logs
+  - paths:        
+      - /var/log/messages                      
+      - /var/log/secure
+      - /var/log/maillog                       
+      - /var/log/cron
+      - /var/log/clamd.log          
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: syslog
+    input_type: log
+  
+  # Redis logs
+  - paths:        
+      - "{{redis_logfile}}"     
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: redis
+    input_type: log
+    # multiline.pattern: '^='
+    # multiline.negate: true
+    # multiline.match: before
+
+metricbeat_modules:
+- module: system
+  metricsets: 
+    - cpu
+    - filesystem
+    - memory
+    - network
+    - process
+    - diskio
+  enabled: true
+  period: 10s
+  cpu_ticks: false
+
+packetbeat_settings:
+  - protocols:
+      redis:
+        ports: [6379]
+
+heartbeat_monitors:
+  # Redis monitor
+  - type: tcp
+    schedule: '@every 1m'
+    hosts: ["0.0.0.0"]
+    ports: [6379]
+    check.send: 'PING<CR><CF>'
+    check.receive: '+PONG'

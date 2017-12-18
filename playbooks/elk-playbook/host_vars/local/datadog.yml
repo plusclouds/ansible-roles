@@ -1,0 +1,27 @@
+# Datadog settings ubuntu: 1:5.19.0-1 || centos: 5.19.0-1
+datadog_api_key: "{{datadog_key}}"
+datadog_agent_version: "1:5.19.0-1"
+datadog_checks:
+  process:
+    init_config:
+    instances:
+      - name: ssh
+        search_string: ['ssh', 'sshd' ]
+      - name: syslog
+        search_string: ['rsyslog' ]
+        cpu_check_interval: 0.2
+        exact_match: true
+        ignore_denied_access: true          
+  nginx:
+    init_config:
+    instances:
+      - nginx_status_url: http://localhost:81/nginx_status/
+        tags:
+          - elk:{{ environment }}
+  elastic:
+    init_config:
+    instances:
+      - url: http://localhost:9200
+        cluster_stats: false
+        pshard_stats: false
+        pending_task_stats: true

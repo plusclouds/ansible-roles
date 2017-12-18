@@ -1,0 +1,51 @@
+logdirectories:
+  - path: /var/lib/pgsql/data/pg_log
+    owner: postgres
+    group: postgres  
+
+beat_logstash_output:     
+  hosts: ["{{ elk_server }}:{{ logstash_syslog_port }}"]
+  bulk_max_size: 1024
+  
+filebeat_prospectors:
+  # System logs
+  - paths:        
+      - /var/log/messages                      
+      - /var/log/secure
+      - /var/log/maillog                       
+      - /var/log/cron
+      - /var/log/clamd.log          
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: syslog
+    input_type: log
+    # Postgresql logs
+  - paths:        
+      - "/var/lib/pgsql/{{postgresql_version}}/data/pg_log/*.*"     
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: postgresql
+    input_type: log
+    multiline.pattern: '^['
+    multiline.negate: true
+    multiline.match: after
+
+metricbeat_modules:
+- module: system
+  metricsets: 
+    - cpu
+    - filesystem
+    - memory
+    - network
+    - process
+    - diskio
+  enabled: true
+  period: 10s
+  cpu_ticks: false
+
+packetbeat_settings:
+  - protocols:
+      pgsql:
+        ports: [5432]
+
+heartbeat_monitors: []

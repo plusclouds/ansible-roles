@@ -1,0 +1,37 @@
+- name: configure the master redis server
+  hosts: redis-master
+  become: yes
+  become_user: root
+  roles:
+    - { role: ntp, tags: [ 'ntp' ] }
+    - { role: redis, tags: ['redis'] }
+    - { role: beats, tags: [ 'beats' ] }
+    - { role: datadog, tags: [ 'datadog'] }
+    - { role: users, tags: [ 'users' ] }  
+    - { role: clamav, tags: [ 'clamav' ] }
+
+- name: configure redis slaves
+  hosts: redis-slave
+  become: yes
+  become_user: root
+  vars:
+    - redis_slaveof: "{{redis_master_ip}} 6379"
+  roles:
+    - { role: ntp, tags: [ 'ntp' ] }
+    - { role: redis, tags: ['redis-slave'] }
+    - { role: beats, tags: [ 'beats' ] }
+    - { role: datadog, tags: [ 'datadog'] }
+    - { role: users, tags: [ 'users' ] }  
+    - { role: clamav, tags: [ 'clamav' ] }
+
+- name: configure redis sentinel nodes
+  hosts: redis-sentinel
+  become: yes
+  become_user: root
+  vars:
+    - redis_sentinel_monitors:
+      - name: master01
+        host: "{{redis_master_ip}}"
+        port: 6379
+  roles:
+    - { role: redis, tags: ['redis-sentinel'] }

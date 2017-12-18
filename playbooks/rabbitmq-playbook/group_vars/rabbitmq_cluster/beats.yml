@@ -1,0 +1,60 @@
+# Set log directory permissions folder 755 , files 644
+logdirectories:
+  - path: /var/log/rabbitmq
+    owner: rabbitmq
+    group: rabbitmq  
+
+      
+beat_logstash_output:     
+  hosts: ["{{ elk_server }}:{{ logstash_syslog_port }}"]
+  bulk_max_size: 1024
+  
+filebeat_prospectors:
+  # System logs
+  - paths:        
+      - /var/log/messages                      
+      - /var/log/secure
+      - /var/log/maillog                       
+      - /var/log/cron
+      - /var/log/clamd.log          
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: syslog
+    input_type: log
+  # RabbitMq logs
+  - paths:        
+      - /var/log/rabbitmq/*.log     
+    fields:
+      - environment: "{{ __environment }}"
+    document_type: rabbit
+    input_type: log
+    multiline.pattern: '^='
+    multiline.negate: true
+    multiline.match: before
+
+metricbeat_modules:
+- module: system
+  metricsets: 
+    - cpu
+    - filesystem
+    - memory
+    - network
+    - process
+    - diskio
+  enabled: true
+  period: 10s
+  cpu_ticks: false
+
+packetbeat_settings:
+  - protocols:
+      amqp:
+        ports: [5672]
+
+heartbeat_monitors:
+  # Rabbitmq node monitor
+  - type: http
+    schedule: '@every 1m'
+    urls: ["http://localhost:15672/api/healthchecks/node"]
+    username: "{{ rabbitmq_admin_username }}"
+    password: "{{ rabbitmq_admin_password }}"
+    check.response.status: 200

@@ -1,0 +1,44 @@
+- name: Install utilities 
+  yum: name={{ item }} state=present
+  become: true
+  with_items:
+    - unzip
+
+- name: Create application directory
+  file:
+    path: "{{ nodejs_application_path }}" 
+    state: directory
+
+- name: Unzip demo application
+  unarchive:
+    src: app.zip
+    dest: /var
+
+- name: Npm install
+  shell: npm install
+  args: 
+    chdir: "{{ nodejs_application_path }}"
+
+- name: Set application directory Permission 755                  
+  file:                                                         
+    dest: "{{ nodejs_application_path }}"                                      
+    mode: 0755                                                  
+    state: directory                                            
+  become: true                                                
+                                                                
+- name: Set application file permissions 644                      
+  command: find "{{ nodejs_application_path }}" -type f -exec chmod 0644 {} \;   
+  become: true
+
+#- name: Start demo application 
+#  shell: ( ( nohup npm start 1>/dev/null 2>&1 ) & )   
+#  async: 2592000  # 60*60*24*30 – 1 month
+#  poll: 0
+#  args:
+#    chdir: "{{ nodejs_application_path }}"
+
+- name: Add & deamonize demo app
+  command: pm2 start "{{ nodejs_application_path }}"/bin/www --name DemoNodeJsApp
+
+- name: Save pm2 process
+  command: pm2 save

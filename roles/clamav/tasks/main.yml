@@ -1,0 +1,107 @@
+---
+- name: Include OS-Specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: setup-vars.yml
+
+- name: Check/Install EPEL Repo
+  yum: name={{epel_repo}}
+      state=present
+
+- name: Ensure ClamAV packages are installed.
+  package: name={{ item }} state=present
+  with_items: "{{ clamav_packages }}"
+  register: clamav_packages_install
+
+- name: Run freshclam after ClamAV packages change.
+  command: freshclam
+  when: clamav_packages_install.changed
+  register: freshclam_result
+  notify: restart clamav daemon
+  # On Debian, freshclam is automatically run post-install, so this may fail.
+  failed_when:
+    - freshclam_result.rc != 0
+    - freshclam_result.stderr.find('locked by another process') != -1
+
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Clamav | Selinux booleans
+  seboolean:
+    name: '{{ item.name }}'
+    state: '{{ item.value }}'
+    persistent: 'yes'
+  with_items: '{{ clamav_selinux_bools }}'
+  when: clamav_selinux_enabled
+
+- name: Clamav | Log files
+  file:
+    path: '{{ item }}'
+    state: touch
+    mode: '0660'
+    owner: '{{ clamav_user }}'
+    group: '{{ clamav_group }}'
+  with_items:
+    - '{{ clamav_clamd_config.LogFile }}'    
+
+- name: Clamav | Configuration files
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - {src: 'scan.conf.j2', dest: '{{ clamav_confd_dir }}/scan.conf'}
+  notify:
+    - 'restart clamav daemon'
+
+# List all configuration files
+- name: Clamav | List config files
+  find:
+    paths: '{{ clamav_confd_dir }}'
+    file_type: file
+  register: clamav_config_files
+
+# Remove any configuration files not explicitly managed by ansible
+- name: Clamav | Remove unmanaged config files
+  file:
+    path: '{{ item.path }}'
+    state: absent
+    force: 'yes'
+  with_items: '{{ clamav_config_files.files }}'
+  when: ('scan.conf' not in item.path)
+
+- name: Clamav | Create daily scan script
+  template:
+    src: daily_scan.cron.j2
+    dest: /root/clamav_daily_scan.sh
+    owner: root
+    group: root
+    mode: '0550'
+  when: clamav_daily_cron_enabled
+
+- name: Clamav | Schedule daily scan
+  cron:
+    name: 'Execute Daily ClamAV Scan'
+    special_time: daily
+    state: 'present'
+    user: root
+    job: '/root/clamav_daily_scan.sh'
+    cron_file: 'clamav_daily'
+  when: clamav_daily_cron_enabled
+
+- name: flush handlers to restart clamav immediately
+  meta: flush_handlers  
+
+- name: Ensure ClamAV daemon is running (if configured).
+  service:
+    name: "{{ clamav_daemon }}"
+    state: "{{ clamav_daemon_state }}"
+    enabled: "{{ clamav_daemon_enabled }}"
+
+- name: Ensure ClamAV freshclam daemon is running (if configured).
+  service:
+    name: "{{ clamav_freshclam_daemon }}"
+    state: "{{ clamav_freshclam_daemon_state }}"
+    enabled: "{{ clamav_freshclam_daemon_enabled }}"

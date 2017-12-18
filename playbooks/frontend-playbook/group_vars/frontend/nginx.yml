@@ -1,0 +1,18 @@
+# Nginx Settings
+nginx_remove_default_vhost: true
+nginx_vhosts:
+  - listen: "80" # default: "80"
+    filename: "nodejs.conf" # Can be used to set the filename of the vhost file.
+    template: "{{ playbook_dir }}/templates/vhost.conf.j2"
+    server_name: "frontend.ozan.com"
+  - listen: "81" 
+    filename: "nginx.status.conf" 
+    template: "{{ playbook_dir }}/templates/nginx.status.conf.j2"
+    server_name: "frontend.ozan.com"
+nginx_upstreams:
+  - name: "{{ nodejs_application_name }}"
+    strategy: "ip_hash"
+    keepalive: 256
+    servers: {
+      "127.0.0.1:8080"
+    }

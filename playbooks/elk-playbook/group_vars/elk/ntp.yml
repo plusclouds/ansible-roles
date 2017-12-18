@@ -1,0 +1,7 @@
+# Ntp settings
+ntpd_timezone: Turkey
+ntpd_upstreams:
+  - 0.tr.pool.ntp.org
+  - 1.tr.pool.ntp.org
+  - 2.tr.pool.ntp.org
+  - 3.tr.pool.ntp.org

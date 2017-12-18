@@ -1,0 +1,7 @@
+output {
+	if "beats" not in [tags] {
+		elasticsearch { hosts => ["localhost:{{es_local_port}}"] }
+		# uncomment this for debug messages
+		#  stdout { codec => rubydebug }
+	}
+}

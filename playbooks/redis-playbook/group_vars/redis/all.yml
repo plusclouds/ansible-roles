@@ -1,0 +1,6 @@
+# ELK Settings
+elk_server: ""
+logstash_syslog_port: 5044
+
+redis_logfile: "/var/log/redis/redis.log"
+redis_syslog_enabled: "yes"

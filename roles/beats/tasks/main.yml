@@ -1,0 +1,14 @@
+---
+- include: config.yml  
+
+- include: filebeat.yml
+  when: install_filebeat
+
+- include: metricbeat.yml
+  when: install_metricbeat
+
+- include: packetbeat.yml
+  when: install_packetbeat
+
+- include: heartbeat.yml
+  when: install_heartbeat

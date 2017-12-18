@@ -1,0 +1,50 @@
+- hosts: elasticsearch-master
+  roles:
+    - { role: elasticsearch, es_instance_name: "{{ name }}", es_heap_size: "1g",
+    es_config: {
+        cluster.name: "{{ cluster_name }}",
+        discovery.zen.ping.unicast.hosts: "{{ master_eligible }}",
+        discovery.zen.minimum_master_nodes: "{{ minimum_master_nodes }}",
+        http.port: 9200,
+        transport.tcp.port: 9300,
+        node.data: false,
+        node.master: true,
+        node.name: "{{ name }}",
+        bootstrap.memory_lock: true,
+        network.host: "0.0.0.0"
+        }
+    }
+
+- hosts: elasticsearch-data-1
+  roles:
+    - { role: elasticsearch, es_instance_name: "{{ name }}", es_heap_size: "1g",
+  es_config: {
+      cluster.name: "{{ cluster_name }}",
+      discovery.zen.ping.unicast.hosts: "{{ master_eligible }}",
+      discovery.zen.minimum_master_nodes: "{{ minimum_master_nodes }}",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      node.data: true,
+      node.master: false,
+      node.name: "{{ name }}",
+      bootstrap.memory_lock: true,
+      network.host: "0.0.0.0"
+      }
+  }
+
+- hosts: elasticsearch-data-2
+  roles:
+    - { role: elasticsearch, es_instance_name: "{{ name }}", es_heap_size: "1g",
+  es_config: {
+      cluster.name: "{{ cluster_name }}",
+      discovery.zen.ping.unicast.hosts: "{{ master_eligible }}",
+      discovery.zen.minimum_master_nodes: "{{ minimum_master_nodes }}",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      node.data: true,
+      node.master: false,
+      node.name: "{{ name }}",
+      bootstrap.memory_lock: true,
+      network.host: "0.0.0.0"
+      }
+  }

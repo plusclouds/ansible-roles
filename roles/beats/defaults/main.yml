@@ -1,0 +1,11 @@
+---
+install_filebeat: true
+install_metricbeat: true
+install_packetbeat: true
+install_heartbeat: true
+
+# mandatory settings
+elk_server: ""
+elk_server_ssl_cert_port: 8080
+filebeat_prospectors: {} 
+filebeat_outputs: {}  
