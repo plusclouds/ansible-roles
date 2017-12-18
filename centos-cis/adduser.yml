@@ -1,0 +1,14 @@
+- hosts: server
+  become: true
+  vars:
+    uusername: admin
+    upassword: 15D69fc1*15D69fc1
+
+  tasks:
+    - name: Creating user "{{ uusername }}" with admin access
+      user:
+        name: "{{ uusername }}"
+        password: "{{ upassword | password_hash('sha512') }}"
+        groups: wheel
+        append: yes
+        state: present

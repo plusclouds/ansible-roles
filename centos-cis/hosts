@@ -1,0 +1,2 @@
+[server]
+188.132.216.215:9959 ansible_user=root
