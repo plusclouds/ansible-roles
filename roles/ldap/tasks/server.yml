@@ -3,8 +3,8 @@
   yum: name={{ item }} state=installed
   when: ansible_os_family == "RedHat"
   with_items:
-    - openldap 
-    - openldap-servers 
+    - openldap
+    - openldap-servers
     - openldap-clients
     - openssh-ldap
     - pam_ldap
@@ -13,10 +13,10 @@
   apt: name={{ item }} state=installed update_cache=yes cache_valid_time=86400
   when: ansible_os_family == "Debian"
   with_items:
-    - slapd 
+    - slapd
     - ldap-utils
     - libnss-ldap
-    - libpam-ldap 
+    - libpam-ldap
     - nscd
 
 - name: Set OS specific varible
@@ -110,8 +110,10 @@
 #  shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addou.ldif
 #  when: ou_list.stdout.count("ou={{ ldap_users_ou }},{{ ldap_suffix }}") < 1  and ansible_os_family == "RedHat"
 
+
 - name: Ensure organization unit is created
   shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addou.ldif
+  ignore_errors: yes
  #when: ou_list.stdout.count("ou={{ ldap_users_ou }},{{ ldap_suffix }}") < 1 and ansible_os_family == "Debian"
 
 #- name: list users
@@ -140,6 +142,7 @@
 
 - name: Ensure group is created
   shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addgroup.ldif
+  ignore_errors: yes
   #when: group_list.stdout.count("cn={{ ldap_samplegroup_name }},ou={{ ldap_group_ou }},{{ ldap_suffix }}") < 1 and ansible_os_family == "Debian"
 
 #- name: list organization unit
@@ -147,6 +150,9 @@
 #  register: ou_list
 #  ignore_errors: yes
 #  changed_when: False
+
+- name: Ensure passwordpolicy is correct
+  script: passwordpolicy.sh -u {{ ldap_root_username }} -p {{ ldap_root_password }} -d {{ ldap_suffix }}
 
 - name: Ensure nslcd cond is correct
   lineinfile: dest=/etc/nslcd.conf regexp="^{{ item }}" line="{{ item }}"
@@ -178,4 +184,4 @@
 - name: Ensure Authorized keys command user is set
   lineinfile: dest=/etc/ssh/sshd_config regexp="^AuthorizedKeysCommandUser\sroot" line="AuthorizedKeysCommandUser root"  validate='sshd -t -f %s'
   notify: restart sshd
-  when: ansible_os_family == "Debian" 
+  when: ansible_os_family == "Debian"

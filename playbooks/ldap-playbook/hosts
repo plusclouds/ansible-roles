@@ -1,0 +1,2 @@
+[ldap]
+212.68.40.135 ansible_user=root
