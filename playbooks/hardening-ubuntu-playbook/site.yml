@@ -1,0 +1,4 @@
+- hosts: ldap
+  become: true
+  roles:
+    - hardened-ubuntu
