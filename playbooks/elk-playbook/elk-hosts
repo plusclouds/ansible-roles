@@ -1,9 +1,0 @@
-local ansible_host=localhost
-
-[elk]
-master ansible_host=<INSTANCE_IP> name=<NODE_NAME>
-
-[elk:vars]
-environment=<ENVIRONMENT>
-cluster_name=<CLUSTER_NAME>
-master_eligible=["localhost:9300"]

@@ -1,3 +1,0 @@
-# Elk default params
-elasticsearch_heap_size: 512m
-minimum_master_nodes: 1

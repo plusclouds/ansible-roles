@@ -1,6 +1,0 @@
-- hosts: local
-  become: yes
-  tasks:
-    - import_tasks: tasks/test.yml
-  # roles:
-  #  - { role: datadog }

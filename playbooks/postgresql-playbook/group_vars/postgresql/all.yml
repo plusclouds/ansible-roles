@@ -1,3 +1,0 @@
-# ELK Settings
-elk_server: ""
-logstash_syslog_port: 5044

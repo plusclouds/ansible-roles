@@ -1,1 +1,0 @@
- ansible-playbook -i frontend-host --connection=local frontend.yml --extra-vars='ansible_become_pass=!123123'

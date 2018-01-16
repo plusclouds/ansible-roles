@@ -1,9 +1,0 @@
-local ansible_host=localhost
-
-[elk]
-master ansible_host=172.31.37.219 name="Kalimdor"
-
-[elk:vars]
-environment="test"
-cluster_name="Azeroth"
-master_eligible=["localhost:9300"]

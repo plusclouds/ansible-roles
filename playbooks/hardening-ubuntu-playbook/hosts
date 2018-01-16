@@ -1,2 +1,0 @@
-[ubuntu]
-ip_address_here ansible_user=root

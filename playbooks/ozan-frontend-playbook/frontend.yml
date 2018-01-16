@@ -1,13 +1,11 @@
 - hosts: frontend 
   become: yes
   become_user: root
-  post_tasks:
-    - include_tasks: tasks/nodejs-app.yml
-      when: install_nodejs_demo_app  
   roles:
     - { role: ntp, tags: [ 'ntp' ] }
-    - { role: python, tags: [ 'python' ] }                  
+    - { role: python27, tags: [ 'python' ] }                  
     - { role: nodejs, nodejs_version: "7.4.0", nodejs_global_packages: [], tags: [ 'nodejs' ] }
+    - { role: demoapp, tags: ['demoapp'], app_type: 'nodejs'}
     - { role: pm2, tags: [ 'pm2' ] }
     - { role: nginx, tags: [ 'nginx' ] }
     - { role: beats, tags: [ 'beats' ] }

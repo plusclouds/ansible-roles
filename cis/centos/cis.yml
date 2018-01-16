@@ -1,4 +1,0 @@
-- hosts: server
-  become: true
-  roles:
-    - RHEL7-CIS

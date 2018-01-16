@@ -1,0 +1,4 @@
+---
+
+- include: spring.yml
+  when: app_type == 'spring'

@@ -10,8 +10,12 @@
 
 - name: Ensure nginx is installed.
   yum:
-    name: "{{ nginx_package_name }}"
+    name: "{{item}}"
     state: installed
+  with_items:
+   - "{{ nginx_package_name }}"
+   - libselinux-python
+   - libsemanage-python
 
 - name: Apply SELinux boolean httpd_can_network_connect
   seboolean: name=httpd_can_network_connect state=yes persistent=yes

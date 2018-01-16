@@ -10,7 +10,7 @@ maven_version_patch: '2'
 maven_mirror: "http://ftp.itu.edu.tr/Mirror/Apache/maven"
 
 # SHA256 sum for the Maven redistributable package
-maven_redis_sha256sum: 'cdee2fd50b2b4e34e2d67d01ab2018b051542ee759c07354dd7aed6f4f71675c'
+maven_redis_sha256sum: '707b1f6e390a65bde4af4cdaf2a24d45fc19a6ded00fff02e91626e3e42ceaff'
 
 # mvn binary gets symlinked into {{ maven_bin_path }}
 maven_bin_path: '/usr/local/bin'
