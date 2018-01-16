@@ -1,0 +1,11 @@
+- hosts: elk
+  become: yes
+  become_user: root
+  roles:
+    - { role: ntp, tags: ['ntp'] }
+    - { role: python27, tags: [ 'python' ]  }    
+    - { role: elasticsearch, tags: [ 'elk','elasticsearch' ]}
+    - { role: logstash, tags: [ 'elk','logstash' ]  }
+    - { role: nginx, tags: [ 'elk','nginx' ]  }
+    - { role: kibana, tags: [ 'elk','kibana' ]  }
+    - { role: datadog, tags: [ 'datadog' ]  } 

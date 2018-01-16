@@ -1,0 +1,19 @@
+---
+add_default_users: true
+
+# defaults
+users_defaults:
+  shell: "/bin/bash"        # Default shell.
+  createhome: yes           # Create home for users created.
+  create_user_group: yes    # When creating users, also create groups with their user name.
+  removehome: no            # When removing a user delete their home directory too.
+  sudoer: no               # Add user to sudoers ALL=(ALL) NOPASSWD:ALL  use with caution
+
+# users:
+#   - name: "User1"
+#     group: "admin"
+#     ssh_key: "key1"
+#   - name: "User2"
+#     group: "admin"
+#     ssh_key: "key2"
+

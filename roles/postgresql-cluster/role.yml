@@ -1,0 +1,40 @@
+---
+# Install and setup PostgreSQL with Streaming Replication
+- hosts: all
+  become: yes
+  become_user: root
+  vars_files:
+    - 'defaults/main.yml'
+    - 'defaults/repo.yml'
+  tasks:
+  - include: 'tasks/install.yml'
+
+- hosts: streaming-master
+  tasks:
+  - set_fact: nodetype=master
+  - group_by: key={{ nodetype }}
+
+- hosts: streaming-slaves
+  tasks:
+  - set_fact: nodetype=slaves
+  - group_by: key={{ nodetype }}
+
+- hosts: master
+  become: yes
+  become_user: root
+  vars_files:
+    - 'defaults/main.yml'
+  tasks:
+  - group_by: key=os_{{ ansible_os_family }}
+  - include: 'tasks/configure-master.yml'
+  - include: 'tasks/users.yml'
+  - include: 'tasks/databases.yml'
+
+- hosts: slaves
+  become: yes
+  become_user: root
+  vars_files:
+    - 'defaults/main.yml'
+  tasks:
+  - group_by: key=os_{{ ansible_os_family }}
+  - include: 'tasks/configure-slaves.yml'

@@ -1,0 +1,44 @@
+---
+# tasks file for role users
+
+- name: Manage user groups
+  group: name={{item.group}}
+         state={{item.state | default('present')}}
+  ignore_errors: yes
+  when: (users_defaults.create_user_group)
+  with_items:
+    - "{{ users|default([])}}"
+  tags: ['users','groups']
+
+- name: Manage users
+  user: name={{item.name}}
+        group={{item.group | default('admin')}}
+        groups="{{item.groups | default()}}"
+        shell={{item.shell if item.shell is defined else users_defaults.shell}}
+        comment="{{item.comment | default()}}"
+        createhome={{item.createhome if item.createhome is defined else users_defaults.createhome}}
+        generate_ssh_key={{item.generate_ssh_key | default('no')}}
+        system={{item.system | default('no')}}
+        state={{item.state | default('present')}}
+        remove={{item.remove | default('no')}}
+  when: (item.name is defined)
+  with_items:
+    - "{{users|default([])}}"
+  tags: ['users','groups']
+
+- name: Manage SSH Keys
+  authorized_key: user={{item.name}}
+                  key="{{item.ssh_key}}"
+                  manage_dir=yes  
+  when: (item.name is defined and item.ssh_key is defined)
+  with_items:
+    - "{{ users|default([])}}"
+  tags: ['users','ssh-key']
+
+
+- name: Add to sudoers
+  lineinfile: dest=/etc/sudoers state=present regexp='^{{item.name}} ALL\=' line='{{item.name}} ALL=(ALL) NOPASSWD:ALL' validate='/usr/sbin/visudo -cf %s'
+  with_items:
+    - "{{ users|default([])}}"
+  when: ((item.sudoer is defined and item.sudoer) or (users_defaults.sudoer is defined and users_defaults.sudoer))
+

@@ -1,0 +1,20 @@
+# postgres log_line_prefix = '[ %m user=%u-%h,db=%d ] '
+
+### define the prefix
+PGPREFIX \[%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{NUMBER}+%{SPACE}user=%{DATA:postgres_username}-%{IPORHOST:postgres_client},db=%{DATA:postgres_dbname}%{SPACE}\]
+PGLOG %{PGPREFIX}%{SPACE}LOG:
+
+### various lines with the normal prefix
+PGQUERY %{PGLOG}%{SPACE}statement: %{GREEDYDATA:postgres_query}
+PGDURATION %{PGLOG}%{SPACE}duration: %{DATA:postgres_duration} ms
+PGDISCONNECT %{PGLOG}%{SPACE}disconnection: session time: %{DATA:postgres_sessiontime} user=%{DATA} database=%{DATA} host=%{IPORHOST} port=%{NUMBER:postgres_clientport}
+PGMESSAGE %{PGPREFIX}%{SPACE}%{GREEDYDATA:postgres_message}
+
+### other messages
+PGCONNECT %{PGPREFIX}%{SPACE}LOG:%{SPACE}connection%{SPACE}received:%{SPACE}host=%{IPORHOST}%{SPACE}port=%{NUMBER:postgres_clientport}
+PGLOGDEFAULT %{PGLOG}%{SPACE}%{GREEDYDATA:postgres_message}
+PGFATAL %{PGPREFIX}%{SPACE}FATAL:%{SPACE}%{GREEDYDATA:postgres_message}
+PGERROR %{PGPREFIX}%{SPACE}ERROR:%{SPACE}%{GREEDYDATA:postgres_message}
+
+### put it all together, first the most structured ones, then plain messages like errors and stuff
+POSTGRES %{PGQUERY}|%{PGCONNECT}|%{PGERROR}|%{PGFATAL}|%{PGLOGDEFAULT}|%{PGMESSAGE}

@@ -1,0 +1,21 @@
+---
+# defaults file for demoapp
+install_demo_app: true
+
+# Java Spring Backend Settings
+spring_service_name: "spring"
+spring_application_name: "SpringApplication"
+spring_application_path: "/var/app"
+spring_application_log: "/var/app/log"
+spring_application_log_output: true
+spring_application_user: "jvmapp"
+spring_application_group: "jvmapp"
+systemd_path: "/etc/systemd/system"
+
+
+# NodeJS Frontend Settings
+nodejs_application_name: "NodeJSApp"
+nodejs_application_path: "/var/app"
+nodejs_application_user: "nodeapp"
+nodejs_application_group: "nodeapp"
+nodejs_application_log:  "/var/app/log"

@@ -1,0 +1,7 @@
+---
+
+- include: spring.yml
+  when: app_type == 'spring'
+
+- include: nodejs.yml
+  when: app_type == 'nodejs'

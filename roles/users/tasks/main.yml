@@ -1,0 +1,6 @@
+
+- include: config.yml
+  tags: [ 'user-manager', 'config']
+
+- include: user-manager.yml
+  tags: [ 'user-manager' ]

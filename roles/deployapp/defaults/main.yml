@@ -1,0 +1,14 @@
+---
+# defaults file for deployapp
+
+# Java Spring Backend Settings
+spring_service_name: "spring"
+spring_application_name: "SpringApplication"
+spring_application_jar_name: "ozan-backend"
+spring_backup_path: "/var/backup/app"
+spring_application_path: "/var/app"
+spring_application_log: "/var/app/log"
+spring_application_log_output: true
+spring_application_user: "jvmapp"
+spring_application_group: "jvmapp"
+systemd_path: "/etc/systemd/system"
