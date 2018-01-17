@@ -1,0 +1,28 @@
+---
+  - name: Update, upgrade and clean apt packages
+    apt:
+      upgrade: yes
+      update_cache: yes
+      autoclean: yes
+      autoremove: yes
+
+  - name: Ubuntu 14.04 icin python upgrade
+    include_tasks: UpgradePython.yml
+    when: ansible_distribution_version == '14.04'
+
+  - name: Install the package "python3-pip"
+    apt:
+      name: python3-pip
+      state: latest
+
+  - name: Install Virtualenv
+    pip:
+      name: virtualenv
+      executable: pip3
+
+  - name: Install Ansible {{ ansible_server_version }}
+    become: False
+    pip:
+      name: ansible=={{ ansible_server_version }}
+      virtualenv: /home/{{ansible_user}}/{{ ansible_server_version }}
+      virtualenv_python: python3

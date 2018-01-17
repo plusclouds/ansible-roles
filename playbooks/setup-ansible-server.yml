@@ -1,0 +1,6 @@
+---
+  - hosts: server_eyup
+    become: true
+    roles:
+      #- plusclouds.harden-ubuntu
+      - plusclouds.ansible-server
