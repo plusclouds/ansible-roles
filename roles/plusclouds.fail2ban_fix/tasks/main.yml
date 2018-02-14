@@ -1,12 +1,6 @@
----
-# tasks file for plusclouds.fail2ban_fix
-- name: remove the fail2ban package
-  yum:
-    name: fail2ban
-    state: absent
+- name: Removing the fail2ban
+  shell: yum remove fail2ban -y
 
-- name: install the new version of fail2ban from the schmooze-commercial repo
-  yum:
-    name: fail2ban
-    enablerepo: schmooze-commercial
-    state: present
+- name: Installing the fixed fail2ban
+  shell: yum --disablerepo="*" --enablerepo="schmooze-commercial" install fail2ban -y
+
