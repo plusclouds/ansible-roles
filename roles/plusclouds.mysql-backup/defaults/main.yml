@@ -1,0 +1,10 @@
+---
+# defaults file for plusclouds-mysql-backup
+
+mysql_user_name: 'root'
+mysql_user_password: '123456'
+script_path: '/home/scripts'
+backup_path: '/home/backups'
+backup_method: 'incremental' #there is 2 choices, incremental and full
+mysql_config_path: '/etc/mysql/my.cnf'
+mysql_data_path: '/var/lib/mysql'

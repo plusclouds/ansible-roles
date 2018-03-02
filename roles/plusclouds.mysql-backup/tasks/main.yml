@@ -1,0 +1,34 @@
+---
+# tasks file for plusclouds-mysql-backup
+  - name: copy xtrabackup for ubuntu
+    copy:
+      src: percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
+      dest: /tmp/percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
+
+  - name: installing xtrabackup for ubuntu
+    apt:
+      deb: /tmp/percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
+
+  - name: Creates script directory {{ script_path }}
+    file: path={{ script_path }} state=directory
+
+  - name: Creates backup directory
+    file: path={{backup_path}} state=directory
+
+  - name: Creates daily backup cronjob
+    cron:
+      minute: '0'
+      hour: '2'
+      name: 'Backup mysql(daily schedule)'
+      cron_file: 'mysql-daily-backup'
+      user: 'root'
+      job: 'bash {{ script_path }}/incremental-mysql-backup.sh backup > /dev/null'
+
+  - name: Copy script file
+    template:
+      src: 'incremental-mysql-backup.j2'
+      dest: '{{ script_path }}/incremental-mysql-backup.sh'
+      mode: 0777
+
+  - name: run script for backup
+    shell: "bash {{ script_path }}/incremental-mysql-backup.sh backup"
