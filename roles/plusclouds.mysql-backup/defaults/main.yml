@@ -8,3 +8,9 @@ backup_path: '/home/backups/'
 backup_method: 'incremental' #there is 2 choices, incremental and full
 mysql_config_path: '/etc/mysql/my.cnf'
 mysql_data_path: '/var/lib/mysql'
+
+cron_status: False
+cron_minute: '0'
+cron_hour: '2'
+cron_day: '*'
+cron_month: '*'
