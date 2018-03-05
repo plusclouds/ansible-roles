@@ -1,0 +1,46 @@
+---
+# tasks file for plusclouds.mariadb-install
+- name: updating server
+  become: true  
+  apt: 
+    update-cache: yes
+
+- name: Install curl, python-mysqldb, python-pycurl, software-properties-common
+  sudo: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+    - curl
+    - software-properties-common
+    - python-pycurl
+    - python-mysqldb
+
+- name: Add MariaDB apt key
+  sudo: yes
+  command: "apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db"
+
+- name: Add MariaDB Repo
+  sudo: yes
+  apt_repository: "repo='deb [arch=amd64,i386,ppc64el] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.2/ubuntu trusty main' state=present update_cache=yes"
+
+
+- name: Install MariaDB 10.2 Server and Client
+  sudo: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - mariadb-client
+
+- name: update mariadb root password for all root accounts
+  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_db_pass }}
+  when: ansible_hostname != 'localhost'
+
+- name: update mariadb root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+
+- name: Create .my.cnf for ansible user
+  template: src=.my.cnf.j2 dest=~/.my.cnf
+
