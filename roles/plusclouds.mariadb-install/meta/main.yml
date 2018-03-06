@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your description
-  company: your company (optional)
+  author: Nikita TÜRKMEN
+  description: Plusclouds Mariadb 10.2 Stabil Versiyon Yükleme Rolü
+  company: Plusclouds
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
