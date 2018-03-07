@@ -1,0 +1,29 @@
+---
+# tasks file for plusclouds.kafka
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Java install
+  apt:
+    name: default-jre
+    state: present
+
+- name: Zookeeper install
+  apt:
+    name: zookeeperd
+    state: present    
+
+- name: Creates directory
+  file: path=~/kafka state=directory
+
+- name: Extract kafka.tgz into server
+  unarchive:
+    src: kafka.tgz
+    dest: ~/kafka
+
+- name: Edit config
+  lineinfile:
+    path: ~/kafka/config/server-properties
+    line: 'delete.topic.enable = true'
+
