@@ -24,6 +24,6 @@
 
 - name: Edit config
   lineinfile:
-    path: ~/kafka/config/server-properties
+    path: ~/kafka/config/server.properties
     line: 'delete.topic.enable = true'
 
