@@ -16,10 +16,9 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
 
-- name: Nginx | Vhosts copy 
-  become: false 
+- name: Nginx | Vhosts copy
   template: src=vhosts.j2 dest=/etc/nginx/sites-enabled/{{ item.name }}.conf
-  with_items: balancer_vhosts
+  with_items: "{{balancer_vhosts}}"
   notify: restart nginx
 
 - name: Enable init.d
