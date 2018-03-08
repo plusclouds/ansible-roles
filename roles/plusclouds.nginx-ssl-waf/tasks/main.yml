@@ -30,9 +30,6 @@
     - zlib1g-dev
 
 - name: Creates directory
-  file: path=/home/tmpansible state=directory
-
-- name: Creates directory
   file: path=/opt/{{item}} state=directory
   with_items:
     - 'ModSecurity'
