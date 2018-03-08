@@ -1,0 +1,9 @@
+- name: Add MariaDB apt key Ubuntu 16.04 xenial
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: F1656F24C74CD1D8
+
+- name: Add MariaDB Repo Ubuntu 16.04 xenial
+  apt_repository:
+      repo: deb [arch=amd64,i386] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.2/ubuntu xenial main
+      state: present

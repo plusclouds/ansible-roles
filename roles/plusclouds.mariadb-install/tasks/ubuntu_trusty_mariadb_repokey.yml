@@ -1,0 +1,9 @@
+- name: Add MariaDB apt key Ubuntu 14.04 trusty
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: CBCB082A1BB943DB
+
+- name: Add MariaDB Repo Ubuntu 14.04 trusty
+  apt_repository:
+      repo: deb [arch=amd64,i386] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.2/ubuntu trusty main
+      state: present
