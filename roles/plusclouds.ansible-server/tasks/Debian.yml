@@ -6,9 +6,9 @@
       autoclean: yes
       autoremove: yes
 
-  - name: Ubuntu 14.04 icin python upgrade
+  - name: python upgrade
     include_tasks: UpgradePython.yml
-    when: ansible_distribution_version == '14.04'
+    when: is_upgrade_python
 
   - name: Install the package "python3-pip"
     apt:

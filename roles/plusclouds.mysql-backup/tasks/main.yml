@@ -1,13 +1,7 @@
 ---
-# tasks file for plusclouds-mysql-backup
-  - name: copy xtrabackup for ubuntu
-    copy:
-      src: percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
-      dest: /tmp/percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
-
-  - name: installing xtrabackup for ubuntu
-    apt:
-      deb: /tmp/percona-xtrabackup-24_2.4.4-1.jessie_amd64.deb
+  - name: Ubuntu 14.04 trusty install percona xtrabackup 2.4.9.
+    include_tasks: ubuntu_trusty.yml
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
 
   - name: Creates script directory {{ script_path }}
     file: path={{ script_path }} state=directory

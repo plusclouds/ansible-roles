@@ -1,6 +1,4 @@
-- name: Removing the fail2ban
-  shell: yum remove fail2ban -y
-
-- name: Installing the fixed fail2ban
-  shell: yum --disablerepo="*" --enablerepo="schmooze-commercial" install fail2ban -y
-
+---
+- name: Import Task File
+  import_tasks: centos.yml
+  when: ansible_os_family == 'RedHat'

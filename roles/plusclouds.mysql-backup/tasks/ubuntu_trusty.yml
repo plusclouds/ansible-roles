@@ -1,0 +1,9 @@
+---
+  - name: copy xtrabackup for ubuntu
+    copy:
+      src: percona-xtrabackup-24_2.4.9-1.trusty_amd64.deb
+      dest: /tmp/percona-xtrabackup-24_2.4.9-1.trusty_amd64.deb
+
+  - name: installing xtrabackup for ubuntu
+    apt:
+      deb: /tmp/percona-xtrabackup-24_2.4.9-1.trusty_amd64.deb

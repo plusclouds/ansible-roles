@@ -1,33 +1,7 @@
 ---
-# tasks file for plusclouds.nginx-ssl-waf
-- name: Update cache
-  apt:
-    update_cache: yes
-
-- name: Install dependencies
-  sudo: yes 
-  apt: pkg={{ item }} state=present 
-  with_items:
-    - apache2-dev
-    - automake 
-    - bison 
-    - build-essential
-    - g++ 
-    - gcc 
-    - git
-    - libbison-dev 
-    - libcurl4-openssl-dev 
-    - libfl-dev 
-    - libgeoip-dev 
-    - liblmdb-dev 
-    - libpcre3-dev 
-    - libtool 
-    - libxml2-dev 
-    - libyajl-dev 
-    - liblua5.1-0-dev
-    - make 
-    - pkg-config 
-    - zlib1g-dev
+- name: Import Task File
+  import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
 
 - name: Creates directory
   file: path=/opt/{{item}} state=directory
@@ -61,7 +35,7 @@
     - 'make'
     - 'make install'
   args:
-    chdir: /opt/ModSecurity 
+    chdir: /opt/ModSecurity
 
 - name: Prepare Nginx for ModSecurity
   shell: '{{ item }}'

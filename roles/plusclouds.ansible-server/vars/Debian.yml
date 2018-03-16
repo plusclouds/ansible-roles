@@ -1,5 +1,0 @@
----
-# Standart Degiskenlerin bulundugu alandir.
-ansible_server_version: "2.4.2"
-python_version: "3.6.4"
-python_md5_checksum: "1325134dd525b4a2c3272a1a0214dd54"

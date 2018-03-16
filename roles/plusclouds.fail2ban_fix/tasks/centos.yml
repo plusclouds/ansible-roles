@@ -1,0 +1,22 @@
+---
+
+- name: Removing the fail2ban
+  yum:
+      name: fail2ban
+      state: absent
+
+- name: Add schmooze-commercial repository
+  yum_repository:
+    name: schmooze-commercial
+    description: schmooze-commercial
+    baseurl: http://yum.schmoozecom.net/freepbx-commercial/$releasever/arch=$basearch/
+    mirrorlist: http://mirrorlist.schmoozecom.net/?release=$releasever&arch=$basearch&repo=schmooze-commercial
+    gpgcheck: no
+    enabled: yes
+
+- name: Installing the fixed fail2ban
+  yum:
+      name: fail2ban
+      enablerepo: schmooze-commercial
+      update_cache: yes
+      state: latest

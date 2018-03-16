@@ -1,21 +1,4 @@
 ---
-# tasks file for plusclouds.kafka
-
-- name: Java and zookeperd install
-  apt: pkg={{ item }} state=present update_cache=yes
-  with_items:
-    - default-jdk
-    - zookeeperd
-
-- name: Creates directory
-  file: path=/usr/local/kafka state=directory
-
-- name: Extract kafka.tgz into server
-  unarchive:
-    src: kafka.tar.gz
-    dest: /usr/local
-
-- name: Edit config
-  lineinfile:
-    path: /usr/local/kafka/config/server.properties
-    line: 'delete.topic.enable = true'
+- name: Import Task File
+  import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'

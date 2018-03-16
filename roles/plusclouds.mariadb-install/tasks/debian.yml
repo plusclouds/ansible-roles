@@ -1,0 +1,30 @@
+---
+- name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - curl
+    - software-properties-common
+    - python-pycurl
+    - python-mysqldb
+
+- name: Ubuntu 14.04 trusty mariadb 10.2 stable add key and repo.
+  include_tasks: ubuntu_trusty_mariadb_repokey.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Ubuntu 16.04 xenial mariadb 10.2 stable add key and repo.
+  include_tasks: ubuntu_xenial_mariadb_repokey.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
+- name: Debian 7 Wheezy mariadb 10.2 stable add key and repo.
+  include_tasks: debian_wheezy_mariadb_repokey.yml
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'Wheezy'
+
+- name: Debian 8 Jessie mariadb 10.2 stable add key and repo.
+  include_tasks: debian_jessie_mariadb_repokey.yml
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'Jessie'
+
+- name: Install MariaDB 10.2 Server and Client
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - mariadb-server
+    - mariadb-client

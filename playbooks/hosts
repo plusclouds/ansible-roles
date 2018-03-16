@@ -1,2 +1,1 @@
-[server]
-93.94.254.231:10394 ansible_user=root
+93.94.254.231:10479 ansible_user=root ansible_ssh_pass=3De1b394 ansible_sudo_pass=3De1b394
