@@ -1,0 +1,8 @@
+---
+# tasks file for plusclouds.zabbix-install
+
+- name: Include OS - specific tasks
+  import_tasks: ubuntu-zabbix.yml
+
+- name: Include Zabbix3 configuration
+  import_tasks: zabbix.yml
