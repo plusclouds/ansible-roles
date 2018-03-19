@@ -1,0 +1,5 @@
+---
+# handlers file for plusclouds.fail2ban-install
+- name: restart fail2ban
+   sudo: yes
+   service: name=fail2ban state=restarted

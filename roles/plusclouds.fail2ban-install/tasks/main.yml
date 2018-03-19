@@ -1,0 +1,22 @@
+---
+# tasks file for plusclouds.fail2ban-install
+- name: Update Cache
+  apt: 
+    update_cache: yes 
+
+- name: Debian Fail2Ban Install 
+  include_tasks: debian_fail2ban.yml 
+  when: ansible_distribution == 'Debian'
+ 
+- name: Ubuntu Fail2Ban Install 
+  include_tasks: debian_fail2ban.yml 
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Centos Fail2Ban Install 
+  include_tasks: centos_fail2ban.yml 
+  when: ansible_distribution == 'Centos'
+
+- name: Move jail.conf to jail.local
+  command: mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+  notify: 
+    - restart fail2ban
