@@ -1,5 +1,3 @@
----
-# vars file for plusclouds.mysql-replication-changemaster
 mysql_service: mysql
 
 mysql_repl_user:                          
