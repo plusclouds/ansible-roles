@@ -1,0 +1,7 @@
+# Install python
+- name: install python
+  apt: 
+    name: python 
+    state: latest 
+    install_recommends: no 
+    update_cache: yes
