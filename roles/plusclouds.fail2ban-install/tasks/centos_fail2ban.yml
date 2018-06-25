@@ -1,0 +1,11 @@
+- name: Installing epel-release for fail2ban
+  yum:
+    name: epel-release
+    state: present
+    update_cache: yes
+
+- name: Installing Fail2Ban
+  yum:
+    name: fail2ban
+    state: present
+    update_cache: yes

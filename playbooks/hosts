@@ -1,2 +1,1 @@
-[server]
-188.132.216.215:10012 ansible_user=root
+93.94.254.231:10521 ansible_user=root ansible_ssh_pass=5d73ca70 ansible_sudo_pass=5d73ca70

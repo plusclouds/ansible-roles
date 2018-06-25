@@ -1,0 +1,22 @@
+global
+    log 127.0.0.1 local0 notice
+    user haproxy
+    group haproxy
+
+defaults
+    log global
+    retries 2
+    timeout connect 10s
+    timeout server 480m
+    timeout client 480m
+
+listen mysql-cluster
+    bind {{haproxy_bind_address}}:{{db_port}}
+    mode tcp
+    balance leastconn
+    server mysql-1 {{db_servers[0]}}:{{db_port}} weight 1
+    server mysql-2 {{db_servers[1]}}:{{db_port}} weight 1
+
+
+
+

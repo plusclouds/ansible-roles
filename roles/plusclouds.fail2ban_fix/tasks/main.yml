@@ -1,0 +1,4 @@
+---
+- name: Import Task File
+  import_tasks: centos.yml
+  when: ansible_os_family == 'RedHat'

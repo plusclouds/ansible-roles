@@ -1,0 +1,5 @@
+---
+# handlers file for plusclouds.zabbix-install
+
+- name: Restart zabbix-server
+  service: name=zabbix-server state=restarted enabled=yes

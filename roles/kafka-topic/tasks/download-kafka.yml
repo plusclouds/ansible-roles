@@ -1,0 +1,3 @@
+---
+- name: Download Apache Kafka.
+  get_url: url=http://mirrors.myaegean.gr/apache/kafka/0.11.0.2/kafka_2.12-0.11.0.2.tgz dest=/root/kafka_2.12-0.11.0.2.tgz

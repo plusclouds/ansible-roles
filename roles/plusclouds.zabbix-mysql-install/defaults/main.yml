@@ -1,0 +1,5 @@
+---
+# defaults file for plusclouds.zabbix-mysql-install
+DB_User: 'zabbix'
+DB_Password: 'test'
+DB_Name: 'zabbix'

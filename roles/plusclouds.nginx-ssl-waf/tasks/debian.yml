@@ -1,0 +1,23 @@
+- name: Install dependencies
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - apache2-dev
+    - automake
+    - bison
+    - build-essential
+    - g++
+    - gcc
+    - git
+    - libbison-dev
+    - libcurl4-openssl-dev
+    - libfl-dev
+    - libgeoip-dev
+    - liblmdb-dev
+    - libpcre3-dev
+    - libtool
+    - libxml2-dev
+    - libyajl-dev
+    - liblua5.1-0-dev
+    - make
+    - pkg-config
+    - zlib1g-dev

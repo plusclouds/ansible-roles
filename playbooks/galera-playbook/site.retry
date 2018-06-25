@@ -1,0 +1,5 @@
+[first_node]
+10.8.1.58 wsrep_node_name=node1 wsrep_node_address=10.8.1.58
+[other_nodes]
+10.8.0.81 wsrep_node_name=node2 wsrep_node_address=10.8.0.81
+10.8.0.91 wsrep_node_name=node3 wsrep_node_address=10.8.0.91

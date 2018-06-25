@@ -1,0 +1,19 @@
+---
+# tasks file for plusclouds.mysql-replication-changemaster
+
+- name: get the current master servers replication status
+  mysql_replication: mode=getmaster
+  register: repl_stat
+
+- name: change the master in slave to start the replication
+  mysql_replication: >
+    mode=changemaster
+    master_host={{ mysql_repl_master }}
+    master_user={{ mysql_repl_user[0].name }}
+    master_password={{ mysql_repl_user[0].pass }}
+    master_log_file={{ repl_stat.File }}
+    master_log_pos={{ repl_stat.Position }}
+  ignore_errors: True
+
+- name: start replication
+  mysql_replication: mode=startslave

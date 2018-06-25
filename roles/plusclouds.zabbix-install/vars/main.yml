@@ -1,0 +1,4 @@
+---
+# vars file for plusclouds.zabbix-install
+zabbrix3server_packages:
+  - zabbix-server-mysql

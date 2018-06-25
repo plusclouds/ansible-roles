@@ -1,0 +1,31 @@
+---
+  - name: Install zlib1g-dev libssl-dev make
+    apt: name={{item}}
+    with_items:
+      - zlib1g-dev
+      - libssl-dev
+      - make
+
+  - name: Download Python {{ python_version }}
+    get_url:
+      url: https://www.python.org/ftp/python/{{python_version}}/Python-{{python_version}}.tar.xz
+      dest: /tmp/Python-{{python_version}}.tar.xz
+      checksum: md5:1325134dd525b4a2c3272a1a0214dd54
+
+  - name: Unarchive Python {{python_version}}
+    unarchive:
+      src: /tmp/Python-{{python_version}}.tar.xz
+      dest: /tmp
+      remote_src: yes
+
+  - name: run ./configure Python {{python_version}}
+    command: '"./configure" chdir=/tmp/Python-{{python_version}}/'
+
+  - name: make Python {{python_version}}
+    make:
+      chdir: /tmp/Python-{{python_version}}
+
+  - name: make install Python {{python_version}}
+    make:
+      chdir: /tmp/Python-{{python_version}}
+      target: install

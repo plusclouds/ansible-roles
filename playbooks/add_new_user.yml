@@ -1,8 +1,8 @@
-- hosts: server
+- hosts: server_eyup
   become: true
   vars:
-    uusername: admin
-    upassword: 15D69fc1*15D69fc1
+    uusername: plusclouds
+    upassword: plusclouds
 
   tasks:
     - name: Creating user "{{ uusername }}" with admin access
@@ -12,3 +12,14 @@
         groups: wheel
         append: yes
         state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: Creating user "{{ uusername }}" with admin access
+      user:
+        name: "{{ uusername }}"
+        password: "{{ upassword | password_hash('sha512') }}"
+        shell: /bin/bash
+        groups: sudo
+        append: yes
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

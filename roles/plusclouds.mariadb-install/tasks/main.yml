@@ -1,0 +1,19 @@
+---
+- name: Import Task File
+  import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: update mariadb root password for all root accounts
+  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_db_pass }}
+  when: ansible_hostname != 'localhost'
+
+- name: update mariadb root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+
+- name: Create .my.cnf for ansible user
+  become: false
+  template: src=.my.cnf.j2 dest=~/.my.cnf

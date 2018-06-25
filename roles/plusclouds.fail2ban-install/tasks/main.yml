@@ -1,0 +1,14 @@
+---
+# tasks file for plusclouds.fail2ban-install
+- name: Debian Fail2Ban Install
+  include_tasks: debian_fail2ban.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Centos Fail2Ban Install
+  include_tasks: centos_fail2ban.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Move jail.conf to jail.local
+  command: mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+  notify:
+    - restart fail2ban

@@ -1,0 +1,7 @@
+mysql_service: mysql
+
+mysql_repl_user:                          
+  - name: repl
+    pass: 12345
+    
+mysql_repl_master: 10.8.2.23

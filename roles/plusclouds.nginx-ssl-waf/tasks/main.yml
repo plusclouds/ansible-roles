@@ -1,0 +1,56 @@
+---
+- name: Import Task File
+  import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Creates directory
+  file: path=/opt/{{item}} state=directory
+  with_items:
+    - 'ModSecurity'
+    - 'nginx-1.12.2'
+    - 'ModSecurity-nginx'
+
+- name: Clone ModSecurity into server
+  git:
+    repo: https://github.com/SpiderLabs/ModSecurity.git
+    dest: /opt/ModSecurity
+    force: yes
+
+- name: Extract Security Nginx Module into server
+  git:
+    repo: https://github.com/SpiderLabs/ModSecurity-nginx.git
+    dest: /opt/ModSecurity-nginx
+    force: yes
+
+- name: Extract  Nginx  into server
+  unarchive:
+    src: nginx-1.12.2.tgz
+    dest: /opt/nginx-1.12.2
+
+- name: Configure & Build WAF
+  shell: '{{ item }}'
+  with_items:
+    - './autogen.sh'
+    - './configure --enable-standalone-module'
+    - 'make'
+    - 'make install'
+  args:
+    chdir: /opt/ModSecurity
+
+- name: Prepare Nginx for ModSecurity
+  shell: '{{ item }}'
+  with_items:
+    - 'export MODSECURITY_INC="/opt/ModSecurity/headers/"'
+    - 'export MODSECURITY_LIB="/opt/ModSecurity/nginx/modsecurity/"'
+    - 'export LD_LIBRARY_PATH="/usr/local/modsecurity/lib/"'
+  args:
+    chdir: /opt/nginx-1.12.2
+
+- name: Configure Nginx
+  shell: '{{item}}'
+  with_items:
+    - './configure --add-module=/opt/ModSecurity/nginx/modsecurity'
+    - 'make'
+    - 'make install'
+  args:
+    chdir: /opt/nginx-1.12.2
