@@ -2,4 +2,4 @@
 # defaults file for kafka-topic
 input_topic_name: ""
 output_topic_name: ""
-delete_this_topic:""
+delete_this_topic: ""
