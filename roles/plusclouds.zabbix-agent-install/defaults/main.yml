@@ -1,0 +1,32 @@
+---
+zabbix_server: 10.8.1.251 #Plusclouds Zabbix Server ip adresi
+zabbix_server_port: 10050 #Plusclouds Zabbix Server port
+zabbix_server_uname: admin  #Plusclouds Zabbix Server user name
+zabbix_server_pass: R4kMMyXVrswGcQZd #Plusclouds Zabbix Server user password
+zabbix_server_url: http://10.8.2.46/blitz # Plusclouds Zabbix Server frontend url
+
+add_host: True # Hostu zabbix servera eklemek istiyorsan true istemiyorsan false
+host_ip: 10.8.1.218 # Eklenecek olan hostun ip adresi
+eth: eth2 #Firewall izinleri için hangi serverın hangi eth üzerinde çalıştığı bilgisi
+host_name: test2 #Host adı
+visible_name: test2 #Host adı
+
+
+host_groups: Linux servers # Hostun ekleneceği grup
+templates: #Hosta eklenecek olan templateler
+- Template OS Linux
+- Template App MySQL
+- Template App Powerdns Server
+- Template App Nginx
+- Template App Galera Cluster
+- Template Disk Performance
+
+applications: # Agent'ta monitör edilecek uygulamalar için konfigürasyon kurulumu
+  - mysqlmon #mysql monitoring
+  - pdnsmon #pdns monitoring
+  - nginxmon #nginx monitoring
+  - diskmon #disk monitoring
+  - galeramon #galera monitoring
+
+#Eğer Agent'ta mysql monitör edilecekse zabbix için user create edilmesi gerekiyor, Bunun için root kullanıcı bilgileri gerekli.
+mysql_root_password: ahmet
