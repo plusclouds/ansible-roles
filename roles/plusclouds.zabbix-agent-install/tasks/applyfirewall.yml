@@ -1,3 +1,4 @@
+---
 - name: Allow zabbix
   shell: iptables -A INPUT -p tcp -m tcp --dport {{zabbix_server_port}} -j ACCEPT
 

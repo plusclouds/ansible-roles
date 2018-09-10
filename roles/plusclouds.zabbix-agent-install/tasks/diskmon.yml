@@ -1,3 +1,4 @@
+---
 - name: Copy script to /usr/local/bin/
   copy: 
     src: lld-disks.py

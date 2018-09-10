@@ -1,3 +1,4 @@
+---
 - name: Update Package and Install python-mysqldb and python-pycurl
   apt: pkg={{ item }} state=present update_cache=yes
   with_items:

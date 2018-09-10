@@ -1,3 +1,4 @@
+---
 - name: Create a new host
   local_action:
     module: zabbix_host

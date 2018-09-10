@@ -1,3 +1,4 @@
+---
 - name: Creating script directory
   file: path=/etc/zabbix/zabbix_agentd.scripts state=directory
 
