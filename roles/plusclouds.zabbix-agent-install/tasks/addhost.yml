@@ -1,0 +1,22 @@
+- name: Create a new host
+  local_action:
+    module: zabbix_host
+    server_url: '{{zabbix_server_url}}'
+    login_user: '{{zabbix_server_uname}}'
+    login_password: '{{zabbix_server_pass}}'
+    host_name: '{{host_name}}'
+    visible_name: '{{visible_name}}'
+    host_groups: 
+      - '{{host_groups}}'
+    link_templates:
+      - '{{templates}}'
+    status: enabled
+    state: present
+    inventory_mode: automatic
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: '{{host_ip}}'
+        dns: ""
+        port: '{{zabbix_server_port}}'

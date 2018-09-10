@@ -1,0 +1,8 @@
+- name: Allow zabbix
+  shell: iptables -A INPUT -p tcp -m tcp --dport {{zabbix_server_port}} -j ACCEPT
+
+- name: Allow zabbix server ip output
+  shell: iptables -A OUTPUT -o {{eth}} -d {{zabbix_server}} -j ACCEPT
+
+- name: Allow zabbix server ip input
+  shell: iptables -A INPUT -i {{eth}} -s {{zabbix_server}} -j ACCEPT

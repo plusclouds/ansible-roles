@@ -1,0 +1,43 @@
+- name: Debian zabbix-agent install 
+  include_tasks: Debian.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Debian zabbix-agent install 
+  include_tasks: CentOS6.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '6'
+
+- name: Debian zabbix-agent install 
+  include_tasks: CentOS7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '7'
+
+- name: Debian zabbix-agent install 
+  include_tasks: Debian.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+- name: Firewall configuration 
+  include_tasks: applyfirewall.yml
+
+- name: Disk Monitoring
+  include_tasks: diskmon.yml
+  when: '"diskmon" in {{ applications }}'
+
+- name: Galera Monitoring
+  include_tasks: galeramon.yml
+  when: '"galeramon" in {{ applications }}'
+
+- name: Nginx Monitoring
+  include_tasks: diskmon.yml
+  when: '"nginxmon" in {{ applications }}'
+   
+- name: Mysql Monitoring
+  include_tasks: mysqlmon.yml
+  when: '"mysqlmon" in {{ applications }}' 
+
+- name: Pdns Monitoring
+  include_tasks: pdnsmon.yml
+  when: '"pdnsmon" in {{ applications }}'
+
+- name: Add host to zabbix server
+  include_tasks: addhost.yml
+  when: add_host
+

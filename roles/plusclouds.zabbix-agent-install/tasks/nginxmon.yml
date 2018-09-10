@@ -1,0 +1,16 @@
+- name: Creating script directory
+  file: path=/etc/zabbix/zabbix_agentd.scripts state=directory
+
+- name: Copy script to /etc/zabbix/zabbix_agentd.scripts/
+  copy: 
+    src: nginx-stat.py
+    dest: /etc/zabbix/zabbix_agentd.scripts/nginx-stat.py
+    owner: root
+    group: root
+    mode: 0777
+
+- name: Copy config to zabbix-agent.d
+  copy: 
+    src: userparameter_nginx.conf
+    dest: /etc/zabbix/zabbix-agent.d/userparameter_nginx.conf
+  notify: restart zabbix-agent
