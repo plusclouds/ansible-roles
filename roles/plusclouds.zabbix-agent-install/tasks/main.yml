@@ -1,3 +1,4 @@
+---
 - name: Debian zabbix-agent install 
   include_tasks: Debian.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'

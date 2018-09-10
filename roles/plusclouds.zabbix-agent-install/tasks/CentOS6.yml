@@ -1,3 +1,4 @@
+---
 - name: install zabbix-agent 3.0 rpm repo
   yum:
     name: http://repo.zabbix.com/zabbix/3.0/rhel/6/x86_64/zabbix-agent-3.0.15-1.el6.x86_64.rpm

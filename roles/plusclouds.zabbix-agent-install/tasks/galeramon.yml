@@ -1,3 +1,4 @@
+---
 - name: Copy config to zabbix-agent.d
   copy: 
     src: userparameter_galera.conf
