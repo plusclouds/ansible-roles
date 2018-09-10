@@ -1,0 +1,5 @@
+---
+# defaults file for kibana
+input_topic_name: ""
+output_topic_name: ""
+delete_this_topic: ""

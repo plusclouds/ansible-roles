@@ -1,2 +1,3 @@
 ---
 # defaults file for nginx-ssl-waf
+test: ""
