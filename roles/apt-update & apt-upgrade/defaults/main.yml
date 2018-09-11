@@ -1,2 +1,2 @@
 ---
-ansible_min_ver: 4.6
+ansible_min_ver: "2.5.0"
