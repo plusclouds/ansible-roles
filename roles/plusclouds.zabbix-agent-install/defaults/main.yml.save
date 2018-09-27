@@ -1,0 +1,51 @@
+---
+#Agent'in konfigurasyonu için blitz server'ın ip adresi portu ve web url bilgisi girilmelidir.
+blitz_server_bilgileri:
+  - blitz_monitoring_server_ip: "10.8.1.251" # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: mon1.blitz.plusclouds.com)
+  - blitz_monitoring_server_port: 10050 # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: 10050)
+  - blitz_web_url: "http://10.8.2.46/blitz" # Blitz Monitoring Web URL Adresi girilir. (default: http://blitz.plusclouds.com/blitz)
+
+# Kurulumun devamı için Plusclouds.com Paneli üzerinden oluşturduğunuz Monitoring kullanıcı bilgileri girilmelidir.
+blitz_user_bilgileri:
+  - blitz_user_name: "agent-test@72b63910-bb6a-45ac-a27d-f35f69b8caf7"  # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı adı girilir. (Api'den gelen veri)
+  - blitz_user_pass: "H0oRJKqmfQ" # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı şifresi girilir. (Api'den gelen veri)
+
+# Agent Server tarafında, Monitoring Server'a bağlantı izni için firewall kuralı yazılsın mı? (true/false)
+apply_firewall_rules: true
+#Firewall kuralı yazılabilmesi Agent eth bilgisi doldurulmalıdır.
+firewall_biligileri:
+  - agent_eth: "eth1" #Firewall izinleri için agent server'ın hangi eth üzerinden Blitz Monitoring servera gideceği bilgisi
+
+# Agent'ı Blitz Server'a host olarak eklemek ister misiniz? (true/false)
+host_ekle: false
+#Host ekleme işlemi gerçekleştirilebilmesi için aşağıdaki bilgiler doldurulmalıdır.
+agent_bilgileri:
+  - agent_server_ip: "10.8.2.32" # Host olarak eklenecek olan agent serverın ip adresi
+  - agent_name: "agent-test" # Host olarak eklenecek olan agent isimi
+  - agent_host_groups: "HG@72b63910-bb6a-45ac-a27d-f35f69b8caf7" # Host olarak eklenecek agent group bilgisi (Api'den gelen veri)
+
+# Agent'a monitoring için eklenecek olan Blitz templateleri girilir. Örneğin;
+# - blitz_templates: #Hosta eklenecek olan templateler
+#    - Template OS Linux
+#    - Template App MySQL
+#    - Template App Powerdns Server
+#    - Template App Nginx
+#    - Template App Galera Cluster
+#    - Template Disk Performance
+
+  - blitz_templates: #Hosta eklenecek olan templateler
+    - Template OS Linux
+    - Template App Nginx
+    - Template Disk Performance
+
+# Software Monitoring yaptırmak istediğiniz uygulama değerini ayarlayın(true/false). 
+powerdns_montoring: false
+nginx_monitoring: true
+disk_performance_monitoring: true
+galera_monitoring: true
+mysql_monitoring: true
+
+# Mysql Monitoring ve Galera Monitoring yapılabilmesi için aşağıdaki bilgiler kesinlikle doldurulmalıdır. 
+mysql_bilgileri:
+  - mysql_root_user_password: "" # Monitor edilecek mysql server'ın root kullanıcı şifresi girilir.
+  - agent_sql_user_password: "" # Monitoring için oluşturulacak olan agent_mysql user şifresini belirleyin.

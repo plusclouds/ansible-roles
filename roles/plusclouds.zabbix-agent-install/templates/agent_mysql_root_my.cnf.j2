@@ -1,0 +1,6 @@
+#Mysql root bilgileri /etc/.my.cnf olarak kayıt edilecek, bu bilgiler ile giriş yapıp, 
+#sql'de monitoring user oluşturmak için kullanacağız.
+#plusclouds.zabbix-agent-install/defaults/main.yml belirtilen değişkenler ile konfigure edilmektedir.
+[client]
+user=root
+password={{ mysql_bilgileri.mysql_root_user_password }}

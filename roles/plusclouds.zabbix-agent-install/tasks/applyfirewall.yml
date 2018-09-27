@@ -1,9 +1,14 @@
 ---
+- name: Check required variables
+  fail: msg="Variable {{ item }} is not defined"
+  when: item is not defined
+  with_items: "{{ firewall_biligileri }}"
+
 - name: Allow zabbix
-  shell: iptables -A INPUT -p tcp -m tcp --dport {{zabbix_server_port}} -j ACCEPT
+  shell: iptables -A INPUT -p tcp -m tcp --dport {{ blitz_server_bilgileri.blitz_monitoring_server_port }} -j ACCEPT
 
 - name: Allow zabbix server ip output
-  shell: iptables -A OUTPUT -o {{eth}} -d {{zabbix_server}} -j ACCEPT
+  shell: iptables -A OUTPUT -o {{ firewall_biligileri.agent_eth }} -d {{ blitz_server_bilgileri.blitz_monitoring_server_ip }} -j ACCEPT
 
 - name: Allow zabbix server ip input
-  shell: iptables -A INPUT -i {{eth}} -s {{zabbix_server}} -j ACCEPT
+  shell: iptables -A INPUT -i {{ firewall_biligileri.agent_eth }} -s {{ blitz_server_bilgileri.blitz_monitoring_server_ip }} -j ACCEPT

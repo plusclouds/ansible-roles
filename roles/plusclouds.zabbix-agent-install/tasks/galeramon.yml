@@ -1,15 +1,20 @@
 ---
+- name: Check required variables
+  fail: msg="Variable {{ item }} is not defined"
+  when: item is not defined
+  with_items: "{{ mysql_bilgileri }}"
+  
 - name: Copy config to zabbix-agent.d
   copy: 
     src: userparameter_galera.conf
-    dest: /etc/zabbix/zabbix-agent.d/userparameter_galera.conf
+    dest: /etc/zabbix/zabbix_agentd.d/userparameter_galera.conf
 
 - name: Create my.cnf
-  template: src=my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  template: src=agent_mysql_root_my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
 
 - name: Create a database user
-  mysql_user: name=zabbix_admin password={{ mysql_root_password }} priv=*.*:ALL host=localhost
+  mysql_user: name=zabbix_admin password={{ mysql_bilgileri.agent_sql_user_password }} priv=*.*:ALL host=localhost
 
 - name: Create my.cnf for zabbix
-  template: src=zabbix.my.cnf.j2 dest=/etc/zabbix/.my.cnf owner=root group=root mode=0600
+  template: src=sql_monitoring_user_my.cnf.j2 dest=/etc/zabbix/.my.cnf owner=root group=root mode=0600
   notify: restart zabbix-agent

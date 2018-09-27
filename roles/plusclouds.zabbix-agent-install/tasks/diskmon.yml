@@ -10,5 +10,5 @@
 - name: Copy config to zabbix-agent.d
   copy: 
     src: userparameter_diskstats.conf
-    dest: /etc/zabbix/zabbix-agent.d/userparameter_diskstats.conf
+    dest: /etc/zabbix/zabbix_agentd.d/userparameter_diskstats.conf
   notify: restart zabbix-agent

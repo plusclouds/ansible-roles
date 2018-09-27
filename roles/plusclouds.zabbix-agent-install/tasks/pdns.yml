@@ -1,4 +1,3 @@
----
 - name: add settings to sudo config
   blockinfile:
     path: /etc/sudoers
@@ -10,5 +9,5 @@
 - name: Copy config to zabbix-agent.d
   copy: 
     src: pdns.conf
-    dest: /etc/zabbix/zabbix_agentd.d/pdns.conf
+    dest: /etc/zabbix/zabbix-agent.d/pdns.conf
   notify: restart zabbix-agent
