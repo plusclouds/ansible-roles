@@ -1,9 +1,12 @@
-ListenPort={{zabbix_server_port}}
+# Zabbix Agent konfigurasyonu, plusclouds.zabbix-agent-install/defaults/main.yml belirtilen değişkenler ile konfigure edilmektedir.
+
 PidFile=/var/run/zabbix/zabbix_agentd.pid
 LogFile=/var/log/zabbix/zabbix_agentd.log
 LogFileSize=0
-Server={{zabbix_server}}
+Server={{ blitz_server_bilgileri.blitz_monitoring_server_ip }}
 ServerActive=127.0.0.1
-Hostname=Zabbix server
+Hostname={{ agent_bilgileri.agent_name }}
 Include=/etc/zabbix/zabbix_agentd.d/
+UnsafeUserParameters=1
+
 

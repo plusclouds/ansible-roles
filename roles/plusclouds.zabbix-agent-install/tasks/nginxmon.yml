@@ -13,5 +13,5 @@
 - name: Copy config to zabbix-agent.d
   copy: 
     src: userparameter_nginx.conf
-    dest: /etc/zabbix/zabbix-agent.d/userparameter_nginx.conf
+    dest: /etc/zabbix/zabbix_agentd.d/userparameter_nginx.conf
   notify: restart zabbix-agent

@@ -1,0 +1,10 @@
+#Monitoring yapacak olan user bilgilerini /etc/zabbix/.my.cnf olarak kayıt edilecek.
+#Blitz ile Mysql Monitoring yaparken bu user ile verileri toplayacak.
+#plusclouds.zabbix-agent-install/defaults/main.yml belirtilen değişkenler ile konfigure edilmektedir.
+
+[mysql]
+user=zabbix_admin
+password={{ mysql_bilgileri.agent_sql_user_password }}
+[mysqladmin]
+user=zabbix_admin
+password={{ mysql_bilgileri.agent_sql_user_password }}
