@@ -1,4 +1,14 @@
 ---
+- name: Check required variables
+  fail: msg="Variable {{ item }} is not defined"
+  when: item is not defined
+  with_items: "{{ blitz_server_bilgileri }}"
+
+- name: Check required variables
+  fail: msg="Variable {{ item }} is not defined"
+  when:  item is not defined
+  with_items: "{{ blitz_server_bilgileri }}"
+
 - name: Debian zabbix-agent install 
   include_tasks: Debian.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
@@ -17,28 +27,28 @@
 
 - name: Firewall configuration 
   include_tasks: applyfirewall.yml
+  when: apply_firewall_rules
 
 - name: Disk Monitoring
   include_tasks: diskmon.yml
-  when: '"diskmon" in {{ applications }}'
+  when: disk_performance_monitoring
 
 - name: Galera Monitoring
   include_tasks: galeramon.yml
-  when: '"galeramon" in {{ applications }}'
+  when: galera_monitoring
 
 - name: Nginx Monitoring
   include_tasks: diskmon.yml
-  when: '"nginxmon" in {{ applications }}'
+  when: nginx_monitoring
    
 - name: Mysql Monitoring
   include_tasks: mysqlmon.yml
-  when: '"mysqlmon" in {{ applications }}' 
+  when: mysql_monitoring 
 
 - name: Pdns Monitoring
   include_tasks: pdnsmon.yml
-  when: '"pdnsmon" in {{ applications }}'
+  when: powerdns_montoring
 
-- name: Add host to zabbix server
+- name: Add host to blitz server
   include_tasks: addhost.yml
-  when: add_host
-
+  when: host_ekle

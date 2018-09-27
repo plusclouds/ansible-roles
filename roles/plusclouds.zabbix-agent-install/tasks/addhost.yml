@@ -1,16 +1,22 @@
 ---
+- name: Check required variables
+  fail: msg="Variable {{ item }} is not defined"
+  when: item is not defined
+  with_items: "{{ agent_bilgileri }}"
+
+
 - name: Create a new host
   local_action:
     module: zabbix_host
-    server_url: '{{zabbix_server_url}}'
-    login_user: '{{zabbix_server_uname}}'
-    login_password: '{{zabbix_server_pass}}'
-    host_name: '{{host_name}}'
-    visible_name: '{{visible_name}}'
+    server_url: '{{ blitz_server_bilgileri.blitz_web_url }}'
+    login_user: '{{ blitz_user_bilgileri.blitz_user_name }}'
+    login_password: '{{ blitz_user_bilgileri.blitz_user_pass }}'
+    host_name: '{{ agent_bilgileri.agent_name }}'
+    visible_name: '{{ agent_bilgileri.agent_name }}'
     host_groups: 
-      - '{{host_groups}}'
+      - '{{ agent_bilgileri.agent_host_groups }}'
     link_templates:
-      - '{{templates}}'
+      - '{{ agent_bilgileri.blitz_templates }}'
     status: enabled
     state: present
     inventory_mode: automatic
@@ -18,6 +24,6 @@
       - type: 1
         main: 1
         useip: 1
-        ip: '{{host_ip}}'
+        ip: '{{ agent_bilgileri.agent_server_ip }}'
         dns: ""
-        port: '{{zabbix_server_port}}'
+        port: '{{ blitz_server_bilgileri.blitz_monitoring_server_port }}'
