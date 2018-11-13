@@ -14,5 +14,6 @@
     - pdns_db_user: "powerdns" #powerdns mysql user name
     - pdns_db_pass: "SYDdE6uCnMfqQNCK" #powerdns mysql user pass
     - pdns_db_host: "localhost" #powerdns mysql host
+    - pdns_dnssec: "yes"
     - enable_pdns_server_logging: false #powerdns log tutsunmu true/false
     - pdns_listen_all_interfaces: true #0.0.0.0 bind eder true / ansible host ip bind eder false
