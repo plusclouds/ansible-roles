@@ -34,11 +34,11 @@
     - mariadb-server
 
 - name: update mariadb root password for all root accounts
-  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_db_pass }}
+  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_password }}
   when: ansible_hostname != 'localhost'
 
 - name: update mariadb root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }}
   with_items:
    - 127.0.0.1
    - ::1

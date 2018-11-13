@@ -1,9 +1,5 @@
 - name: Add MariaDB apt key Ubuntu 16.04 xenial
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 0xF1656F24C74CD1D8
+  shell: apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 
 - name: Add MariaDB Repo Ubuntu 16.04 xenial
-  apt_repository:
-      repo: deb [arch=amd64,i386] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main
-      state: present
+  shell: add-apt-repository 'deb [arch=amd64,arm64,i386,ppc64el] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.1/ubuntu xenial main'
