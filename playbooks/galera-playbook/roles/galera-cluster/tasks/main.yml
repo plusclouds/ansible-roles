@@ -55,6 +55,7 @@
   service:
     name: mysql
     state: stopped
+    
 - name: starting node on first node
   shell: "service mysql start --wsrep-new-cluster"
   when: "'first_node' in group_names"
