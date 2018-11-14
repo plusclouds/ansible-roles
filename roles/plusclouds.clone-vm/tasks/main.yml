@@ -10,7 +10,10 @@
     status_code: 201
   register: vm_data
 
+- name: Set Disks
+  include_tasks: "disks.yml"
+  when: disk0_exists == 1 or disk1_exists == 1 or disk2_exists == 1 or disk3_exists == 1
 
-- name: Set Network
-  include_tasks: "set_ip.yml"
+- name: Set Networks
+  include_tasks: "network.yml"
   when: do_network_conf == True
