@@ -1,0 +1,21 @@
+---
+- name: Get Virtual Machine Data
+  uri:
+    url: http://apiv2/v2/iaas/virtual-network-cards?virtual_machine={{ vm_data.json.data.id }}
+    headers:
+      Authorization: "{{ user_token }}"
+    return_content: yes
+    status_code: 200
+  register: vm_network
+  when: vm_data is success
+
+- name: Post IP
+  uri:
+    url: http://apiv2/v2/packetbender/ip
+    method: POST
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "network_ref={{ item.network.data.id }}&virtual_network_card_ref={{ item.id }}&allow=1"
+    status_code: 201
+  loop: "{{ vm_network.json.data }}"
+  when: vm_network is success

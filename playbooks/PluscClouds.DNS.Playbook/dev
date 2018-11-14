@@ -1,0 +1,4 @@
+[first_node]
+10.8.1.252 wsrep_node_name=mariadb1 wsrep_node_address=10.8.1.252
+[other_nodes]
+10.8.1.234 wsrep_node_name=mariadb2 wsrep_node_address=10.8.1.234

@@ -1,0 +1,19 @@
+---
+- hosts: all
+  roles:
+  - galera-cluster
+  - plusclouds.pdns-install
+  vars:
+    - mysql_root_user: "root" #mysql root user name
+    - mysql_root_password: "NXpMYaaj2mkNV7U9" #mysql root şifresi
+    - wsrep_cluster_name: "powerdns-cluster" #Galera Cluster name
+    - wsrep_cluster_address: "10.8.2.77,10.8.2.78,10.8.2.79" #Galera Clusterdaki serverların ip adresleri //master en başa yazılacak.
+    - bind_address: "0.0.0.0" #MariaDB Server bind adresi
+
+    - pdns_db_name: "powerdns_db" #powerdns mysql db name
+    - pdns_db_user: "powerdns" #powerdns mysql user name
+    - pdns_db_pass: "SYDdE6uCnMfqQNCK" #powerdns mysql user pass
+    - pdns_db_host: "localhost" #powerdns mysql host
+    - pdns_dnssec: "yes"
+    - enable_pdns_server_logging: false #powerdns log tutsunmu true/false
+    - pdns_listen_all_interfaces: true #0.0.0.0 bind eder true / ansible host ip bind eder false
