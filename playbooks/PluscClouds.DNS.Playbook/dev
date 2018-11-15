@@ -1,4 +1,4 @@
 [first_node]
-10.8.1.252 wsrep_node_name=mariadb1 wsrep_node_address=10.8.1.252
+10.8.1.252 wsrep_node_name=mariadb1 wsrep_node_address=10.8.1.252 ansible_user=plusclouds ansible_become=yes
 [other_nodes]
-10.8.1.234 wsrep_node_name=mariadb2 wsrep_node_address=10.8.1.234
+10.8.1.234 wsrep_node_name=mariadb2 wsrep_node_address=10.8.1.234 ansible_user=plusclouds ansible_become=yes

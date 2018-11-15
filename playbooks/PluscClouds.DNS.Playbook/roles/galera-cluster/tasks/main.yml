@@ -51,14 +51,19 @@
 - name: Add cluster conf to config file
   become: false
   template: src=cluster.cnf.j2 dest=/etc/mysql/conf.d/cluster.cnf
+
 - name: stopping mysql services
   service:
     name: mysql
     state: stopped
-    
+
+- name: starting node on first node
+  shell: "galera_new_cluster"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial' and "'first_node' in group_names"
+  
 - name: starting node on first node
   shell: "service mysql start --wsrep-new-cluster"
-  when: "'first_node' in group_names"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty' and "'first_node' in group_names"
 
 - name: restart mysql
   service: 
