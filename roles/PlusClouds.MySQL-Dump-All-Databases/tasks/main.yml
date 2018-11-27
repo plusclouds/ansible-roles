@@ -1,0 +1,9 @@
+---
+- name: Creates directory
+  file: path={{ output_path }} state=directory
+
+- name: Transfer the script
+  template: src=backup.sh.j2 dest=/home/backup.sh owner=root group=root mode=0777
+
+- name: Execute the script
+  command: sh /home/backup.sh
