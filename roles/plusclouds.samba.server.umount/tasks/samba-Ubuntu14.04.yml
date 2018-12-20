@@ -1,0 +1,12 @@
+---
+# tasks file for plusclouds.samba.server
+
+
+#smb.conf dosyasından paylaşılan ip'yi kaldırma
+- name: set nfs config file
+  lineinfile:
+    path: /etc/samba/smb.conf
+    state: absent
+    regexp: "include = /etc/samba/{{ client_ip }}"
+    backup: yes
+  notify: Reload Samba
