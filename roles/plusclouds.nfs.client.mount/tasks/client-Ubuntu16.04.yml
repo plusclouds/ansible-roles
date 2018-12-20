@@ -1,0 +1,32 @@
+---
+
+#Dizin kontrolü
+- name: "Check that {{ local_mount_path }} exist"
+  stat:
+    path: "{{ local_mount_path }}"
+  register: public_dir_exists
+
+
+#Yukarıdaki dizin yok ise dizin create eder.
+- name: "Create {{ local_mount_path }} directory"
+  file:
+    state: directory
+    path: "{{ local_mount_path }}"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: public_dir_exists.stat.exists == False
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: set mountpoints
+  shell: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
+
+
+#Fstab Dosyasını düzenleme
+- name: set nfs config file
+  lineinfile:
+    path: /etc/fstab
+    line: '{{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}      nfs      rw,sync,hard,intr  0     0'
+    backup: yes
