@@ -1,0 +1,38 @@
+---
+
+- name: Install Cifs Utils
+  apt:
+   name: "{{ item }}"
+   state: latest
+  with_items:
+   - cifs-utils
+
+
+
+- name: "Check that {{ local_mount_path }} exist"
+  stat:
+    path: "{{ local_mount_path }}"
+  register: public_dir_exists
+
+- name: "Create {{ local_mount_path }} directory"
+  file:
+    state: directory
+    path: "{{ local_mount_path }}"
+    owner: nobody
+    group: nogroup
+    mode: 0755
+    recurse: yes
+  when: public_dir_exists.stat.exists == False
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+#Bu role çalıştırılmadan önce samba.adduser role'ün çalıştırılması gerekiyor.
+
+- name: set mountpoints
+  shell: "mount -t cifs -o username={{ samba_user }},password={{ samba_user_pass}} //{{ host_ip }}/{{ sharing_path_name }}   {{ local_mount_path }}"
+
+- name: Set samba config file
+  lineinfile:
+    path: /etc/fstab
+    line: '//{{ host_ip }}/{{ sharing_path_name}}   {{ local_mount_path }}     cifs  username={{ samba_user }},password={{ samba_user_pass}},uid=1000,gid=1000,iocharset=utf8,_netdev 0 0 0 0'
+    backup: yes

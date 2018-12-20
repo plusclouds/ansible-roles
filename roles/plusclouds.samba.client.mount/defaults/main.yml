@@ -1,0 +1,8 @@
+---
+# defaults file for plusclouds.samba.client
+host_ip: 10.8.1.90                        #samba server ip'si
+local_mount_path: /mnt/plusdeneme          #localde mount edilecek dizin
+sharing_path_name: public                 #samba server tarafından paylasıma acılan dizin
+
+samba_user: "plusclouds"                    #samba server kullanıcı adı
+samba_user_pass: "pass123"                  #samba server kullanıcı parolası
