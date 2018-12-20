@@ -1,0 +1,5 @@
+---
+# defaults file for plusclouds.nfs.client
+host_share_path: "/mnt/nfs" #Host tarafında paylaşılacak olan dizin yolu
+host_ip: 10.8.0.192    #host ip
+local_mount_path: "/nfs" #localde mount edilecek dizin
