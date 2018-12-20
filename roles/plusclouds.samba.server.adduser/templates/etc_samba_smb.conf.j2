@@ -1,0 +1,9 @@
+#### Private Share ####
+[{{ private_share_name }}]
+ path = {{ private_share_path }}
+ valid users = @{{ samba_group_name }}
+ guest ok = no
+ writable = yes
+ browsable = yes
+ create mask = 0700
+ directory mask = 0700
