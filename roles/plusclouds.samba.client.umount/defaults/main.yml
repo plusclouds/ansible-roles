@@ -1,0 +1,4 @@
+---
+sharing_path_name: public
+local_mount_path: /mnt/plusdeneme
+host_ip: 10.8.2.51
