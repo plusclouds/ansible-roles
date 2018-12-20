@@ -1,0 +1,12 @@
+---
+ubuntu_samba_packages:
+  - samba
+  - samba-common
+  - python-glade2
+  - system-config-samba
+
+centos_samba_packages:
+  - samba
+  - samba-client
+  - samba-common
+  - libselinux-python
