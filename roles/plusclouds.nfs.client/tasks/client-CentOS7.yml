@@ -1,0 +1,9 @@
+---
+
+#Nfs Server Yazılımlarını Yükleme
+- name: Install nfs-server
+  yum:
+   name: "{{ item }}"
+   state: latest
+  with_items:
+   - nfs-utils
