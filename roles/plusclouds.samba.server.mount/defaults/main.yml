@@ -1,0 +1,17 @@
+---
+public_share_name: public               #Public paylasılacak dosya ismi/acıklaması
+public_share_path: /samba/public        #Public paylasılacak dosya yolu, role kendi ekler
+private_share_name: private             #Private paylasılacak dosya ismi/acıklaması
+private_share_path: /samba/private      #Private olarak paylasılacak dosya yolu, role kendi olusturur
+
+samba_group_name: smbgrp
+samba_users:
+  - name: 'fooplus'
+    smbpasswd: 'pass123'
+
+
+client_ip: 10.8.0.254
+
+
+public: true
+private: false
