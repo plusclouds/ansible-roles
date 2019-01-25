@@ -1,0 +1,13 @@
+---
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: set mountpoints
+  shell: "umount  {{ local_mount_path }}"
+
+
+#Fstab dosyasından bağlanılan ip'yi kaldırma
+- name: Set samba config file
+  lineinfile:
+    path: /etc/fstab
+    regexp: "//{{ host_ip }}/{{ sharing_path_name}}   {{ local_mount_path }}"
+    state: absent

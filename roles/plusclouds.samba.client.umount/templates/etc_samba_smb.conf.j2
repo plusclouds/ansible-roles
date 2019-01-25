@@ -1,0 +1,18 @@
+#======================= Global Settings =====================================
+#{{ ansible_managed }}
+[global]
+ workgroup = {{ workgroup }}
+ server string = Samba Server %v
+ netbios name = ubuntu
+ security = user
+ map to guest = bad user
+ dns proxy = no
+#============================ Share Definitions ==============================
+
+#### Public Share ####
+[{{ public_share_name }}]
+ path = {{ public_share_path }}
+ browsable =yes
+ writable = yes
+ guest ok = yes
+ read only = no
