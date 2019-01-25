@@ -1,0 +1,27 @@
+---
+# tasks file for plusclouds.nfs
+#include tasks
+
+- name: Setup Ubuntu 14.04 Nfs Server
+  include_tasks: server-Ubuntu14.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+
+- name: Setup Ubuntu 16.04 Nfs Server
+  include_tasks: server-Ubuntu16.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+
+- name: Setup Ubuntu 18.04 Nfs Server
+  include_tasks: server-Ubuntu18.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+
+- name: Setup CentOS 6 Nfs Server
+  include_tasks: server-CentOS6.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
+
+
+- name: Setup CentOS 7 Nfs Server
+  include_tasks: server-CentOS7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
