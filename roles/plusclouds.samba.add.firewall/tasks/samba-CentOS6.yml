@@ -1,0 +1,56 @@
+---
+# tasks file for plusclouds.samba.server
+
+
+#Samba icin port acma
+- name: Set server side iptables rules
+  iptables:
+    chain: INPUT
+    source: "{{ client_ip }}"
+    destination_port: 445
+    protocol: tcp
+    jump: ACCEPT
+  become: yes
+
+
+
+#Samba icin port acma
+- name: Set server side iptables rules
+  iptables:
+    chain: INPUT
+    source: "{{ client_ip }}"
+    destination_port: 138
+    protocol: tcp
+    jump: ACCEPT
+  become: yes
+
+
+
+#Samba icin port acma
+- name: Set server side iptables rules
+  iptables:
+    chain: INPUT
+    source: "{{ client_ip }}"
+    destination_port: 139
+    protocol: tcp
+    jump: ACCEPT
+  become: yes
+
+#Samba icin port acma
+- name: Set server side iptables rules
+  iptables:
+    chain: INPUT
+    source: "{{ client_ip }}"
+    destination_port: 137
+    protocol: tcp
+    jump: ACCEPT
+  become: yes
+
+
+- name: set firewalld
+  shell: "firewall-cmd --permanent --zone=public --add-service=samba"
+
+
+  #Firewall ayarlarını yeniden yükleme
+- name: Bounce firewalld
+  service: name=firewalld state=reloaded
