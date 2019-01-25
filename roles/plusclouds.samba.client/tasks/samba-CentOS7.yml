@@ -1,0 +1,10 @@
+---
+# tasks file for plusclouds.samba.server
+
+- name: Install the Samba and additional packages
+  yum:
+    name: "{{ item }}"
+    state: installed
+    update_cache: yes
+  with_items: "{{ centos_samba_packages }}"
+  notify: Restart Smb

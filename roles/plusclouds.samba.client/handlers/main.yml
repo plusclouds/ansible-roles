@@ -1,0 +1,12 @@
+---
+# handlers file for plusclouds.samba.server
+- name: Restart Samba
+  service:
+    name: smbd
+    state: restarted
+
+
+- name: Restart Smb
+  service:
+    name: smb
+    state: restarted
