@@ -1,0 +1,6 @@
+---
+# handlers file for plusclouds.samba.server
+- name: Reload Samba
+  service:
+    name: smb
+    state: reloaded
