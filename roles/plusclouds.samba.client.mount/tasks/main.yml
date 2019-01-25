@@ -1,0 +1,26 @@
+---
+# tasks file for plusclouds.samba.server
+
+- name: Setup Ubuntu 14.04 Samba Client
+  include_tasks: samba-Ubuntu14.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+
+- name: Setup Ubuntu 16.04 Samba Client
+  include_tasks: samba-Ubuntu16.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+
+- name: Setup Ubuntu 18.04 Samba Client
+  include_tasks: samba-Ubuntu18.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+
+- name: Setup CentOS 6 Samba Client
+  include_tasks: samba-CentOS6.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
+
+
+- name: Setup CentOS 7 Samba Client
+  include_tasks: samba-CentOS7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
