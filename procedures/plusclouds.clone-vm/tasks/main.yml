@@ -1,0 +1,19 @@
+---
+- name: Clone Virtual Machine From Template
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ template_vm }}/clone
+    method: POST
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "name={{ vm_name }}&total_cpu={{ total_cpu }}&total_ram={{ total_ram }}&datacenter_node_ref={{ datacenter_node_ref }}"
+    return_content: yes
+    status_code: 201
+  register: vm_data
+
+- name: Set Disks
+  include_tasks: "disks.yml"
+  when: disk0_exists == 1 or disk1_exists == 1 or disk2_exists == 1 or disk3_exists == 1
+
+- name: Set Networks
+  include_tasks: "network.yml"
+  when: do_network_conf == True

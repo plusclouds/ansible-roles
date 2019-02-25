@@ -1,0 +1,14 @@
+.idea/
+.DS_STORE
+
+vendor/
+composer.lock
+_ide_helper.php
+
+.env
+
+storage/*.key
+
+database/migrations/test
+database/migrations/*.php
+database/seeds/*TableSeeder.php
