@@ -1,0 +1,4 @@
+---
+# tasks file for plusclouds.blitz.add-host
+- name: adding host to Blitz
+  include_tasks: addhost.yml
