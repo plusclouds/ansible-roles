@@ -1,7 +1,7 @@
-PlusClouds Install NFS
+PlusClouds Add Samba IPTables Settings
 =========
 
-This role loads the necessary softwares for directory sharing with NFS.
+It  drop iptables settings for playbook samba and client.
 
 Requirements
 ------------
@@ -11,7 +11,8 @@ None.
 Role Variables
 --------------
 
-None.
+        client_ip: 10.8.0.0                   #ip address of the client to share.
+
 
 
 Dependencies
@@ -23,11 +24,16 @@ None.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: nfs-servers
+    - hosts: samba-clients
       roles:
-         - plusclouds.nfs.server
+         - plusclouds.drop.client.iptables.rule
+       vars:
+         - client_ip: 10.8.0.0                   #ip address of the client to share.
+
+
+
+
 
 License
 -------
