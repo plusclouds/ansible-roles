@@ -1,7 +1,7 @@
-PlusClouds Install Samba
+PlusClouds Install NFS
 =========
 
-This role loads the necessary softwares for directory sharing with Samba.
+This role loads the necessary softwares for directory sharing with NFS.
 
 Requirements
 ------------
@@ -25,9 +25,9 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: samba-servers
+    - hosts: nfs-servers
       roles:
-         - plusclouds.samba.server
+         - plusclouds.nfs.server
 
 License
 -------

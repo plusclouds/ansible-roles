@@ -1,35 +1,44 @@
 ---
 # tasks file for plusclouds.samba.server
 
-- name: "Check that {{ public_share_path }} exist"
+- name: "Check that {{ share_path }} exist"
   stat:
-    path: "{{ public_share_path }}"
+    path: "{{ share_path }}"
   register: public_dir_exists
 
 
-- name: "Create {{ public_share_path }} directory"
+- name: "Create {{ share_path }} directory"
   file:
     state: directory
-    path: "{{ public_share_path }}"
-    owner: nobody
-    group: root
+    path: "{{ share_path }}"
+    owner: {{ item.name }}
+    group: "{{ samba_group_name }}"
     mode: 0755
     recurse: yes
+  with_items: samba_users
   when:
-    - not public_dir_exists.stat.exists and public
+    - not public_dir_exists.stat.exists
 
+#- name: "Create {{ share_path }} directory"
+#  file:
+#    state: directory
+#    path: "{{ private_share_path }}"
+#    owner: root
+#    group: "{{ samba_group_name }}"
+#    mode: 1770
+#  when: private_dir_exists.stat.exists == False
 
 
 - name: Copy the Customize {{ client_ip }}.conf file
   template:
     src: etc_samba_smb.conf.j2
-    dest: /etc/samba/{{ client_ip }}.conf
+    dest: /etc/samba/{{share_name}}-{{ client_ip }}.conf
 
 
 - name: Set samba config file
   lineinfile:
     path: /etc/samba/smb.conf
-    line: 'include = /etc/samba/{{ client_ip }}.conf'
+    line: 'include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
     backup: yes
   notify:
     - Reload Samba

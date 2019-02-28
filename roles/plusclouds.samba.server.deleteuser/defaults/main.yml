@@ -1,0 +1,5 @@
+---
+samba_group_name: smbgrp
+samba_users:
+  - name: 'plusclouds'
+    smbpasswd: 'pass123'

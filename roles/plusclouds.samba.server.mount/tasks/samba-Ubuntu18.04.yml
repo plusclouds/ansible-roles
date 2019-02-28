@@ -1,18 +1,18 @@
 ---
 # tasks file for plusclouds.samba.server
 
-- name: "Check that {{ public_share_path }} exist"
+- name: "Check that {{ share_path }} exist"
   stat:
-    path: "{{ public_share_path }}"
+    path: "{{ share_path }}"
   register: public_dir_exists
 
 
-- name: "Create {{ public_share_path }} directory"
+- name: "Create {{ share_path }} directory"
   file:
     state: directory
-    path: "{{ public_share_path }}"
-    owner: nobody
-    group: root
+    path: "{{ share }}"
+    owner: {{ samba_user_name }}
+    group: {{ samba_group_name }}
     mode: 0755
     recurse: yes
   when:
