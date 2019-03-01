@@ -1,0 +1,10 @@
+---
+
+- name: Install and share local path with NFS
+  hosts: nfs-server
+  roles:
+    - plusclouds.nfs.server.umount
+    - plusclouds.nfs.drop.client.iptables.rule
+  vars:
+    - client_ip: '10.8.0.0'            #Client ip
+    - local_share_path: '/plusclouds/nfs-foo'       #Paylaşılan dizin.

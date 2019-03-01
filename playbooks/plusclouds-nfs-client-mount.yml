@@ -1,0 +1,10 @@
+---
+
+- hosts: nfs-client
+  roles:
+    - plusclouds.nfs.client
+    - plusclouds.nfs.client.mount
+  vars:
+    - host_share_path:  '/plusclouds/nfs-deneme'     #Host tarafından paylaşılan olan dizin yolu
+    - host_ip: '10.8.0.0'                            #host ip
+    - local_mount_path: '/home/backup'               #localde host tarafından paylaşılan d
