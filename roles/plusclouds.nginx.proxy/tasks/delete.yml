@@ -1,0 +1,15 @@
+---
+- name: Check if Proxy Config Exists
+  stat: path=/etc/nginx/sites-enabled/{{ domain_name }}.conf
+  register: proxy_config
+
+- name: Ansible delete file example
+  file:
+    path: /etc/nginx/sites-enabled/{{ domain_name }}.conf
+    state: absent
+  when: proxy_config.stat.exists == True
+  notify: Reload nginx
+  
+- name: Proxy Config Status
+  debug:
+    msg: "Proxy Config Deleted"

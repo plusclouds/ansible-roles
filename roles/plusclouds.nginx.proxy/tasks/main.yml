@@ -1,0 +1,11 @@
+- name: Include Create Tasks
+  include_tasks: create.yml
+  when: action == "create"
+
+- name: Include Delete Tasks
+  include_tasks: delete.yml
+  when: action == "delete"
+
+- name: Include Update Tasks
+  include_tasks: update.yml
+  when: action == "update"
