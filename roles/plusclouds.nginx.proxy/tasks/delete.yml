@@ -8,7 +8,7 @@
     path: /etc/nginx/sites-enabled/{{ domain_name }}.conf
     state: absent
   when: proxy_config.stat.exists == True
-  notify: Reload nginx
+  notify: Reload Nginx
   
 - name: Proxy Config Status
   debug:
