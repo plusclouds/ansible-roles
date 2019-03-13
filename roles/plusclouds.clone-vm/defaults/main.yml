@@ -9,9 +9,9 @@ do_network_conf: True
 
 disk0_exists: 1
 disk0_storage_volume: "vyGLGyNoWk"
-disk0_size: 30000
+disk0_size: 10000
 disk0_attached: 1
-disk1_exists: 1
+disk1_exists: 0
 disk1_storage_volume: "vyGLGyNoWk"
 disk1_size: 0
 disk1_attached: 0
@@ -23,3 +23,19 @@ disk3_exists: 0
 disk3_storage_volume: "vyGLGyNoWk"
 disk3_size: 0
 disk3_attached: 0
+disk4_exists: 0
+disk4_storage_volume: "vyGLGyNoWk"
+disk4_size: 0
+disk4_attached: 0
+disk5_exists: 0
+disk5_storage_volume: "vyGLGyNoWk"
+disk5_size: 0
+disk5_attached: 0
+disk6_exists: 0
+disk6_storage_volume: "vyGLGyNoWk"
+disk6_size: 0
+disk6_attached: 0
+disk7_exists: 0
+disk7_storage_volume: "vyGLGyNoWk"
+disk7_size: 0
+disk7_attached: 0

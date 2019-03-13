@@ -1,7 +1,7 @@
 ---
 - name: Get Virtual Machine Data
   uri:
-    url: http://apiv2/v2/iaas/virtual-network-cards?virtual_machine={{ vm_data.json.data.id }}
+    url: http://apiv2/v2/iaas/virtual-network-cards?virtualMachine={{ vm_data.json.data.id }}
     headers:
       Authorization: "{{ user_token }}"
     return_content: yes
