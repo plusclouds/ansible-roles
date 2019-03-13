@@ -1,0 +1,11 @@
+---
+domain_name: metafizik.com
+ip_address: 185.44.192.6
+port: 80
+proxy_address: "{{ ip_address }}:{{ port }}"
+action: delete 
+
+# Set actions for proxy
+# - delete
+# - create
+# - update

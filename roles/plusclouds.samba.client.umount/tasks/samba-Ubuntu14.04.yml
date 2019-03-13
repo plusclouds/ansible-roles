@@ -6,7 +6,7 @@
 
 
 #Fstab dosyasından bağlanılan ip'yi kaldırma
-- name: Set samba config file
+- name: Set fstab config file
   lineinfile:
     path: /etc/fstab
     regexp: "//{{ host_ip }}/{{ sharing_path_name}}   {{ local_mount_path }}"
