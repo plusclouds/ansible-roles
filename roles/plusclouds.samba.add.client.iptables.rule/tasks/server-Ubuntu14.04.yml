@@ -1,0 +1,18 @@
+---
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: Set IPTables
+  shell: "iptables -I INPUT -p tcp -s {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 137
+      - 138
+      - 139
+      - 445
+
+- name: Set IPTables
+  shell: "iptables -I OUTPUT -p tcp -d {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 137
+      - 138
+      - 139
+      - 445

@@ -3,10 +3,10 @@
 
 
 #smb.conf dosyasından paylaşılan ip'yi kaldırma
-- name: set nfs config file
+- name: set samba config file
   lineinfile:
     path: /etc/samba/smb.conf
     state: absent
-    regexp: "include = /etc/samba/{{ client_ip }}"
+    regexp: "include = /etc/samba/{{ share_name }}-{{ client_ip }}"
     backup: yes
   notify: Reload Samba

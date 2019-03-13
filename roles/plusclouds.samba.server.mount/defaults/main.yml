@@ -12,6 +12,6 @@ samba_users:
 
 client_ip: 10.8.0.254
 
-
+readonly: true                          #default olarak readonly true'dur, erişimin sadece okunabilir olmasını istiyoruz.
 public: true
 private: false

@@ -1,0 +1,11 @@
+server {
+	listen 80;
+	server_name {{ domain_name }};
+	location / {
+		proxy_pass http://{{ proxy_address }}/;
+		include /etc/nginx/proxy_params;
+	}
+	location /configuration-test-plusclouds-proxy {
+		return 200;
+	}
+}

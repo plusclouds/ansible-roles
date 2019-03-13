@@ -1,7 +1,6 @@
 ---
 # tasks file for plusclouds.samba.server
 
-
 - name: Create Samba users restricted group
   group:
     name: "{{ samba_group_name }}"

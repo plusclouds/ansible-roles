@@ -1,0 +1,6 @@
+---
+# tasks file for plusclouds.samba.server
+
+- name: Create Samba Password for User(s)
+  shell: "userdel {{ item.name }}"
+  with_items: "{{ samba_users }}"

@@ -3,7 +3,7 @@
 
 - name: Setup Ubuntu 14.04 Samba Server
   include_tasks: samba-Ubuntu14.04.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '15.04'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
 
 - name: Setup Ubuntu 16.04 Samba Server
