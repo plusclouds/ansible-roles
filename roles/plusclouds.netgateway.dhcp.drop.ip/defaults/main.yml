@@ -1,0 +1,4 @@
+---
+# defaults file for plusclouds.netgateway.dhcp.drop.ip
+
+host_name: isc-dhcp-server #Must be unique

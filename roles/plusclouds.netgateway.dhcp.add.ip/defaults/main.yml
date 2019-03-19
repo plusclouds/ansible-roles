@@ -1,0 +1,6 @@
+---
+# defaults file for plusclouds.netgateway.dhcp.add.ip
+
+host_name: isc-dhcp-server #Must be unique
+hardware_ethernet: dhcp
+fixed_address: 10.8.0.0

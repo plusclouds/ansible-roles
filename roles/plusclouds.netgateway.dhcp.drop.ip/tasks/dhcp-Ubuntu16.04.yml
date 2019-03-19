@@ -1,0 +1,10 @@
+---
+
+#Plusclouds netgateway dhcp drop ip
+
+- name: Set dhcp config file
+  lineinfile:
+    path: /etc/dhcp/dhcpd.conf
+    state: absent
+    regexp: 'include "/etc/dhcp/{{ host_name }}.conf";'
+    backup: yes

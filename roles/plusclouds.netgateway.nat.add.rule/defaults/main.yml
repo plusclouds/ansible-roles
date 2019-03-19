@@ -1,0 +1,8 @@
+---
+# defaults file for plusclouds.netgateway.nat.add.rule
+
+source_ip: 185.44.192.230 #Must be unique
+source_port: 5000 #Must be unique
+destination_ip: 10.8.0.0 #Must be unique
+destination_port: 3306 #Must be unique
+interface: eth2

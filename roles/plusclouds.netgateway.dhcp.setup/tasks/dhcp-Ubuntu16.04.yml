@@ -1,0 +1,8 @@
+---
+
+#Plusclouds netgateway dhcp setup
+- name: Install Isc-DHCP Packages
+  apt:
+    name: "{{ item }}"
+    state: "present"
+  with_items: "{{ ubuntu_dhcp_packages }}"

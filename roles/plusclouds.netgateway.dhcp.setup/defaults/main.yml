@@ -1,0 +1,6 @@
+---
+# defaults file for plusclouds.netgateway.dhcp
+
+ubuntu_dhcp_packages: isc-dhcp-server
+
+centos_dhcp_packages: dhcp
