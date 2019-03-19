@@ -1,0 +1,5 @@
+---
+domain_name: example.com
+ip_address: 185.44.192.6
+port: 80
+proxy_address: "{{ ip_address }}:{{ port }}"
