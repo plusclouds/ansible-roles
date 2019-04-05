@@ -1,7 +1,7 @@
 ---
 user_token: ""
 datacenter_node_ref: "yVMNlGrzlo"
-template_vm: "nMkLOWLqWw"
+template_vm: "bERLzGrvaZ"
 vm_name: "New Virtual Machine"
 total_cpu: 8
 total_ram: 1024
@@ -15,7 +15,7 @@ disk1_exists: 0
 disk1_storage_volume: "vyGLGyNoWk"
 disk1_size: 0
 disk1_attached: 0
-disk2_exists: 0
+disk2_exists: 0"
 disk2_storage_volume: "vyGLGyNoWk"
 disk2_size: 0
 disk2_attached: 0

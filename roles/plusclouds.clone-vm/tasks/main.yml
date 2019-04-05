@@ -5,9 +5,10 @@
     method: POST
     headers:
       Authorization: "{{ user_token }}"
-    body: "name={{ vm_name }}&total_cpu={{ total_cpu }}&total_ram={{ total_ram }}&datacenter_node_ref={{ datacenter_node_ref }}"
+    body: "name={{ vm_name }}&total_cpu={{ total_cpu }}&total_ram={{ total_ram }}"
     return_content: yes
     status_code: 201
+    timeout: 300
   register: vm_data
 
 - name: Set Disks
