@@ -1,0 +1,9 @@
+---
+
+- name: Set IPTables
+  shell: "iptables -t nat -A PREROUTING -p tcp -i {{ interface }} --dport {{source_port}} -j DNAT --to-destination {{ destination_ip }}:{{ destination_port }}"
+
+
+
+- name: Save IPTables Rules
+  shell: "invoke-rc.d netfilter-persistent save"

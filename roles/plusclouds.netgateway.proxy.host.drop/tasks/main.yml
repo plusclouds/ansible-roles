@@ -1,0 +1,16 @@
+---
+- name: Check if Proxy Config Exists
+  stat: path=/etc/nginx/sites-enabled/{{ domain_name }}.conf
+  register: proxy_config
+
+- name: Create Proxy Config
+  file:
+    state: absent
+    path:  /etc/nginx/sites-enabled/{{ domain_name }}.conf
+  when: proxy_config.stat.exists == True
+  notify: Reload Nginx
+
+- name: Proxy Config Status
+  debug:
+    msg: "Proxy Config not exist for this domain. Please correct domain_name variable."
+  when: proxy_config.stat.exists == False

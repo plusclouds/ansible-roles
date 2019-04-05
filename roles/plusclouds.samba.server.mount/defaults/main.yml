@@ -1,8 +1,8 @@
 ---
-public_share_name: public               #Public paylasılacak dosya ismi/acıklaması
-public_share_path: /samba/public        #Public paylasılacak dosya yolu, role kendi ekler
-private_share_name: private             #Private paylasılacak dosya ismi/acıklaması
-private_share_path: /samba/private      #Private olarak paylasılacak dosya yolu, role kendi olusturur
+#public_share_name: public               #Public paylasılacak dosya ismi/acıklaması
+#public_share_path: /samba/public        #Public paylasılacak dosya yolu, role kendi ekler
+share_name: private             #Private paylasılacak dosya ismi/acıklaması
+share_path: /samba/private      #Private olarak paylasılacak dosya yolu, role kendi olusturur
 
 samba_group_name: smbgrp
 samba_users:
@@ -10,8 +10,8 @@ samba_users:
     smbpasswd: 'pass123'
 
 
-client_ip: 10.8.0.254
+client_ip: 10.8.0.0
 
 readonly: true                          #default olarak readonly true'dur, erişimin sadece okunabilir olmasını istiyoruz.
-public: true
-private: false
+#public: true
+#private: false

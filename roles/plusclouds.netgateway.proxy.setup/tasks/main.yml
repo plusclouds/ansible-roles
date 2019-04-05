@@ -1,0 +1,13 @@
+#- name: Check if Nginx Exists
+#  stat: path=/etc/init.d/nginx
+#  register: service_status
+
+#- name: Nginx Status
+#  debug:
+#    msg: "Skipping nginx installation. Nginx is already exist."
+#  when: service_status.stat.exists == True
+
+- name: Include Installation
+  include_tasks: nginx-install.yml
+#  when: service_status.stat.exists == False
+  

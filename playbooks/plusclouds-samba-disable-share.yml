@@ -1,0 +1,17 @@
+---
+- hosts: samba-server
+  roles:
+    - plusclouds.samba.server.umount
+    - plusclouds.samba.drop.client.iptables.rule
+  vars:
+    - client_ip: 10.8.0.0                      #paylaşım yapılan client'in ip'si.
+    - share_name: deneme1                        #paylaşım yapılan dizin ismi
+
+
+- hosts: samba-client
+  roles:
+    - plusclouds.samba.client.umount
+  vars:
+    - host_ip: 10.8.0.0                          #samba server ip'si
+    - local_mount_path: /mnt/plusdeneme          #localde mount edilecek dizin
+    - sharing_path_name: deneme1                  #samba server tarafından paylasıma acılan dizin ismi

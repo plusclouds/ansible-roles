@@ -1,0 +1,10 @@
+---
+# defaults file for plusclouds.netgateway.dhcp.add.subnet
+
+subnet: isc-dhcp-server
+netmask: dhcp
+start_ip_range: 10.8.0.0
+finish_ip_range: 10.8.255.255
+
+old_start_ip_range: 10.8.0.0
+old_finish_ip_range: 10.8.255.255

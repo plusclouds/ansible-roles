@@ -1,0 +1,37 @@
+---
+- name: add nginx apt-key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: add nginx apt repository
+  apt_repository:
+    repo: 'deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx'
+    state: present
+    filename: nginx
+    update_cache: yes
+
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+
+- name: "Check that /etc/nginx/sites-enabled path exist"
+  stat:
+    path: /etc/nginx/sites-enabled
+  register: sites_enabled_dir_exists
+
+
+#Yukarıdaki dizin yok ise dizin create eder.
+- name: "Create {{ local_mount_path }} directory"
+  file:
+    state: directory
+    path: "/etc/nginx/sites-enabled"
+  when: sites_enabled_dir_exists.stat.exists == False
+
+
+- name: Create Proxy Config
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root mode=0600
+  notify: Reload Nginx

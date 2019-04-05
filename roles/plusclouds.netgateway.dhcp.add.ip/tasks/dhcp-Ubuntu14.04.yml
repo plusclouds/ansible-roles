@@ -1,0 +1,20 @@
+---
+
+#Plusclouds netgateway dhcp add ip
+
+- name: Copy the Customize ip file
+  template:
+    src: dhcpd_ip.conf.j2
+    dest: /etc/dhcp/{{ host_name }}.conf
+
+
+- name: Set dhcp config file
+  lineinfile:
+    path: /etc/dhcp/dhcpd.conf
+    line: 'include "/etc/dhcp/{{ host_name }}.conf";'
+    backup: yes
+
+
+
+- name: Restart DHCP service
+  command: "/etc/init.d/isc-dhcp-server restart"

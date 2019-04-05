@@ -1,0 +1,12 @@
+---
+
+#Plusclouds netgateway dhcp setup
+- name: Install Isc-DHCP Packages
+  yum:
+    name: "{{ item }}"
+    state: "present"
+  with_items: "{{ centos_iptables_packages }}"
+
+
+- name: Set IPTables
+  shell: "systemctl enable iptables"

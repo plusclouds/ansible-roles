@@ -1,31 +1,78 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role is for sharing the local directory through samba.
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see defaults/main.yml):
+
+         share_name: foo-name                                   #Private paylasılacak dosya ismi/acıklaması
+         share_path: /foo/path                                  #Name/description of the directory to share.
+
+         samba_group_name: smbgrp
+         samba_users:
+         - name: 'fooplus'                                      #The name of the directory shared user.
+           smbpasswd: 'pass123'                                 #The password of the directory shared user.
+
+
+         client_ip: 10.8.0.254
+
+         readonly: true
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+To run this role, you need to have installed the samba software. If you are going to use Samba for the first time on your server, the playbook should look like this:
+
+     - hosts: samba-server
+       roles:
+         - plusclouds.samba.server
+         - plusclouds.samba.server.mount
+       vars:
+         - samba_group_name: denemegrup
+         - samba_users:
+           - name: 'denemeuser'                               #The name of the shared user.
+             smbpasswd: 'pass123'                             #The password of the shared user.
+         - share_name: deneme1                                #Directory to share.
+         - share_path: /home/deneme                           #Directory to mount.
+         - client_ip: 10.8.0.0                                #Sharing server ip address
+         - readonly: false                                    #The default parameter allows you to writable.
+                                                              #When the False parameter is received, the user is authorized to read the file.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+If you have already installed Samba software or you have run the plusclouds.samba.client role and you want to connect the disk to your server, the playbook should look like this:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+
+     - hosts: samba-server
+       roles:
+         - plusclouds.samba.server
+         - plusclouds.samba.server.adduser
+         - plusclouds.samba.server.mount
+         - plusclouds.samba.add.client.iptables.rule
+       vars:
+         - samba_group_name: denemegrup
+         - samba_users:
+           - name: 'denemeuser'                               #The name of the shared user.
+             smbpasswd: 'pass123'                             #The password of the shared user.
+         - share_name: deneme1                                #Directory to share.
+         - share_path: /home/deneme                           #Directory to mount.
+         - client_ip: 10.8.0.0                                #Sharing server ip address
+         - readonly: false                                    #The default parameter allows you to writable.
+                                                              #When the False parameter is received, the user is authorized to read the file.
+
+
+
 
 License
 -------
@@ -35,4 +82,8 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Emre Aydınsoy
+
+DevOps at PlusClouds
+
+emre.aydinsoy@plusclouds.com
