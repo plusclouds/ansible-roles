@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+    - plusclouds.clone-vm
+    - plusclouds.change.password
+  vars:
+    - username: "root"                     # Sifresi Degistirilecek Username
+    - password: "yeni_pass"                       # Yeni Sifre
