@@ -8,15 +8,15 @@
 - name: Create a new host
   local_action:
     module: zabbix_host
-    server_url: '{{ blitz_server_bilgileri.blitz_web_url }}'
-    login_user: '{{ blitz_user_bilgileri.blitz_user_name }}'
-    login_password: '{{ blitz_user_bilgileri.blitz_user_pass }}'
-    host_name: '{{ agent_bilgileri.agent_name }}'
-    visible_name: '{{ agent_bilgileri.agent_name }}'
+    server_url: '{{ blitz_host.web_url }}'
+    login_user: '{{ blitz_user.user_name }}'
+    login_password: '{{ blitz_user.user_pass }}'
+    host_name: '{{ agent_server.agent_name }}'
+    visible_name: '{{ agent_server.agent_name }}'
     host_groups: 
-      - '{{ agent_bilgileri.agent_host_groups }}'
+      - '{{ agent_server.host_groups }}'
     link_templates:
-      - '{{ agent_bilgileri.blitz_templates }}'
+      - '{{ blitz_templates }}'
     status: enabled
     state: present
     inventory_mode: automatic
@@ -24,6 +24,6 @@
       - type: 1
         main: 1
         useip: 1
-        ip: '{{ agent_bilgileri.agent_server_ip }}'
+        ip: '{{ agent_server.agent_server_ip }}'
         dns: ""
-        port: '{{ blitz_server_bilgileri.blitz_monitoring_server_port }}'
+        port: '{{ blitz_host.server_port }}'
