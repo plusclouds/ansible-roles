@@ -6,7 +6,7 @@
     headers:
       Authorization: "{{ user_token }}"
     body: "device=0&size={{ disk0_size }}&auto_attach={{ disk0_attached }}&storage_volume_ref={{ disk0_storage_volume }}"
-    status_code: 204
+    status_code: 201
   when: vm_data is success and disk0_exists == 1
 
 - name: Set Disk 1
@@ -16,7 +16,7 @@
     headers:
       Authorization: "{{ user_token }}"
     body: "device=1&size={{ disk1_size }}&auto_attach={{ disk1_attached }}&storage_volume_ref={{ disk1_storage_volume }}"
-    status_code: 204
+    status_code: 201
   when: vm_data is success and disk1_exists == 1
 
 - name: Set Disk 2
@@ -26,7 +26,7 @@
     headers:
       Authorization: "{{ user_token }}"
     body: "device=2&size={{ disk2_size }}&auto_attach={{ disk2_attached }}&storage_volume_ref={{ disk2_storage_volume }}"
-    status_code: 204
+    status_code: 201
   when: vm_data is success and disk2_exists == 1
 
 - name: Set Disk 3
@@ -36,5 +36,45 @@
     headers:
       Authorization: "{{ user_token }}"
     body: "device=3&size={{ disk3_size }}&auto_attach={{ disk3_attached }}&storage_volume_ref={{ disk3_storage_volume }}"
-    status_code: 204
+    status_code: 201
+  when: vm_data is success and disk3_exists == 1
+
+- name: Set Disk 4
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-disk
+    method: PUT
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "device=4&size={{ disk4_size }}&auto_attach={{ disk4_attached }}&storage_volume_ref={{ disk4_storage_volume }}"
+    status_code: 201
+  when: vm_data is success and disk3_exists == 1
+
+- name: Set Disk 5
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-disk
+    method: PUT
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "device=5&size={{ disk5_size }}&auto_attach={{ disk5_attached }}&storage_volume_ref={{ disk5_storage_volume }}"
+    status_code: 201
+  when: vm_data is success and disk3_exists == 1
+
+- name: Set Disk 6
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-disk
+    method: PUT
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "device=6&size={{ disk6_size }}&auto_attach={{ disk6_attached }}&storage_volume_ref={{ disk6_storage_volume }}"
+    status_code: 201
+  when: vm_data is success and disk3_exists == 1
+
+- name: Set Disk 7
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-disk
+    method: PUT
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "device=7&size={{ disk7_size }}&auto_attach={{ disk7_attached }}&storage_volume_ref={{ disk7_storage_volume }}"
+    status_code: 201
   when: vm_data is success and disk3_exists == 1

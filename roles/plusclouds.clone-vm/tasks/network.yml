@@ -1,15 +1,16 @@
 ---
-- name: Get Virtual Machine Data
+- name: Set Virtual Interface 0
   uri:
-    url: http://apiv2/v2/iaas/virtual-network-cards?virtualMachine={{ vm_data.json.data.id }}
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-network
     headers:
       Authorization: "{{ user_token }}"
+    body: "name=vif0&network_ref={{ vif0_network }}"
     return_content: yes
     status_code: 200
-  register: vm_network
-  when: vm_data is success
+  register: vif_network_0
+  when: vm_data is success and vif0_exists = 1
 
-- name: Post IP
+- name: Add new IP to VIF0
   uri:
     url: http://apiv2/v2/packetbender/ip
     method: POST
@@ -18,4 +19,4 @@
     body: "network_ref={{ item.network.data.id }}&virtual_network_card_ref={{ item.id }}&allow=1"
     status_code: 201
   loop: "{{ vm_network.json.data }}"
-  when: vm_network is success
+  when: vif_network_0 is success
