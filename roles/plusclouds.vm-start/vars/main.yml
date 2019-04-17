@@ -1,0 +1,4 @@
+---
+# vars file for plusclouds.vm-start
+vm_uuid: #VM UUID
+force: false # Force VM to start

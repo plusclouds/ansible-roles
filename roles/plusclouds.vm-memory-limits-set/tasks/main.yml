@@ -1,0 +1,15 @@
+---
+# tasks file for plusclouds.vm-memory-limits-set
+- name: Shutting down VM
+  shell: xe vm-shutdown uuid={{ vm_uuid }} force={{ force }}
+  args:
+    warn: True
+
+- name: Set VM Memory
+  shell: xe vm-memory-limits-set uuid={{ vm_uuid }} static-min={{ set_memory }}{{ size }} dynamic-min={{ set_memory }}{{ size }} dynamic-max={{ set_memory }}{{ size }} static-max={{ set_memory }}{{ size }} 
+  args:
+    warn: True
+
+- name: Starting VM
+  shell: xe vm-shutdown uuid={{ vm_uuid }} force={{ force }}
+    warn: True

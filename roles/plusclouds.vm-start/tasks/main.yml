@@ -1,0 +1,5 @@
+---
+# tasks file for plusclouds.vm-start
+- name: Starting VM
+  shell: xe vm-shutdown uuid={{ vm_uuid }} force={{ force }}
+    warn: True
