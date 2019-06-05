@@ -1,6 +1,12 @@
 ---
 # tasks file for plusclouds.nfs
 #include tasks
+
+- name: Setup Generic NFS Client
+  include_tasks: client-generic.yml
+  when: gather_facts == "no"
+
+
 - name: Setup Ubuntu 14.04 Nfs Client
   include_tasks: client-Ubuntu14.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
