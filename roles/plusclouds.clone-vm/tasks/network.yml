@@ -1,14 +1,15 @@
 ---
 - name: Set Virtual Interface 0
   uri:
-    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-network
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-network-card
+    method: PUT
     headers:
       Authorization: "{{ user_token }}"
-    body: "name=vif0&network_ref={{ vif0_network }}"
+    body: "name=vif0&network_ref={{ vif0_network }}&device=0"
     return_content: yes
     status_code: 200
   register: vif_network_0
-  when: vm_data is success and vif0_exists = 1
+  when: vm_data is success and vif0_exists == 1
 
 - name: Add new IP to VIF0
   uri:
@@ -18,5 +19,4 @@
       Authorization: "{{ user_token }}"
     body: "network_ref={{ item.network.data.id }}&virtual_network_card_ref={{ item.id }}&allow=1"
     status_code: 201
-  loop: "{{ vm_network.json.data }}"
   when: vif_network_0 is success
