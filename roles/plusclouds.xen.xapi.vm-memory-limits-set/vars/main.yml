@@ -1,0 +1,6 @@
+---
+# vars file for plusclouds.vm-memory-limits-set
+vm_uuid: #VM UUID
+force: false # Force VM to shutdown and start
+set_memory: 1024 #Set memory limits
+size: MiB #Set size GiB or MiB, default MiB

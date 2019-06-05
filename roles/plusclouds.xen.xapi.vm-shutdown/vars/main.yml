@@ -1,0 +1,4 @@
+---
+# vars file for plusclouds.vm-shutdown
+vm_uuid: #VM UUID
+force: false # Force VM to shutdown and start

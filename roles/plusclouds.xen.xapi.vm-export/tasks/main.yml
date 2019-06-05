@@ -1,0 +1,6 @@
+---
+# tasks file for plusclouds.vm-export
+- name: Exporting VM to Selected Path
+  shell: xe vm-export vm={{ vm_name }} filename={{ export_path }}.pvm
+  args:
+    warn: True

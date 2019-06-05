@@ -1,0 +1,11 @@
+---
+# tasks file for plusclouds.vm-destroy
+- name: Shutting down VM
+  shell: xe vm-shutdown uuid={{ vm_uuid }} force={{ force }}
+  args:
+    warn: True
+
+- name: Shutting down VM
+  shell: xe vm-destroy uuid={{ vm_uuid }}
+  args:
+    warn: True

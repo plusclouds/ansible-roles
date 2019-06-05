@@ -1,0 +1,4 @@
+---
+# vars file for plusclouds.vm-destroy
+vm_uuid: #VM uuid
+force: false #Force to shutdown vm

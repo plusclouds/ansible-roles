@@ -1,0 +1,7 @@
+---
+# tasks file for plusclouds.vm-shutdown
+# tasks file for plusclouds.vm-memory-limits-set
+- name: Shutting down VM
+  shell: xe vm-shutdown uuid={{ vm_uuid }} force={{ force }}
+  args:
+    warn: True

@@ -1,0 +1,4 @@
+---
+# defaults file for plusclouds.vm-export
+vm_name: ""
+export_path: ""
