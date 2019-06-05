@@ -2,23 +2,21 @@
 
 #Dizin kontrolü
 - name: "Check that {{ local_mount_path }} exist"
-  stat:
-    path: "{{ local_mount_path }}"
+  raw: "if [ -d "{{ local_mount_path }}" ]; then
+    echo "True"
+fi"
   register: public_dir_exists
 
-
-#Yukarıdaki dizin yok ise dizin create eder.
 - name: "Create {{ local_mount_path }} directory"
-  file:
-    state: directory
-    path: "{{ local_mount_path }}"
-    owner: root
-    group: root
-    mode: 0755
-    recurse: yes
-  when: public_dir_exists.stat.exists == False
+  raw: mkdir {{ local_mount_path }} -P
+  when: public_dir_exists == "True"
 
+- name: "Chmod {{ local_mount_path }} directory"
+  raw: chmod 0755 {{ local_mount_path }}
+
+- name: "Chown root / root {{ local_mount_path }}"
+  raw: chown root {{ local_mount_path }}
 
 #Paylasılan dizini, olusturulan dizine mount etme
 - name: set mountpoints
-  shell: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
+  raw: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
