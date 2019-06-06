@@ -1,0 +1,4 @@
+dn: ou=Policies,{{ ldap_suffix }}
+objectClass: top
+objectClass: organizationalUnit
+ou: Policies
