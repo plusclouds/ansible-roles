@@ -1,3 +1,4 @@
 ---
 local_share_path: /mnt/nfs
 client_ip: 10.8.0.254
+gather_facts: yes

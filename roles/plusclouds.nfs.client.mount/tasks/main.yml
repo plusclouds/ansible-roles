@@ -4,7 +4,10 @@
 
 - name: Setup Generic NFS Client
   include_tasks: client-generic.yml
-  when: gather_facts == "no"
+  when: gather_facts == False
+
+- meta: end_play
+  when: gather_facts == False
 
 
 - name: Setup Ubuntu 14.04 Nfs Client
