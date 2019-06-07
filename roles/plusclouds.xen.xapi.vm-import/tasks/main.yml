@@ -1,3 +1,3 @@
 ---
 - name: "Create {{ local_mount_path }} directory"
-  raw: xe vm-import filename={{ filename }}.pvm sr-uuid={{ sr_uuid }}
+  raw: xe vm-import filename={{ filename }} sr-uuid={{ sr_uuid }}
