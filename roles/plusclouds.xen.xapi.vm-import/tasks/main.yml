@@ -1,6 +1,3 @@
 ---
-# tasks file for plusclouds.vm-import
-- name: Exporting VM to Selected Path
-  shell: xe vm-import filename={{ filename }}.pvm sr-uuid={{ sr_uuid }}
-  args:
-    warn: True
+- name: "Create {{ local_mount_path }} directory"
+  raw: xe vm-import filename={{ filename }}.pvm sr-uuid={{ sr_uuid }}
