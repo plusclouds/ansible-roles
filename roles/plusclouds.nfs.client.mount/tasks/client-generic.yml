@@ -1,14 +1,6 @@
 ---
-
-#Dizin kontrolü
-- name: "Check that {{ local_mount_path }} exist"
-  raw: "if [ -d "{{ local_mount_path }}" ]; then
-    echo "True"
-fi"
-  register: public_dir_exists
-
 - name: "Create {{ local_mount_path }} directory"
-  raw: mkdir {{ local_mount_path }} -P
+  raw: mkdir {{ local_mount_path }} -p
   when: public_dir_exists == "True"
 
 - name: "Chmod {{ local_mount_path }} directory"
@@ -17,6 +9,5 @@ fi"
 - name: "Chown root / root {{ local_mount_path }}"
   raw: chown root {{ local_mount_path }}
 
-#Paylasılan dizini, olusturulan dizine mount etme
 - name: set mountpoints
   raw: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
