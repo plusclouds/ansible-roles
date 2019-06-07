@@ -1,8 +1,6 @@
 ---
 # tasks file for plusclouds.vm-import
 - name: Exporting VM to Selected Path
-  shell: xe vm-import filename={{ export_path }}.pvm sr-uuid={{ sr_uuid }}
+  shell: xe vm-import filename={{ filename }}.pvm sr-uuid={{ sr_uuid }}
   args:
     warn: True
-xe vm-import -h hostname -u root -pw password \
-filename=pathname_of_export_file sr-uuid=uuid_of_target_sr
