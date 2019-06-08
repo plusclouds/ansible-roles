@@ -1,0 +1,12 @@
+---
+- name: "Create {{ local_mount_path }} directory"
+  raw: mkdir {{ local_mount_path }} -p
+
+- name: "Chmod {{ local_mount_path }} directory"
+  raw: chmod 0755 {{ local_mount_path }}
+
+- name: "Chown root / root {{ local_mount_path }}"
+  raw: chown root {{ local_mount_path }}
+
+- name: set mountpoints
+  raw: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
