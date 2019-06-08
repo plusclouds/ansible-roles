@@ -1,7 +1,6 @@
 ---
 - name: "Create {{ local_mount_path }} directory"
   raw: mkdir {{ local_mount_path }} -p
-  when: public_dir_exists == "True"
 
 - name: "Chmod {{ local_mount_path }} directory"
   raw: chmod 0755 {{ local_mount_path }}
