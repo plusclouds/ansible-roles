@@ -10,6 +10,9 @@
   include_tasks: dhcp-Ubuntu16.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
 
+- name: Setup Ubuntu 16.04 dhcp Server
+  include_tasks: dhcp-Ubuntu16.04.yml
+  when: ansible_distribution == 'Debian'
 
 - name: Setup Ubuntu 18.04 dhcp Server
   include_tasks: dhcp-Ubuntu18.04.yml
@@ -24,3 +27,8 @@
 - name: Setup CentOS 7 dhcp Server
   include_tasks: dhcp-CentOS7.yml
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+- name: Copy the Customize subnet file
+  template:
+    src: mac.conf
+    dest: /etc/dhcp/dhcpd.conf

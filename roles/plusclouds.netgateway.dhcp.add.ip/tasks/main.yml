@@ -9,7 +9,10 @@
 - name: Setup Ubuntu 16.04 dhcp Server
   include_tasks: dhcp-Ubuntu16.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
-
+  
+- name: Setup Ubuntu 16.04 dhcp Server
+  include_tasks: dhcp-Ubuntu16.04.yml
+  when: ansible_distribution == 'Debian'
 
 - name: Setup Ubuntu 18.04 dhcp Server
   include_tasks: dhcp-Ubuntu18.04.yml

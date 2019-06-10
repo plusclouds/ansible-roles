@@ -2,12 +2,7 @@
 - name: Import Task File
   import_tasks: debian.yml
   when: ansible_os_family == 'Debian'
-
-- name: Remove default config
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-
+    
 - name: Nginx | Vhosts copy
   template: src=vhosts.j2 dest=/etc/nginx/sites-enabled/{{ item.name }}.conf
   with_items: "{{balancer_vhosts}}"
