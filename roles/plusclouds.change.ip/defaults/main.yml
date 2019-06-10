@@ -1,0 +1,7 @@
+---
+# defaults file for mightydok-winzabbixagent
+
+eth0: 10.4.0.0
+eth1: 10.8.0.0
+eth2: 
+dns_name_server: '8.8.8.8 8.8.4.4'
