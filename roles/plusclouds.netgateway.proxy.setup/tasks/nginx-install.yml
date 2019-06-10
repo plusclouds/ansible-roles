@@ -7,6 +7,10 @@
   include_tasks: ubuntu-16.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
 
+- name: Setup Ubuntu 16.04 nat Server
+  include_tasks: ubuntu-16.04.yml
+  when: ansible_distribution == 'Debian'
+
 - name: Include Ubuntu 18.04 installation
   include_tasks: ubuntu-18.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
