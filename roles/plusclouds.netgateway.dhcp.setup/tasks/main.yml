@@ -28,7 +28,7 @@
   include_tasks: dhcp-CentOS7.yml
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
-- name: Copy the Customize subnet file
+- name: Copy the dhcp configuration file
   template:
-    src: mac.conf
+    src: dhcp.conf
     dest: /etc/dhcp/dhcpd.conf
