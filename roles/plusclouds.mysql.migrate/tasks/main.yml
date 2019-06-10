@@ -1,0 +1,34 @@
+- name: create a backup
+  mysql_db:
+    name: "{{ src_database_name }}"
+    state: dump
+    target: "/home/{{ src_database_name }}.sql.gz"
+    login_host: "{{ src_database_host }}"
+    login_port: "{{ src_database_port }}"
+    login_user: "{{ src_database_user }}"
+    login_password: "{{ src_database_password }}"
+
+- name: Drop database
+  mysql_db:
+    name: "{{ src_database_name }}"
+    state: absent
+    login_host: "{{ dst_database_host }}"
+    login_port: "{{ dst_database_port }}"
+    login_user: "{{ dst_database_user }}"
+    login_password: "{{ dst_database_password }}"
+  when: force_drop_database
+
+- name: check if DB exists
+  shell: mysql --host={{ dst_database_host }} --user={{ dst_database_user }} --password={{ dst_database_password }} --port={{ dst_database_port }} -e 'SHOW DATABASES;' | grep -c {{ src_database_name }}
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Restore database
+  mysql_db:
+    name: "{{ src_database_name }}"
+    state: import
+    target: "/home/{{ src_database_name }}.sql.gz"
+    login_host: "{{ dst_database_host }}"
+    login_port: "{{ dst_database_port }}"
+    login_user: "{{ dst_database_user }}"
+    login_password: "{{ dst_database_password }}"

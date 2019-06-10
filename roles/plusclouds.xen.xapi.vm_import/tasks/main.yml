@@ -1,0 +1,4 @@
+---
+- name: "Create {{ local_mount_path }} directory"
+  raw: xe vm-import filename={{ filename }} sr-uuid={{ sr_uuid }}
+  register: vm
