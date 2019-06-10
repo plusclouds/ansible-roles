@@ -1,0 +1,7 @@
+---
+
+- name: Change old-hostname to {{ hostname }}
+  hostname:
+    name: "{{ hostname }}"
+
+
