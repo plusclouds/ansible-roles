@@ -1,0 +1,11 @@
+---
+
+- name: Linux Setup Hostname
+  include_tasks: linux.change.hostname.yml
+  when: ansible_os_family != "Windows"
+
+
+- name: Windows Setup Hostname
+  include_tasks: windows.change.hostname.yml
+  when: ansible_os_family == "Windows"
+
