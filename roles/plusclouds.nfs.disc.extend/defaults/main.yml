@@ -1,0 +1,10 @@
+---
+# defaults file for plusclouds.disc.extented
+
+client_ip: 10.8.1.1
+share_path: /home/SG/{{ client_ip }}
+sg_device_dir: "/SG"
+disc_infos:  #size=bs*count (ex. 1M*5120=5G)
+  - name: "{{ client_ip }}"
+    bs: 1M
+    count: 1024

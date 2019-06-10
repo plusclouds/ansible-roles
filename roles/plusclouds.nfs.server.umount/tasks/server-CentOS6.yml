@@ -1,13 +1,16 @@
 ---
 
 #Exports dosyasından paylaşılan ip'yi kaldırma
+
 - name: set nfs config file
   lineinfile:
     path: /etc/exports
-    regexp: "{{ share_path }}            {{ client_ip }}"
+    state: absent
+    regexp: "{{ share_path }}            {{ item }}"
     backup: yes
+  with_items:
+    - {{ client_ip }}
 
 
-#Nfs'yi reload etme
 - name: reload nfs server
   service: name=nfs-kernel-server state=reloaded

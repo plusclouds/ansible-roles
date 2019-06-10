@@ -1,0 +1,80 @@
+---
+
+#Export dosyasında genişletilecek dizini paylaşıma kapatma.
+- name: Set Export File
+  replace:
+    path: /etc/exports
+    regexp: '(.*{{ share_path }}*.)'
+    replace: '#\1'
+  with_items:
+     - "{{ share_path }}"
+
+#- name: replace line
+#  lineinfile:
+#    dest: /etc/exports
+#    regexp: '/home/SG/10.8.0.141            10.8.0.141(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    line: '#/home/SG/10.8.0.141            10.8.0.141(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    state: present
+
+
+#Servis yeniden başlatma
+- name: Reload Service NFS
+  service:
+    name: nfs-kernel-server
+    state: reloaded
+
+
+#Diski mount noktasından ayırma. Genişletme işlemi için gerekli.
+- name: Umount extented mountpoint.
+  shell: "umount  {{ share_path }}"
+
+
+#Disk imajını büyütme
+- name: Creating File Based Disc İmages
+  shell: 'dd if=/dev/zero bs={{ item.bs }} count={{ item.count }} >> {{ sg_device_dir }}/{{ item.name }}.img'
+  with_items:
+    - "{{ disc_infos }}"
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: set mountpoints
+  shell: "mount {{ sg_device_dir }}/{{ item.name }}.img    {{ share_path }}"
+  with_items:
+    - "{{ disc_infos }}"
+
+
+#Genişletilecek dizinin loop ismini bulma.
+- name: Find the loop device.
+  shell: "df -h | grep {{share_path}} | awk '{print $1}'"
+  register: find_device
+
+#Dizini genişletme işlemi.
+- name: Creating File Based Disc İmages
+  shell: 'resize2fs {{item}}'
+  with_items:
+      - "{{ find_device.stdout_lines}}"
+
+
+#- name: Set export file
+#  replace:
+#    path: /etc/exports
+#    regexp: '^#{{ item }}  {{ client_ip }}(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    replace: '{{ item }}    {{ client_ip }}(rw,no_root_squash,no_subtree_check,fsid=0)'
+#  with_items:
+#        - "{{share_path}}"
+
+
+#Export dosyasında paylaşıma kapatılmış dizini paylaşıma açma
+- name: Set export file
+  replace:
+    path: /etc/exports
+    regexp: '^#(.*{{item}}*.)'
+    replace: '\1'
+  with_items:
+     - "{{ share_path }}"
+
+#Servisi yeniden başlatma.
+- name: Reload service nfs
+  service:
+    name: nfs-kernel-server
+    state: reloaded

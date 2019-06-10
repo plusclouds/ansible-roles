@@ -1,6 +1,5 @@
 ---
 
-
 #Nfs Server Yazılımlarını Yükleme
 - name: Install nfs-server
   yum:
@@ -9,7 +8,6 @@
   with_items:
    - nfs-utils
    - libselinux-python
-
 
 - name: set firewalld
   shell: "firewall-cmd --permanent --zone=public --add-service=nfs"
@@ -20,11 +18,9 @@
 - name: set firewalld
   shell: "firewall-cmd --permanent --zone=public --add-service=rpc-bind"
 
-
 #Firewall ayarlarını yeniden yükleme
 - name: Bounce firewalld
   service: name=firewalld state=reloaded
-
 
 #Servisi yeniden başlatma
 - name: restart nfs server
