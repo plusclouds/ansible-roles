@@ -1,7 +1,10 @@
 ---
 # defaults file for plusclouds.nfs.client
 
-host_share_path: "/home/images" #Host tarafından paylaşılan olan dizin yolu
-host_ip: "93.94.254.233"    #host ip
-local_mount_path: "/mnt/images" #localde host tarafından paylaşılan dizin yolu. bu dizin ansible tarafından yaratılacak.
-gather_facts: no
+host_share_path: "/mnt/backup/xvdb" #Host tarafından paylaşılan olan dizin yolu
+
+
+host_ip: 10.8.1.173    #host ip
+
+
+local_mount_path: "/home/emre" #localde host tarafından paylaşılan dizin yolu. bu dizin ansible tarafından yaratılacak.

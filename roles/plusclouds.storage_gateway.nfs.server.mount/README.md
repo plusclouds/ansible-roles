@@ -1,31 +1,55 @@
-Role Name
+PlusClouds Share Path/Disc with NFS
 =========
 
-A brief description of the role goes here.
+This role is to enable directory sharing with NFS.
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+          local_share_path: "/mnt/nfs"      # The directory you want to share.
+
+          client_ip: "10.8.0.254"           # The client ip address to be directory-shared.      
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+To run this role, you need to have installed the NFS software. If you are going to use NFS for the first time on your server, the playbook should look like this:
+
+    - hosts: nfs-server
+      roles:
+          - plusclouds.nfs.server
+          - plusclouds.nfs.server.mount
+      vars:
+          - client_ip: "10.8.0.254"           # The client ip address to be directory-shared.
+          - local_share_path: "/mnt/nfs"      # The directory you want to share.
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+If you have already installed the NFS software, or if you runned the plusclouds.nfs.server role and want to share your disk, the playbook should look like this:
 
-    - hosts: servers
+
+
+    - hosts: nfs-server
       roles:
-         - { role: username.rolename, x: 42 }
+          - plusclouds.nfs.server.mount
+      vars:
+          - client_ip: "10.8.0.254"           # The client ip address to be directory-shared.
+          - local_share_path: "/mnt/nfs"      # The directory you want to share.
+
+
+
+
+
 
 License
 -------
@@ -35,4 +59,8 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Emre Aydınsoy
+
+DevOps at PlusClouds
+
+emre.aydinsoy@plusclouds.com
