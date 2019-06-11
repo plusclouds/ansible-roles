@@ -1,7 +1,7 @@
 ---
-# defaults file for plusclouds.netgateway.dhcp
+# defaults file for plusclouds.netgateway.iptables
 
-ubuntu_dhcp_packages:
+ubuntu_iptables_packages:
   - iptables
   - iptables-persistent
-centos_dhcp_packages: itpables-services
+centos_iptables_packages: iptables-services
