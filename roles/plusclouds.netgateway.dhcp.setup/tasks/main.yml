@@ -31,4 +31,9 @@
 - name: Copy the Customize subnet file
   template:
     src: mac.conf
+    dest: /etc/dhcp/mac.conf
+
+- name: Copy the Customize dhcpd file
+  template:
+    src: dhcpd.conf
     dest: /etc/dhcp/dhcpd.conf
