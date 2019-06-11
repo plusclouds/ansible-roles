@@ -1,10 +1,8 @@
 ---
 # tasks file for plusclouds.dhcp
-#include tasks
 - name: Setup Ubuntu 14.04 dhcp Server
   include_tasks: dhcp-Ubuntu14.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
-
 
 - name: Setup Ubuntu 16.04 dhcp Server
   include_tasks: dhcp-Ubuntu16.04.yml

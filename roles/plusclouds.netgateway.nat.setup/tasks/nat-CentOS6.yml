@@ -1,7 +1,7 @@
 ---
 
-#Plusclouds netgateway dhcp setup
-- name: Install Isc-DHCP Packages
+#Plusclouds netgateway iptables setup
+- name: Install iptables
   yum:
     name: "{{ item }}"
     state: "present"

@@ -30,5 +30,10 @@
 
 - name: Copy the dhcp configuration file
   template:
-    src: dhcp.conf
+    src: mac.conf
+    dest: /etc/dhcp/mac.conf
+
+- name: Copy the Customize dhcpd file
+  template:
+    src: dhcpd.conf
     dest: /etc/dhcp/dhcpd.conf
