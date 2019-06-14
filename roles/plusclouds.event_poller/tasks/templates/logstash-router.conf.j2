@@ -1,0 +1,24 @@
+#Port playbook oynatilmadan once 1 arttirilmalidir.
+input {
+  lumberjack {
+        codec => "json"
+        port => "5002"
+        ssl_certificate => "/etc/logstash/conf.d/lumberjack.cert"
+        ssl_key => "/etc/logstash/conf.d/lumberjack.key"
+    }
+}
+
+
+output {
+    if "{{host_ip}}" == [type] {
+      file {
+          path => "/var/log/logstash/{{host_ip}}.log"
+          codec => line {
+                    format => "%{read_timestamp} tarihinde %{[nginx][access][remote_ip]} ip'den %{[nginx][access][method]} methodu ile istek atilmis ve %{[nginx][access][response_code]} alinmistir."}
+      }
+ elasticsearch{
+       hosts => "10.8.1.208:9200"
+       index => "{{host_ip}}"
+  }
+ }
+}
