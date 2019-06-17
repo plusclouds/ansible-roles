@@ -1,0 +1,6 @@
+---
+
+- name: configure parser logstash
+  template:
+    src: logstash-parser.conf.j2
+    dest: /etc/logstash/conf.d/{{host_ip}}.conf

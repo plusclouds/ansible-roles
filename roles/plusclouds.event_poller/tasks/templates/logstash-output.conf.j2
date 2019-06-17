@@ -1,0 +1,14 @@
+output {
+        stdout {
+                codec => rubydebug
+        } 
+        http { 
+                url => "http://10.100.0.25/v2/events/logs"
+                http_method => post
+                format => form
+
+        }
+file {
+  path => "/var/log/logstash/debug.log"
+}
+}

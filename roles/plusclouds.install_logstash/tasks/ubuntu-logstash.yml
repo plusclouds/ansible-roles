@@ -1,0 +1,51 @@
+---
+
+
+- name: Update and upgrade apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+
+- name: install add-apt-repository
+  apt: name=software-properties-common state=latest
+
+- name: install add-apt-repository
+  apt: name=apt-transport-https state=latest
+
+
+
+
+- name: Add Elasticsearch apt key.
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Elasticsearch repository.
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+    state: present
+    update_cache: yes
+
+
+- name: Update apt packages
+  apt:
+    update_cache: yes
+
+- name: Install Logstash.
+  apt: pkg=logstash state=present
+
+
+- name: Sed Params
+  shell: "sed -i 's/#-Xms1g/-Xms512m/' /etc/logstash/jvm.options"
+
+- name: Sed Params
+  shell: "sed -i 's/#config.reload.automatic: false/config.reload.automatic: true/' /etc/logstash/logstash.yml"
+
+- name: Sed Params
+  shell: "sed -i 's/#config.reload.interval: 3s/config.reload.interval: 30s/' /etc/logstash/logstash.yml"
+
+
+
+

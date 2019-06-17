@@ -1,0 +1,6 @@
+---
+# handlers file for installlogstash
+
+
+- name: restart logstash
+  service: name=logstash state=restarted

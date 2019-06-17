@@ -1,0 +1,7 @@
+---
+# handlers file for big-data
+
+- name: restart logstash
+  service:
+      name: "logstash"
+      state: restarted
