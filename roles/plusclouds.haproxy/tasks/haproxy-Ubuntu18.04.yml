@@ -1,0 +1,27 @@
+---
+#Ubuntu 16.04 Haproxy Tasks
+
+#Repo update etme
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+
+
+- name: Install HaProxy Server
+  apt:
+    name: {{ item }}
+    state: present
+  with_items:
+    - haproxy
+
+
+- name: Copy HaProxy Configration in /etc/haproxy destination
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart HaProxy
+
+
+  - name: Ensure HAProxy is started and enabled on boot.
+  service: name=haproxy state=started enabled=yes

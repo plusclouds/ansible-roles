@@ -1,0 +1,30 @@
+---
+# tasks file for plusclouds.haproxy
+
+- name: Setup Ubuntu 14.04 haproxy Server
+  include_tasks: haproxy-Ubuntu14.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+
+- name: Setup Ubuntu 16.04 haproxy Server
+  include_tasks: haproxy-Ubuntu16.04.yml
+#  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+
+- name: Setup Ubuntu 18.04 haproxy Server
+  include_tasks: haproxy-Ubuntu18.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+
+- name: Setup CentOS 6 haproxy Server
+  include_tasks: haproxy-centOS6.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
+
+
+- name: Setup CentOS 7 haproxy Server
+  include_tasks: haproxy-centOS7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+- name: Setup Debian haproxy Server
+  include_tasks: haproxy-debian.yml
+  when: ansible_distribution == 'Debian'

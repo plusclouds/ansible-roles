@@ -1,0 +1,10 @@
+---
+
+- hosts: nfs-server
+  roles:
+    - plusclouds.nfs.server
+    - plusclouds.nfs.server.mount
+    - plusclouds.nfs.add.client.iptables.rule
+  vars:
+    - client_ip: '10.8.0.0'                         #Client ip
+    - local_share_path: '/plusclouds/nfs-foo'       #Paylaşılacak olan dizin
