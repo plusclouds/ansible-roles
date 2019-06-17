@@ -1,0 +1,9 @@
+---
+# tasks file for installlogstash
+
+- include: java.yml
+- include: ubuntu-logstash.yml
+
+
+- name: Start Logstsah
+  service: name=logstash state=started enabled=yes

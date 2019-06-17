@@ -1,5 +1,9 @@
 subnet {{ subnet }} netmask {{ netmask }} {
 
-  range {{ start_ip_range }} {{ finis_ip_range }};
+  range {{ start_ip_range }} {{ finish_ip_range }};
+  option broadcast-address {{ broadcast_address }};
+  option routers {{ routers_address }};
+  option domain-name-servers {{ domain_name_servers }};
+  option domain-name "{{ domain_name }}";
 
 }

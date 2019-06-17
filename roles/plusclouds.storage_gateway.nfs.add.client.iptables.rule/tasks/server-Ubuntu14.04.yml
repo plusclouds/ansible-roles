@@ -1,0 +1,37 @@
+---
+
+- name: Set IPTables
+  shell: "iptables -I INPUT -p tcp -s {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 111
+      - 1039
+      - 1047
+      - 1048
+      - 2049
+
+- name: Set IPTables
+  shell: "iptables -I OUTPUT -p tcp -d {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 111
+      - 1039
+      - 1047
+      - 1048
+      - 2049
+
+- name: Set IPTables
+  shell: "iptables -I INPUT -p udp -s {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 111
+      - 1039
+      - 1047
+      - 1048
+      - 2049
+
+- name: Set IPTables
+  shell: "iptables -I OUTPUT -p udp -d {{ client_ip }} --dport {{ item }} -j ACCEPT"
+  with_items:
+      - 111
+      - 1039
+      - 1047
+      - 1048
+      - 2049

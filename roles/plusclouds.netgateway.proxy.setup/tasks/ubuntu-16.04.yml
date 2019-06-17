@@ -1,16 +1,4 @@
 ---
-- name: add nginx apt-key
-  apt_key:
-    url: http://nginx.org/keys/nginx_signing.key
-    state: present
-
-- name: add nginx apt repository
-  apt_repository:
-    repo: 'deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx'
-    state: present
-    filename: nginx
-    update_cache: yes
-
 - name: install nginx
   apt:
     name: nginx

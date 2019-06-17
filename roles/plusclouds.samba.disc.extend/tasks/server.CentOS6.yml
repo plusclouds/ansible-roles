@@ -1,0 +1,76 @@
+---
+
+- name: Set export file
+  replace:
+    path: /etc/exports
+    regexp: 'include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+    replace: '#\1'
+  with_items:
+     - "{{ share_path }}"
+
+#- name: replace line
+#  lineinfile:
+#    dest: /etc/exports
+#    regexp: '/home/SG/10.8.0.141            10.8.0.141(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    line: '#/home/SG/10.8.0.141            10.8.0.141(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    state: present
+
+- name: Reload service nfs
+  service:
+    name: samba
+    state: reloaded
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: Umount extented mountpoint
+  shell: "umount  {{ share_path }}"
+
+#Disk imajını büyütme
+- name: Creating File Based Disc İmages
+  shell: 'dd if=/dev/zero bs={{ item.bs }} count={{ item.count }} >> {{ sg_device_dir }}/{{ item.name }}.img'
+  with_items:
+    - "{{ disc_infos }}"
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: set mountpoints
+  shell: "mount {{ sg_device_dir }}/{{ item.name }}.img    {{ share_path }}"
+  with_items:
+    - "{{ disc_infos }}"
+
+
+- name: Umount extented mountpoint
+  shell: "df -h | grep {{share_path}} | awk '{print $1}'"
+  register: find_device
+
+
+- name: Creating File Based Disc İmages
+  shell: 'resize2fs {{item}}'
+  with_items:
+      - "{{ find_device.stdout_lines}}"
+
+
+
+
+#- name: Set export file
+#  replace:
+#    path: /etc/exports
+#    regexp: '^#{{ item }}  {{ client_ip }}(rw,no_root_squash,no_subtree_check,fsid=0)'
+#    replace: '{{ item }}    {{ client_ip }}(rw,no_root_squash,no_subtree_check,fsid=0)'
+#  with_items:
+#        - "{{share_path}}"
+
+
+- name: Set export file
+  replace:
+    path: /etc/exports
+    regexp: '#include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+    replace: '\1'
+  with_items:
+     - "{{ share_path }}"
+
+
+- name: Reload service nfs
+  service:
+    name: samba
+    state: reloaded

@@ -1,0 +1,74 @@
+---
+
+- name: Set export file
+  replace:
+    path: /etc/samba/smb.conf
+    regexp: 'include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+    replace: '#include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+
+- debug:
+    msg: 'include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+
+- name: Reload service nfs
+  service:
+    name: smbd
+    state: restarted
+
+
+
+- name: Reload service nfs
+  service:
+    name: nmbd 
+    state: restarted
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: Umount extented mountpoint
+  shell: "umount  {{ share_path }}"
+
+#Disk imajını büyütme
+- name: Creating File Based Disc İmages
+  shell: 'dd if=/dev/zero bs={{ item.bs }} count={{ item.count }} >> {{ sg_device_dir }}/{{ item.name }}.img'
+  with_items:
+    - "{{ disc_infos }}"
+
+
+#Paylasılan dizini, olusturulan dizine mount etme
+- name: set mountpoints
+  shell: "mount {{ sg_device_dir }}/{{ item.name }}.img    {{ share_path }}"
+  with_items:
+    - "{{ disc_infos }}"
+
+
+- name: Umount extented mountpoint
+  shell: "df -h | grep {{share_path}} | awk '{print $1}'"
+  register: find_device
+
+
+- name: Creating File Based Disc İmages
+  shell: 'resize2fs {{item}}'
+  with_items:
+      - "{{ find_device.stdout_lines}}"
+
+
+
+- name: Set export file
+  replace:
+    path: /etc/samba/smb.conf
+    regexp: '#include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+    replace: 'include = /etc/samba/{{share_name}}-{{ client_ip }}.conf'
+
+
+
+
+- name: Reload service nfs
+  service:
+    name: smbd
+    state: restarted
+
+- name: Reload service nfs
+  service:
+    name: nmbd 
+    state: restarted
+
+

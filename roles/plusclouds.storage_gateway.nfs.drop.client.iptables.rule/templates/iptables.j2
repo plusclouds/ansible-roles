@@ -1,0 +1,39 @@
+
+#!/bin/bash
+iptables -F
+#22, 80 ve 443 port gelen istekleri kabul et
+iptables -A INPUT -i eth2 -p tcp -m tcp -m multiport --dports 22,80,443 -j ACCEPT
+iptables -A INPUT -i eth1 -p tcp -m tcp -m multiport --dports 22,80,443 -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp -m tcp -m multiport --dports 22,80,443 -j ACCEPT
+# DNS paketlerinin gecmesine izin ver
+iptables -A OUTPUT -p udp -d 8.8.4.4 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p udp -s 8.8.4.4 --sport 53 -m state --state ESTABLISHED -j ACCEPT
+
+#Ip adresine izin ver
+iptables -A OUTPUT -o eth1 -d {{ client_ip }} -j ACCEPT
+iptables -A OUTPUT -o eth1 -d {{ client_ip }} -j ACCEPT
+iptables -A INPUT -i eth1 -s {{ client_ip }} -j ACCEPT
+iptables -A INPUT -i eth1 -s {{ client_ip }} -j ACCEPT
+
+# apt kaynaklarina izin ver
+iptables -A OUTPUT -o eth2 -d tr.archive.ubuntu.com -j ACCEPT
+iptables -A OUTPUT -o eth2 -d security.ubuntu.com -j ACCEPT
+
+# Açıcilmis olan baglandtilari surdur
+iptables -A INPUT -m conntrack -j ACCEPT  --ctstate RELATED,ESTABLISHED
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# iceri yondeki geri kalan herseyi reddet
+iptables -A INPUT -i eth0 -j DROP
+iptables -A INPUT -i eth1 -j DROP
+iptables -A INPUT -i eth2 -j DROP
+
+# disari yondeki geri kalan herseyi reddet
+iptables -A OUTPUT -o eth0 -j DROP
+iptables -A OUTPUT -o eth1 -j DROP
+iptables -A OUTPUT -o eth2 -j DROP
+
+# yonlendirme yonundeki geri kalan herseyi reddet
+iptables -A FORWARD -j DROP

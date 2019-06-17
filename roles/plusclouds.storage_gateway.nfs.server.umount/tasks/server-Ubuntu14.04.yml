@@ -6,9 +6,10 @@
   lineinfile:
     path: /etc/exports
     state: absent
-    regexp: "{{ share_path }}            {{ client_ip }}"
+    regexp: "{{ share_path }}            {{ item }}"
     backup: yes
-
+  with_items:
+    - {{ client_ip }}
 
 
 - name: reload nfs server

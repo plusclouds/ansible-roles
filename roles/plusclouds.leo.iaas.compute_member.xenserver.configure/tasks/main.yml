@@ -1,0 +1,19 @@
+---
+# tasks file for plusclouds.leo.iaas.compute_member.xenserver.configure
+- name: create scripts
+  raw: wget http://10.100.0.25/deployment/checkLogScript_sh -O /home/checkLogScript.sh
+
+- name: create scripts
+  raw: wget http://10.100.0.25/deployment/vnc-port_sh -O /home/vnc-port.sh
+
+- name: create scripts
+  raw: wget http://10.100.0.25/deployment/watch-all-events_py -O /root/watch-all-events.py
+
+- name: chmod scripts
+  raw: chmod +x /home/checkLogScript.sh
+
+- name: chmod scripts
+  raw: chmod +x /home/vnc-port.sh
+
+- name: chmod scripts
+  raw: chmod +x /root/watch-all-events.py

@@ -6,5 +6,5 @@
   lineinfile:
     path: /etc/dhcp/dhcpd.conf
     state: absent
-    regexp: 'include "/etc/dhcp/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
+    regexp: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
     backup: yes

@@ -1,17 +1,16 @@
----
-
-#Plusclouds netgateway dhcp add subnet
+- name: Creates directory
+  file: path=/etc/dhcp/subnets state=directory
 
 - name: Copy the Customize subnet file
   template:
     src: dhcpd.conf.j2
-    dest: /etc/dhcp/{{start_ip_range}}-{{ finish_ip_range }}.conf
+    dest: /etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf
 
 
 - name: Set dhcp config file
   lineinfile:
     path: /etc/dhcp/dhcpd.conf
-    line: 'include "/etc/dhcp/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
+    line: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
     backup: yes
 
 

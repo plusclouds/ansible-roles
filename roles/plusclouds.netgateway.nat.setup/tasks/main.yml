@@ -1,29 +1,29 @@
 ---
-# tasks file for plusclouds.dhcp
+# tasks file for plusclouds.iptables
 #include tasks
-- name: Setup Ubuntu 14.04 dhcp Server
-  include_tasks: dhcp-Ubuntu14.04.yml
+- name: Setup Ubuntu 14.04 nat Server
+  include_tasks: nat-Ubuntu14.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
 
-- name: Setup Ubuntu 16.04 dhcp Server
-  include_tasks: dhcp-Ubuntu16.04.yml
+- name: Setup Ubuntu 16.04 nat Server
+  include_tasks: nat-Ubuntu16.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
   
 - name: Setup Ubuntu 16.04 nat Server
   include_tasks: nat-Ubuntu16.04.yml
   when: ansible_distribution == 'Debian'
 
-- name: Setup Ubuntu 18.04 dhcp Server
-  include_tasks: dhcp-Ubuntu18.04.yml
+- name: Setup Ubuntu 18.04 nat Server
+  include_tasks: nat-Ubuntu18.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
 
-- name: Setup CentOS 6 dhcp Server
-  include_tasks: dhcp-CentOS6.yml
+- name: Setup CentOS 6 nat Server
+  include_tasks: nat-CentOS6.yml
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
 
 
-- name: Setup CentOS 7 dhcp Server
-  include_tasks: dhcp-CentOS7.yml
+- name: Setup CentOS 7 nat Server
+  include_tasks: nat-CentOS7.yml
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
