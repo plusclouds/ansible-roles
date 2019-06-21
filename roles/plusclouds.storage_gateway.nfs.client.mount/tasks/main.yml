@@ -1,6 +1,10 @@
 ---
 # tasks file for plusclouds.nfs
 #include tasks
+- name: Setup XenServer
+  include_tasks: client-generic.yml
+  when: gather_fatcs == 'no'
+
 - name: Setup Ubuntu 14.04 Nfs Server
   include_tasks: client-Ubuntu14.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
