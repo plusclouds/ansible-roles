@@ -3,7 +3,7 @@
 #include tasks
 - name: Setup XenServer
   include_tasks: client-generic.yml
-  when: gather_facts == no
+  when: gather_facts == 'no'
 
 - name: Setup Ubuntu 14.04 Nfs Server
   include_tasks: client-Ubuntu14.04.yml
