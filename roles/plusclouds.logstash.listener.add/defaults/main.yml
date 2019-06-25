@@ -1,0 +1,5 @@
+---
+# defaults file for event-poller
+incoming_ip: 10.100.0.099
+log_type: XenServer 
+listen_port: 8890

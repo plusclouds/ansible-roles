@@ -1,0 +1,23 @@
+input {
+        http {
+                host => "0.0.0.0"
+                port => {{ listen_port }}
+        }
+}
+
+filter {
+        mutate {
+                add_field => {
+                        "source" => "%{[headers][x_real_ip]}"
+                        "type" => "XenServer"
+                }
+                remove_field => ["host", "port"]
+                rename => {"message" => "event"}
+        }
+          if [source] == "{{ incoming_ip }}" {
+                mutate {
+                        replace => { "type" => "{{ log_type }}" }
+                }
+        }
+}
+
