@@ -1,0 +1,21 @@
+---
+# tasks file for plusclouds.ssl.csr.create
+- name: install pip
+  shell: "apt install -y python-pip"
+
+- name: install pip
+  shell: "pip install pyopenssl"
+
+- name: Generate an OpenSSL private key with a different size (2048 bits)
+  openssl_privatekey:
+    path: "{{ privatekey_path }}"
+    size: 2048
+
+- name: Generate an OpenSSL Certificate Signing Request with Subject information
+  openssl_csr:
+    path: "{{ path }}"
+    privatekey_path: "{{ privatekey_path }}"
+    country_name: "{{ country_name }}"
+    organization_name: "{{ organization_name }}"
+    email_address: "{{ email_address }}"
+    common_name: "{{ common_name }}"
