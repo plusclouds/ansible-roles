@@ -1,0 +1,5 @@
+---
+# tasks file for plusclouds.zabbix.agent.reconfigure
+- name: Copy config zabbix-agentd.conf 
+  template: src=zabbix_agentd.conf.j2 dest={{ config_path }}
+  notify: restart zabbix-agent
