@@ -1,0 +1,8 @@
+---
+# tasks file for plusclouds.database.mysql.database.drop
+- name: Delete database 
+  mysql_db:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ database_name }}"
+    state: absent
