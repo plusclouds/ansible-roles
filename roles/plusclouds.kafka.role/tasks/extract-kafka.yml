@@ -1,0 +1,3 @@
+---
+- name: Extract Apache Kafka.
+  unarchive: src=/root/kafka_2.12-2.3.0.tgz dest=/usr/local copy=no

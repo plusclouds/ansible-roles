@@ -1,0 +1,5 @@
+---
+- name: Start Apache Zookeeper server.
+  shell: /usr/local/kafka_2.12-2.3.0/bin/zookeeper-server-start.sh /usr/local/kafka_2.12-2.3.0/config/zookeeper.properties
+  async: 31536000
+  poll: 0
