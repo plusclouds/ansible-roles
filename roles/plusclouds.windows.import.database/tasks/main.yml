@@ -1,0 +1,13 @@
+---
+# tasks file for plusclouds.windows
+
+- name: Create MsSQL Database Create
+  mssql_db:
+    name: '{{ db_name }}'
+    state: import
+    login_host: '{{ login_ip }}'
+    login_user: '{{ login_user }}'
+    login_password: '{{ login_password }}'
+    login_port: '{{ login_port }}'
+    target: '{{ path }}'
+  delegate_to: 127.0.0.1
