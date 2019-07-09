@@ -1,0 +1,7 @@
+---
+# defaults file for plusclouds.windows
+db_name: PlusClouds-TestDB
+login_ip: 10.8.0.100
+login_user: Test
+login_password: 12345
+login_port: 1433
