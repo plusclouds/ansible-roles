@@ -1,0 +1,5 @@
+---
+# tasks file for plusclouds.vm-copy
+
+- name: copy vm to selected sr
+  raw: xe vm-copy vm={{ vm_name }} sr-uuid={{ sr_uuid }} new-name-label={{ new_server_name }} new-name-description={{ new_server_description }}

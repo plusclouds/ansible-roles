@@ -1,0 +1,7 @@
+---
+# defaults file for plusclouds.datebase.mysql.user.add
+user_name: "demo"
+user_password: "teset213"
+user_privileges: "*.*:ALL"
+user_host: localhost
+mysql_root_password: hebelehubele

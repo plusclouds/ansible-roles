@@ -1,0 +1,11 @@
+---
+# defaults file for plusclouds.zabbix.agent.reconfigure
+config_path: "/etc/zabbix/zabbix_agentd.conf"
+pidfile_path: "/var/run/zabbix/zabbix_agentd.pid"
+logfile_path: "/var/log/zabbix/zabbix_agentd.log"
+logfile_size: "0"
+zabbix_server: "ip_address"
+zabbix_server_active: "ip_address"
+zabbix_agent_hostname: "agent-demo"
+include_config_path: "/etc/zabbix/zabbix_agentd.d/"
+allow_unsafe_paramaters: "1"

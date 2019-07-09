@@ -1,0 +1,5 @@
+---
+# defaults file for plusclouds.datebase.mysql.database.add
+mysql_root_user: "" #mysql root user name
+mysql_root_password: "" #mysql root şifresi
+database_name: ""

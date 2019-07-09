@@ -1,0 +1,4 @@
+---
+# handlers file for plusclouds.zabbix.agent.reconfigure
+- name: restart zabbix-agent
+  service: name=zabbix-agent state=restarted

@@ -1,0 +1,3 @@
+---
+# defaults file for plusclouds.apt.clear.cache
+dry_run: "no"
