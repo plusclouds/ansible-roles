@@ -1,0 +1,5 @@
+---
+# defaults file for plusclouds.database.mysql.database.drop
+mysql_root_user: ""
+mysql_root_password: ""
+database_name: "" #Db_name which is gonna be deleted

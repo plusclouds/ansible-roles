@@ -1,0 +1,20 @@
+---
+- hosts: test_nodes
+  tasks:	 
+  - include: kafka-topic/tasks/java-install.yml
+  - include: kafka-topic/tasks/python-install.yml
+  - include: kafka-topic/tasks/download-kafka.yml
+  - include: kafka-topic/tasks/get-hostname.yml
+  - include: kafka-topic/tasks/extract-kafka.yml
+  - include: kafka-topic/tasks/softlink-kafka.yml
+  - include: kafka-topic/tasks/configure-kafka.yml
+  - include: kafka-topic/tasks/start-zookeper-server.yml
+  - include: kafka-topic/tasks/wait-for-zookeper.yml
+  - include: kafka-topic/tasks/start-kafka-server.yml
+  - include: kafka-topic/tasks/wait-for-kafka.yml
+  - include: kafka-topic/tasks/create-topic.yml
+  #- include: kafka-topic/tasks/delete-topic.yml
+  vars:
+  - input_topic_name: test-input
+  - output_topic_name: test-output
+  #- delete_this_topic: test_input 

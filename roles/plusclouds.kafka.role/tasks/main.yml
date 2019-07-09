@@ -1,0 +1,16 @@
+---
+- name: import task
+  include_tasks: "{{ item }}"
+  with_items:
+  - java-install.yml
+  - python-install.yml
+  - download-kafka.yml
+  - extract-kafka.yml
+  - softlink-kafka.yml
+  - configure-kafka.yml
+  - start-zookeper-server.yml
+  - wait-for-zookeper.yml
+  - start-kafka-server.yml
+  - wait-for-kafka.yml
+  - create-topic.yml
+  
