@@ -1,0 +1,8 @@
+---
+# defaults file for plusclouds.ssl.csr.create
+path: "/home/plusclouds.com.csr"
+privatekey_path: "/home/plusclouds.com.key"
+country_name: "TR"
+organization_name: "plusclouds"
+email_address: "info@plusclouds.com"
+common_name: "demo.com"

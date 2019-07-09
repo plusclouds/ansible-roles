@@ -1,0 +1,9 @@
+---
+# tasks file for plusclouds.apt.clear.cache
+- name: Dry Run Apt Clean cache
+  shell: apt-get autoclean --dry-run
+  when: dry_run == 'yes'
+
+- name: Apt Clean cache
+  shell: apt-get autoclean -y
+  when: dry_run == 'no'

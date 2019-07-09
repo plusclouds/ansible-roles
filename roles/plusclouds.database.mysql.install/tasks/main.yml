@@ -1,0 +1,28 @@
+---
+# tasks file for plusclouds.datebase.mysql.install
+- name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - curl
+    - software-properties-common
+    - python-pycurl
+    - python-mysqldb
+    - perl-modules
+    - python-software-properties
+
+- name: Install MYsql Server and Client
+  apt: pkg={{ item }} state=present update_cache=yes force=yes
+  with_items:
+    - mysql-server
+    - mysql-client
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_password }}
+  when: ansible_hostname != 'localhost'
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost

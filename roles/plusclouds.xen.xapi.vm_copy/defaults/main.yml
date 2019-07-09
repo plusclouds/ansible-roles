@@ -1,0 +1,6 @@
+---
+# defaults file for plusclouds.vm-copy
+vm_name: ""
+sr_uuid: ""
+new_server_name: ""
+new_server_description: ""
