@@ -1,0 +1,13 @@
+---
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest update_cache=yes
+
+- name: Accept Java 11 License
+  debconf: name='oracle-java11-installer' question='shared/accepted-oracle-license-v1-2' value='true' vtype='select'
+
+- name: Install Oracle Java 11
+  apt: name={{item}} state=latest
+  with_items:
+    - oracle-java11-installer
+    - ca-certificates
+    - oracle-java11-set-default

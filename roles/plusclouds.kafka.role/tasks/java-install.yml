@@ -1,0 +1,37 @@
+---
+  - name: repo update
+    apt:
+      update_cache: yes
+
+  - name: Install add-apt-repostory
+    apt: name=software-properties-common state=latest
+  - name: Install dirmng
+    apt: name=dirmngr state=latest
+
+  - name: Add an apt key by id from a keyserver
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: EA8CACC073C3DB2A
+
+  - name: Add Repo java11
+    shell: echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" | tee /etc/apt/sources.list.d/linuxuprising-java.list
+
+  - name: update cache and ignore errors in case of problems
+    apt: update_cache=yes
+    ignore_errors: yes
+
+
+  - name: debian | set license as accepted
+    debconf:
+      name="oracle-java12-installer"
+      question="shared/accepted-oracle-license-v1-2"
+      value='true'
+      vtype='select'
+
+  - name: Install Oracle Java 11
+    apt: name=oracle-java12-installer state=latest
+  - name: Install Oracle Java 11
+    apt: name=oracle-java12-set-default state=latest
+
+
+

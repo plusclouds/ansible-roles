@@ -1,0 +1,9 @@
+---
+# tasks file for plusclouds.database.mysql.user.del
+- name: Delete user 
+  mysql_user:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ user_name }}"
+    host_all: yes
+    state: absent

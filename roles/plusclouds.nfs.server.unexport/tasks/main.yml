@@ -1,0 +1,4 @@
+---
+# tasks file for plusclouds.nfs.server.unexport
+- name: umount NFS
+  raw: umount {{ mount_path }} -f

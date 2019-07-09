@@ -1,0 +1,3 @@
+- name: Configuration copy to Kafka
+  become: false
+  template: src=server-properties.j2 dest=/usr/local/kafka_2.12-2.3.0/config/server.properties

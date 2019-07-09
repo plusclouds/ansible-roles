@@ -1,0 +1,5 @@
+---
+- name: install unzip
+  shell: apt install unzip -y
+- name: Download Apache Kafka.
+  get_url: url=http://ftp.itu.edu.tr/Mirror/Apache/kafka/2.3.0/kafka_2.12-2.3.0.tgz dest=/root/kafka_2.12-2.3.0.tgz
