@@ -2,4 +2,4 @@
 # defaults file for plusclouds.vm-import
 filename: ""
 sr_uuid: ""
-gather_facts: no
+gather_facts: 0

@@ -3,10 +3,10 @@
 #include tasks
 - name: Setup Generic
   include_tasks: client-generic.yml
-  when: gather_facts == no
+  when: gather_facts == 0
 
 - meta: end_play
-  when: gather_facts == no
+  when: gather_facts == 0
 
 - name: Setup Ubuntu 14.04 Nfs Server
   include_tasks: client-Ubuntu14.04.yml
