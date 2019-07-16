@@ -1,8 +1,8 @@
 ---
 # tasks file for plusclouds.nfs
 #include tasks
-- name: Setup XenServer
-  include_tasks: client-XenServer.yml
+- name: Setup Generic
+  include_tasks: client-generic.yml
   when: gather_facts == 'no'
 
 - meta: end_play
