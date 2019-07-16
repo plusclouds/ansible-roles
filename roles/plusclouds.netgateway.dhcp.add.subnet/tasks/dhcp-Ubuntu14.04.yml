@@ -12,7 +12,7 @@
 - name: Set dhcp config file
   lineinfile:
     path: /etc/dhcp/dhcpd.conf
-    line: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
+    line: 'include "subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
     backup: yes
 
 - name: Restart DHCP service
