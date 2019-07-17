@@ -1,0 +1,16 @@
+---
+- name: Starting Micro Application Environment Setup
+  include_tasks: "micro_environment.yml"
+  when: application_type == "micro"
+
+- name: Starting Small Application Environment Setup
+  include_tasks: "small_environment.yml"
+  when: application_type == "small"
+
+- name: Starting Growing Application Environment Setup
+  include_tasks: "growing_environment.yml"
+  when: application_type == "growing"
+
+- name: Starting Huge Application Environment Setup
+  include_tasks: "huge_environment.yml"
+  when: application_type == "huge"

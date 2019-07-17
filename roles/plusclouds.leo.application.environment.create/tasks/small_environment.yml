@@ -1,0 +1,38 @@
+---
+- name: Find required template from template engine
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/templates?distro={{ preffered_template }}&version={{ preffered_version }}&datacenterNode={{ datacenter_node }}
+
+- name: Clone Virtual Machine From Template
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ template_vm }}/clone
+    method: POST
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "name={{ vm_name }}&total_cpu={{ total_cpu }}&total_ram={{ total_ram }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  register: vm_data
+
+- name: Set Virtual Interface 0
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ vm_data.json.data.id }}/set-network-card
+    method: PUT
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "name=vif0&network_ref={{ vif0_network }}&device=0"
+    return_content: yes
+    status_code: 200
+  register: vif_network_0
+  when: vm_data is success and vif0_exists == 1
+
+- name: Add new IP to VIF0
+  uri:
+    url: http://apiv2/v2/packetbender/ip
+    method: POST
+    headers:
+      Authorization: "{{ user_token }}"
+    body: "network_ref={{ item.network.data.id }}&virtual_network_card_ref={{ item.id }}&allow=1"
+    status_code: 201
+  when: vif_network_0 is success
