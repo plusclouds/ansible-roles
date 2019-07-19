@@ -1,0 +1,4 @@
+---
+is_procedure: true
+is_token_required: true
+token_variable: user_token
