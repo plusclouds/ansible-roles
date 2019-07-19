@@ -1,11 +1,11 @@
 ---
 user_token: ""
 
-application: "newapp"
+application: "isbank-poc-app"
 application_type: "micro"
 
 preferred_template: "ubuntu"
-preferred_version: "14.04"
+preferred_version: "16.04"
 
 preferred_node: "AQmLZqYnBd"
-preferred_network: "plGrwbMLwQ"
+preferred_network: "plGrwbMLwQ" 

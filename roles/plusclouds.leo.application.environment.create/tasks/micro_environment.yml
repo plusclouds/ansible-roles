@@ -46,7 +46,6 @@
     return_content: yes
     status_code: 201
   register: cloned_vm_vif0
-  ignore_errors: yes
 
 - name: Add new IP to VIF0
   uri:
@@ -94,6 +93,8 @@
 - name: sleep for 20 seconds and continue with play
   wait_for:
     timeout: 20
+
+- meta: end_play
 
 - name: "Force shutdown !!!!!!!!!!"
   uri:
