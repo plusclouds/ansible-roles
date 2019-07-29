@@ -2,10 +2,12 @@
 user_token: ""
 
 application: "isbank-poc-app"
-application_type: "micro"
+application_type: "growing"
 
-preferred_template: "ubuntu"
+app_server_count: 2
+
+preferred_template: "load-balancer"
 preferred_version: "16.04"
 
 preferred_node: "AQmLZqYnBd"
-preferred_network: "plGrwbMLwQ" 
+preferred_network: "plGrwbMLwQ"

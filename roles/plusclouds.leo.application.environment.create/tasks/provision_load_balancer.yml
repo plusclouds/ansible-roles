@@ -1,7 +1,7 @@
 ---
 - name: Find required template from template engine
   uri:
-    url: http://apiv2/v2/iaas/virtual-machines/templates?distro={{ preferred_template }}&version={{ preferred_version }}&datacenterNode={{ preferred_node }}
+    url: http://apiv2/v2/iaas/virtual-machines/templates?distro=load-balancer&version=16.04&datacenterNode={{ preferred_node }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -35,6 +35,28 @@
   until: cloned_vm_status.json.data.status == "halted"
   retries: 30
   delay: 3
+
+- name: Tag vm as application
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}/tags
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "name[]={{ application }}&name[]=load-balancer"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+
+- name: Set Virtual Machine Name as Load Balancer of App
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}
+    method: PUT
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "name=Load Balancer for {{ application }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
 
 - name: Set Virtual Interface 0 for cloned vm
   uri:
@@ -89,35 +111,3 @@
     return_content: yes
     status_code: 204
     timeout: 300
-
-- name: sleep for 20 seconds and continue with play
-  wait_for:
-    timeout: 20
-
-- meta: end_play
-
-- name: "Force shutdown !!!!!!!!!!"
-  uri:
-    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}/shutdown
-    method: PUT
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    body: "force=1"
-    return_content: yes
-    status_code: 204
-
-- name: sleep for 10 seconds and continue with play
-  wait_for:
-    timeout: 10
-
-- name: "Delete Server !!!!!!!!!!"
-  uri:
-    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}
-    method: DELETE
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    return_content: yes
-    status_code: 204
-
-- meta: end_play
-

@@ -1,0 +1,10 @@
+---
+- name: Create & Configure Load Balancer
+  include_tasks: "provision_load_balancer.yml"
+
+- name: Create & Configure Application Servers
+  include_tasks: "provision_application_server.yml"
+  with_sequence: start=1 end={{ app_server_count }}
+
+- name: Configure Load Balancer
+  include_tasks: "provision_load_balancer.yml"

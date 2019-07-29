@@ -1,0 +1,12 @@
+---
+- name: Find web servers
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines?position=created_at|DESC&tags=nginx,
+    method: GET
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 200
+    timeout: 300
+  register: template
+
