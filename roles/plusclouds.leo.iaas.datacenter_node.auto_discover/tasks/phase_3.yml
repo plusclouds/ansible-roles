@@ -1,0 +1,17 @@
+---
+- debug:
+    var: compute_pool
+
+- meta: end_play
+
+- name: Sync. Compute Members
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/compute-members
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "compute_pool_ref={{ compute_pool }}"
+    return_content: yes
+    status_code: 200
+    timeout: 300
+  register: datacenter_node
