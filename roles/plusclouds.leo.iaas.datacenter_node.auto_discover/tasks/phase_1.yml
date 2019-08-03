@@ -75,7 +75,7 @@ datacenter_ref={{ datacenter_node.json.data.0.datacenter.data.id }}"
     headers:
       Authorization: "Bearer {{ user_token }}"
     body: "\
-name={{ datacenter_node.json.data.0.name }} Storage&\
+name={{ datacenter_node.json.data.0.name }} Network&\
 management_type=api&\
 ip_addr={{ compute_pool.json.data.0.master_ip_addr }}&\
 management_url={{ compute_pool.json.data.0.management_url }}&\
