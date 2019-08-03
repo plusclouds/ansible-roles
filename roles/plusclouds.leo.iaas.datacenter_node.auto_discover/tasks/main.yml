@@ -3,6 +3,10 @@
   include_tasks: "phase_1.yml"
   when: discover_cloud_components == true
 
-- name: Discovery of virtual (vm, volume, network) components starts
+- name: Discovery of physical components starts
   include_tasks: "phase_2.yml"
-  when: discover_virtual_components == true
+  when: discover_physical_components == true
+
+- name: Discovery of virtual (vm, volume, network) components starts
+  include_tasks: "phase_3.yml"
+  when: discover_physical_components == true

@@ -1,65 +1,45 @@
 ---
-- name: Get Cloud Node Information
+- name: Sync. Compute Members
   uri:
-    url: http://apiv2/v2/iaas/datacenter-nodes?include=datacenter&slug={{ datacenter_node_slug }}
-    method: GET
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    return_content: yes
-    status_code: 200
-    timeout: 300
-  register: datacenter_node
-
-- name: Check if datacenter node has compute pool
-  uri:
-    url: http://apiv2/v2/iaas/compute-pools?datacenterNode={{ datacenter_node.json.data.0.id }}&fields=username,password,master_ip_addr,management_url
-    method: GET
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    return_content: yes
-    status_code: 200
-    timeout: 300
-  register: compute_pool
-  ignore_errors: true
-
-- name: Check if datacenter node has storage pool
-  uri:
-    url: http://apiv2/v2/iaas/storage-pools?datacenterNode={{ datacenter_node.json.data.0.id }}
-    method: GET
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    return_content: yes
-    status_code: 200, 404
-    timeout: 300
-  register: storage_pool
-  ignore_errors: true
-
-- debug:
-    var: compute_pool
-
-- name: Create defauls storage pool if Cloud Node does not have any
-  uri:
-    url: http://apiv2/v2/iaas/storage-pools
+    url: http://apiv2/v2/iaas/cron/sync/compute-members
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "\
-name={{ datacenter_node.json.data.0.name }} Storage&\
-currency_code={{ compute_pool.json.data.0.currency_code }}&\
-hourly_price={{ compute_pool.json.data.0.hdd_hourly_price }}&\
-ip_addr={{ compute_pool.json.data.0.master_ip_addr }}&\
-username={{ compute_pool.json.data.0.username }}&\
-password={{ compute_pool.json.data.0.password }}&\
-is_active=1&\
-connection_type=local&\
-datacenter_ref={{ datacenter_node.json.data.0.datacenter.data.id }}"
+    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}"
     return_content: yes
-    status_code: 201
+    status_code: 204
     timeout: 300
-  register: storage_pool
-  when: storage_pool.status == 404
 
-- debug:
-    var: storage_pool
+- name: sleep for 20 seconds and continue with play
+  wait_for:
+    timeout: 20
 
-- meta: end_play
+- name: Sync. Storage Volumes
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/storage-volumes
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}&storage_pool_ref={{ storage_pool.json.data.id }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
+
+- name: sleep for 20 seconds and continue with play
+  wait_for:
+    timeout: 20
+
+- name: Sync. Networks
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/networks
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}&network_pool_ref={{ network_pool.json.data.id }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
+
+- name: sleep for 20 seconds and continue with play
+  wait_for:
+    timeout: 20

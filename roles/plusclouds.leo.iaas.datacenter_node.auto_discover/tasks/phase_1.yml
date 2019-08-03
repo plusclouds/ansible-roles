@@ -34,7 +34,7 @@
   register: storage_pool
   ignore_errors: true
 
-- name: Create defauls storage pool if Cloud Node does not have any
+- name: Create default storage pool if Cloud Node does not have any
   uri:
     url: http://apiv2/v2/iaas/storage-pools
     method: POST

@@ -3,4 +3,5 @@ user_token: ""
 datacenter_node_slug: ""
 
 discover_cloud_components: true
+discover_physical_components: true
 discover_virtual_components: false
