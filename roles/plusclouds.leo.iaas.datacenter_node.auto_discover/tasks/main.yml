@@ -1,0 +1,8 @@
+---
+- name: Discovery of cloud components starts
+  include_tasks: "phase_1.yml"
+  when: discover_cloud_components == true
+
+- name: Discovery of virtual (vm, volume, network) components starts
+  include_tasks: "phase_2.yml"
+  when: discover_virtual_components == true
