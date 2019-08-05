@@ -50,36 +50,6 @@
   register: network_pool
   ignore_errors: true
 
-<<<<<<< HEAD
-- name: Create defauls network pool if Cloud Node does not have any
-  uri:
-    url: http://apiv2/v2/iaas/network-pools
-    method: POST
-    headers:
-      Authorization: "Bearer {{ user_token }}"
-    body: "\
-name={{ datacenter_node.json.data.0.name }} Network&\
-management_type=api&\
-ip_addr={{ compute_pool.json.data.0.master_ip_addr }}&\
-management_url={{ compute_pool.json.data.0.management_url }}&\
-port=443&\
-username={{ compute_pool.json.data.0.username }}&\
-password={{ compute_pool.json.data.0.password }}&\
-is_active=1&\
-datacenter_ref={{ datacenter_node.json.data.0.datacenter.data.id }}"
-    return_content: yes
-    status_code: 201
-    timeout: 300
-  register: network_pool
-  when: network_pool.status == 404
-=======
 - name: Include create default network pool
   include_tasks: "create_default_network_pool.yml"
   when: network_pool.status == 404
-
-- debug:
-    var: storage_pool
-
-- debug:
-    var: network_pool
->>>>>>> plusclouds.leo.iaas.datacenter_node.auto_discover

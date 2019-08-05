@@ -1,4 +1,10 @@
 ---
+- debug:
+    var: storage_pool
+
+- debug:
+    var: network_pool
+
 - name: Sync. Compute Members
   uri:
     url: http://apiv2/v2/iaas/cron/sync/compute-members
