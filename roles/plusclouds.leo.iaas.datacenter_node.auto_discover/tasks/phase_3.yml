@@ -10,6 +10,10 @@
     status_code: 204
     timeout: 300
 
+- name: sleep for 20 seconds and continue with play
+  wait_for:
+    timeout: 20
+
 - name: Sync. Virtual Disk Images
   uri:
     url: http://apiv2/v2/iaas/cron/sync/virtual-disk-images
@@ -20,6 +24,10 @@
     return_content: yes
     status_code: 204
     timeout: 300
+
+- name: sleep for 20 seconds and continue with play
+  wait_for:
+    timeout: 20
 
 - name: Sync. Virtual Network Cards
   uri:
