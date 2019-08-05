@@ -9,4 +9,4 @@
 
 - name: Discovery of virtual (vm, volume, network) components starts
   include_tasks: "phase_3.yml"
-  when: discover_physical_components == true
+  when: discover_virtual_components == true

@@ -1,1 +1,33 @@
 ---
+- name: Sync. Virtual Machines
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/virtual-machines
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
+
+- name: Sync. Virtual Disk Images
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/virtual-disk-images
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
+
+- name: Sync. Virtual Network Cards
+  uri:
+    url: http://apiv2/v2/iaas/cron/sync/virtual-network-cards
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
