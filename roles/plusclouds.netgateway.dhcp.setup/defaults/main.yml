@@ -4,3 +4,5 @@
 ubuntu_dhcp_packages: isc-dhcp-server
 
 centos_dhcp_packages: dhcp
+
+debian_dhcp_packages: isc-dhcp-server
