@@ -1,0 +1,16 @@
+---
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+
+- name: Install {{ package_name }}
+  apt:
+   name: "{{ item }}"
+   state: latest
+  with_items:
+    - "{{ package_name }}"
+
+
+
