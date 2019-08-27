@@ -1,0 +1,16 @@
+---
+#Agent'in konfigurasyonu için blitz server'ın ip adresi portu ve web url bilgisi girilmelidir.
+monitoring_web_url: "http://10.100.0.47/blitz" # Blitz Monitoring Web URL Adresi girilir. (default: http://blitz.plusclouds.com/blitz)
+
+# Kurulumun devamı için Plusclouds.com Paneli üzerinden oluşturduğunuz Monitoring kullanıcı bilgileri girilmelidir.
+blitz_user_name: "Admin"  # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı adı girilir. (Api'den gelen veri)
+blitz_user_pass: "R4kMMyXVrswGcQZd" # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı şifresi girilir. (Api'den gelen veri)
+
+#Host ekleme işlemi gerçekleştirilebilmesi için aşağıdaki bilgiler doldurulmalıdır.
+hypervisor_ip: "" # Host olarak eklenecek olan agent serverın ip adresi
+hypervisor_name: "" # Host olarak eklenecek olan agent isimi
+hypervisor_groups: "Plusclouds Xen Servers" # Host olarak eklenecek agent group bilgisi (Api'den gelen veri)
+
+# Software Monitoring yaptırmak istediğiniz uygulama değerini ayarlayın(true/false).
+blitz_templates: #Hosta eklenecek olan templateler
+   - "Template SNMP OS Linux"

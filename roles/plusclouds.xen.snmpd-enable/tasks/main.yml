@@ -1,0 +1,19 @@
+---
+# tasks file for plusclouds.xen.snmpd-enable
+- name: Enable snmpd
+  raw: chkconfig snmpd
+
+- name: backup snmpd config
+  raw: cp /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.backup
+
+- name: add community to snmpd
+  raw: echo 'rocommunity {{ community_name }} 10.100.0.0/24' >> /etc/snmp/snmpd.conf 
+
+- name: backup iptables.rules
+  raw: mv /etc/sysconfig/iptables /etc/sysconfig/iptables.bak
+
+- name: allow snmpd for monitoring
+  raw: sed '20i -A RH-Firewall-1-INPUT -s 10.100.0.47/32 -p udp -m udp --dport 161 -j ACCEPT' /etc/sysconfig/iptables.bak >> /etc/sysconfig/iptables
+
+- name: restart snmpd
+  raw: service snmpd restart

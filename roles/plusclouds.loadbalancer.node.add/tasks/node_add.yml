@@ -1,0 +1,8 @@
+---
+- name: Nginx | Vhosts copy
+  lineinfile:
+    path: /etc/nginx/sites-enabled/{{ upstream_name }}.conf
+    regexp: 'upstream {{ upstream_name }}'
+    insertafter: '{{ upstream_name }}'
+    line: 'server {{ item.upstreams }} max_fails=1 fail_timeout=10s;'
+    with_items: "{{balancer_vhosts}}"
