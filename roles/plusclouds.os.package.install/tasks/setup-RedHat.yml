@@ -1,0 +1,15 @@
+---
+
+- name: install external EPEL repository
+  yum:
+    name: epel-release
+    state: present
+
+
+- name: install {{ package_name }}
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+     - "{{ package_name }}"
+
