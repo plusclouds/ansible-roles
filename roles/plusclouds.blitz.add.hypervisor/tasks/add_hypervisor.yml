@@ -1,0 +1,21 @@
+---
+- name: Create a new hypervisor
+  local_action:
+    module: zabbix_host
+    server_url: '{{ monitoring_web_url }}'
+    login_user: '{{ blitz_user_name }}'
+    login_password: '{{ blitz_user_pass }}'
+    host_name: '{{ hypervisor_name }}'
+    visible_name: '{{ hypervisor_name }}'
+    host_groups: '{{ hypervisor_groups }}'
+    link_templates: '{{ blitz_templates }}'
+    status: enabled
+    state: present
+    inventory_mode: automatic
+    interfaces:
+      - type: 2
+        main: 1
+        useip: 1
+        ip: '{{ hypervisor_ip }}'
+        dns: ""
+        port: 161

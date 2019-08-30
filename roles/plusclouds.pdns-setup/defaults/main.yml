@@ -1,0 +1,10 @@
+---
+mysql_root_user: "" #mysql root user name
+mysql_root_password: "" #mysql root şifresi
+pdns_db_name: "" #powerdns mysql db name
+pdns_db_user: "" #powerdns mysql user name
+pdns_db_pass: "" #powerdns mysql user pass
+pdns_db_host: "" #powerdns mysql host
+enable_pdns_server_logging: false #powerdns log tutsunmu true/false
+pdns_listen_all_interfaces: true #0.0.0.0 bind eder
+pdns_dnssec: "yes"

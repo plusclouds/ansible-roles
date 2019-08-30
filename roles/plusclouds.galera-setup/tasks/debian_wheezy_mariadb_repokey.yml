@@ -1,0 +1,9 @@
+- name: Add MariaDB apt key Debian 7 Wheezy
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: cbcb082a1bb943db
+
+- name: Add MariaDB Repo Debian 7 Wheezy
+  apt_repository:
+      repo: deb [arch=amd64,i386] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.2/debian wheezy main
+      state: present
