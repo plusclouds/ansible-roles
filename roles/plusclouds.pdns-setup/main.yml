@@ -1,0 +1,79 @@
+---
+- name: pdns_server | installing powerdns pre-reqs
+  apt:
+    name: "{{ item }}"
+    state: "present"
+    force: "yes"
+  with_items:
+    - git
+    - jq
+    - python-mysqldb
+
+- name: Create .my.cnf for ansible user
+  become: false
+  template: src=.my.cnf.j2 dest=~/.my.cnf
+
+- name: pdns_server | install pdns server
+  apt: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pdns-server
+    - pdns-backend-mysql
+
+- name: pdns_server | creating powerdns db
+  mysql_db:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ pdns_db_name }}"
+    state: "present"
+
+- name: pdns_server | creating powerdns user
+  mysql_user:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ pdns_db_user }}"
+    password: "{{ pdns_db_pass }}"
+    priv: "{{ pdns_db_name }}.*:ALL"
+    state: present
+
+- name: pdns_server | copying db schema file
+  copy:
+    src: "db_schema"
+    dest: "/tmp"
+
+- name: pdns_server | checking for existing db schema import
+  stat:
+    path: "/var/log/db_schema_imported"
+  register: "db_schema_imported"
+
+- name: pdns_server | importing db schema
+  mysql_db:
+    name: "{{ pdns_db_name }}"
+    state: "import"
+    target: "/tmp/db_schema"
+  when: >
+        not db_schema_imported.stat.exists
+
+- name: pdns_server | marking db schema as imported
+  file:
+    path: "/var/log/db_schema_imported"
+    state: "touch"
+  when: not db_schema_imported.stat.exists
+
+- name: pdns_server | configuring powerdns
+  template:
+    src: "pdns.conf.j2"
+    dest: "/etc/powerdns/pdns.conf"
+    owner: "root"
+    group: "root"
+
+- name: pdns_server | ensuring pdns service is enabled
+  service:
+    name: "pdns"
+    enabled: yes
+
+- name: pdns_server | restarting powerdns
+  service:
+    name: "pdns"
+    state: "restarted"

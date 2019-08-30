@@ -1,0 +1,6 @@
+- name: shell repo key
+  shell: apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+
+- name: Add MariaDB Repo Ubuntu 18.04 bionic
+  shell: add-apt-repository 'deb [arch=amd64,arm64,ppc64el] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.3/ubuntu bionic main'
+

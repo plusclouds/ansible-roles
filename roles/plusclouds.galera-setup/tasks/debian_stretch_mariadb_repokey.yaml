@@ -1,0 +1,13 @@
+- name: Add MariaDB apt key Debian 9 stretch
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: F1656F24C74CD1D8
+
+- name: Add MariaDB Repo Debian 9 stretch
+  apt_repository:
+      repo: deb [arch=amd64,i386,ppc64el] http://kozyatagi.mirror.guzel.net.tr/mariadb/repo/10.3/debian stretch main
+      state: present
+- name: Update and upgrade
+  apt:
+    update_cache: yes
+

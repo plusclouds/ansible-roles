@@ -1,0 +1,7 @@
+- name: Add MariaDB Repo Debian 9 stretch
+  apt_repository:
+      repo: deb [arch=amd64,i386,ppc64el] http://kozyatagi.mirror.guzel.net.tr/mariadb/repo/10.3/debian jessie main
+      state: present
+- name: Update and upgrade
+  apt:
+    update_cache: yes
