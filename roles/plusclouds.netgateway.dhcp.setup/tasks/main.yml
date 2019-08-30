@@ -38,3 +38,6 @@
   template:
     src: dhcpd.conf
     dest: /etc/dhcp/dhcpd.conf
+
+- name: Save config
+  include_tasks: save-config.yml
