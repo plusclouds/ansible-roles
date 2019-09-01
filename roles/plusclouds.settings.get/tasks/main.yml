@@ -1,0 +1,21 @@
+---
+- name: Get settings content
+  raw: "[[ -f {{ settings_folder }}{{ settings_file }} ]] && echo yes || echo no;"
+  register: is_settings_file_exists
+
+- name: Set variable
+  set_fact:
+    is_settings_file_exists: "{{ is_settings_file_exists.stdout_lines.0 }}"
+
+- name: Read settings if settings exists
+  raw: "cat {{ settings_folder }}{{ settings_file }}"
+  register: settings
+  when:
+    - is_settings_file_exists == "yes"
+
+- name: Save settings to settings folder
+  local_action: copy content="{{ settings }}" dest="settings/settings.yml"
+  when:
+    - is_settings_file_exists == "yes"
+    - cache == "true"
+  delegate_to: localhost

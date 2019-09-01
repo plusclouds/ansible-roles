@@ -1,0 +1,31 @@
+---
+
+#Dizin kontrolü
+- name: "Check that {{ local_share_path }} exist"
+  stat:
+    path: "{{ local_share_path }}"
+  register: public_dir_exists
+
+
+#Yukarıdaki dizin yok ise dizin create eder.
+- name: "Create {{ local_share_path }} directory"
+  file:
+    state: directory
+    path: "{{ local_share_path }}"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: public_dir_exists.stat.exists == False
+
+
+#Var olan dizini paylaşma
+- name: set nfs config file
+  lineinfile:
+    path: /etc/exports
+    line: '{{ local_share_path }}            {{ client_ip }}(rw,no_root_squash,no_subtree_check,fsid=0)'
+    backup: yes
+
+
+- name: reload nfs server
+  service: name=nfs-server state=reloaded

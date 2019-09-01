@@ -1,0 +1,5 @@
+---
+settings_file: "settings.yml"
+settings_folder: "/var/plusclouds"
+
+cache: "true"
