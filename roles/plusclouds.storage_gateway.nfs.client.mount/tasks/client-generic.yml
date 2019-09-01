@@ -9,4 +9,4 @@
   raw: chown root {{ local_mount_path }}
 
 - name: set mountpoints
-  raw: "mount {{ host_ip }}:{{ host_share_path }}   {{ local_mount_path }}"
+  raw: "mount -t nfs {{ host_ip }}:{{ host_share_path }} {{ local_mount_path }}"
