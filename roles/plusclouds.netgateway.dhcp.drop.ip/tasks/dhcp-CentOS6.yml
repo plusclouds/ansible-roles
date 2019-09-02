@@ -7,4 +7,10 @@
     path: /etc/dhcp/dhcpd.conf
     state: absent
     regexp: 'include "/etc/dhcp/{{ host_name }}.conf";'
-    backup: yes
+    backup: "{{ backup }}"
+
+
+- name: Delete the /etc/dhcp/{{ host_name }}.conf
+  file:
+    path: /etc/dhcp/{{ host_name }}.conf
+    state: absent

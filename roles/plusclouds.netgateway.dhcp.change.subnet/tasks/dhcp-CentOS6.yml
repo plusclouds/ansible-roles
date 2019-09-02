@@ -12,7 +12,7 @@
   lineinfile:
     path: /etc/dhcp/dhcpd.conf
     line: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
-    backup: yes
+    backup: {{ backup }}
 
 
 
@@ -21,7 +21,7 @@
     path: /etc/dhcp/dhcpd.conf
     state: absent
     regexp: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
-    backup: yes
+    backup: {{ backup }}
 
 
 
