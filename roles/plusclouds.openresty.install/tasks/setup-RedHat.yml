@@ -52,3 +52,25 @@
   with_items: "{{ openresty_recommended_yum }}"
   when: openresty_recommended_install == "yes"
   notify: restart openresty
+
+#Dizin kontrolü
+- name: "Check that {{ centos_conf_path }} exist"
+  stat:
+    path: "{{ centos_conf_path }}"
+  register: conf_path_dir_exists
+
+#Yukarıdaki dizin yok ise dizin create eder.
+- name: "Create {{ centos_conf_path }} directory"
+  file:
+    state: directory
+    path: "{{ centos_conf_path }}"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  when: conf_path_dir_exists.stat.exists == False
+
+- name: Copy the Customize nginx.conf file
+  template:
+    src: nginx.conf.j2
+    dest: /usr/local/openresty/nginx/conf/nginx.conf
