@@ -7,4 +7,11 @@
     path: /etc/dhcp/dhcpd.conf
     state: absent
     regexp: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
-    backup: yes
+    backup: "{{ backup }}"
+
+
+
+- name: Delete the /etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf
+  file:
+    path: /etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf
+    state: absent

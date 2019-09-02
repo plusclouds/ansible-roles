@@ -11,7 +11,7 @@
   lineinfile:
     path: /etc/dhcp/dhcpd.conf
     line: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
-    backup: yes
+    backup: "{{ backup }}"
 
 
 - name: Restart DHCP service

@@ -9,7 +9,5 @@ broadcast_address: 10.100.0.255
 routers_address: 10.100.0.1
 domain_name: "plusclouds.com"
 domain_name_servers: "10.100.0.56, 10.100.0.57"
-
-gather_facts: no
-
 network_id: ""
+backup: yes
