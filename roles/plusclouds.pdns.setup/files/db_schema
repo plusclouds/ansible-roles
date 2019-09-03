@@ -84,7 +84,6 @@ ALTER TABLE domainmetadata ENGINE=InnoDB;
 ALTER TABLE cryptokeys ENGINE=InnoDB;
 ALTER TABLE tsigkeys ENGINE=InnoDB;
 
-
 CREATE TABLE comments (
   id                    INT AUTO_INCREMENT,
   domain_id             INT NOT NULL,
@@ -100,5 +99,5 @@ CREATE INDEX comments_domain_id_idx ON comments (domain_id);
 CREATE INDEX comments_name_type_idx ON comments (name, type);
 CREATE INDEX comments_order_idx ON comments (domain_id, modified_at);
 
-ALTER TABLE records ADD COLUMN id_ref VARCHAR(10) COLLATE utf8_bin DEFAULT NULL;
-ALTER TABLE domains ADD COLUMN id_ref VARCHAR(10) COLLATE utf8_bin DEFAULT NULL;
+ALTER TABLE records ADD COLUMN id_ref CHAR(10) COLLATE utf8_bin DEFAULT NULL;
+ALTER TABLE domains ADD COLUMN id_ref CHAR(10) COLLATE utf8_bin DEFAULT NULL;
