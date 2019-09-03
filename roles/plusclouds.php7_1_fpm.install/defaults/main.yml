@@ -1,5 +1,5 @@
 ---
-php_ppa: "ppa:ondrej/php"
+php_ppa: "\"ppa:ondrej/php\""
 php_packages:
   - php7.1-common
   - php7.1-cli
