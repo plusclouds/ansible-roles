@@ -1,0 +1,110 @@
+---
+# tasks file for plusclouds.disc.extend
+
+
+#- name: 'Extend the FS'
+#  filesystem:
+#    fstype: 'ext4'
+#    dev: '/dev/xvda3'
+#    resizefs: yes
+#    force: yes
+
+#- name: Assert root partition is expanded
+#  assert: { that: item.mount != '/' or item.size_total > 10737418240 } # 10 GB
+#  with_items: '{{ ansible_mounts }}'
+#  ignore_errors: yes
+#  register: expanded
+
+
+#- name: Expand partition
+#  command: parted /dev/xvda3 resizepart 2 15.5GB # NOTE: Assumes 16GB card
+#  when: expanded|failed
+  #notify: Expand filesystem
+
+#- name: Delete
+#  parted:
+#     device: {{ disc }}
+#     number: {{ partition_number }}
+#     state: absent
+
+#- name: Delete
+#  parted:
+#     device: {{ disc }}
+#     number: {{ partition_number }}
+#     state: present
+
+
+#- name: Expand filesystem
+#  command: resize2fs {{ disc }}{{ partition_number }}
+
+
+- name: Generic question with multiple different responses
+  expect:
+    command: /path/to/custom/command
+    responses:
+      'Welcome to fdisk (util-linux 2.27.1).': 'd'
+      'Changes will remain in memory only, until you decide to write them.': 'd'
+      'Becareful before using the write command.': 'd'
+
+      'Command \(m for help\) ': 'd'
+      'Partition number \(1-4\) ': '3'
+      'Command \(m for help\) ': 'n'
+      'Select (default p) ': 'p'
+      'Partition number \(1-4, default 3\) ': '3'
+      'First sector ': ' '
+      'Last sector, +sectors or +size{K,M,G}': ' '
+      'Command \(m for help\)': 'w'
+
+- name: Generic question with multiple different responses
+  expect:
+    command: fdisk /dev/xvda
+    responses:
+         d
+         3
+         n
+         p
+         3
+         " "
+         " "
+        - "w"
+
+
+
+
+- name: Generic question with multiple different responses
+  expect:
+    command: fdisk /dev/xvda
+    responses:
+        - d
+        - 3
+        - n
+        - p
+        - 3
+        - ' '
+        - ' '
+        - w
+
+      Question:
+        - 'Command \(m for help\) ':
+        - 'Partition number \(1-4\) ':
+        - 'Command \(m for help\) ':
+        - 'Select (default p) ':
+        - 'Partition number \(1-4, default 3\) ':
+        - 'First sector ':
+        - 'Last sector, +sectors or +size{K,M,G}': ' '
+        - 'Command \(m for help\) ':
+
+
+- name: Reboot immediately if there was a change.
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+#  when: task_result is changed
+
+- name: Wait for the reboot to complete if there was a change.
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+#  when: task_result is changed
