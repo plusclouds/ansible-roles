@@ -1,0 +1,6 @@
+---
+# defaults file for plusclouds.vm-import
+vm_uuid: ""
+network_uuid: ""
+device: 0
+mac: "random"
