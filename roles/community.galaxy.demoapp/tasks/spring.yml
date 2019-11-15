@@ -1,6 +1,5 @@
-- name: Install utilities 
-  yum: name={{ item }} state=present
-  become: true
+- name: Install utilities spring
+  package: name={{ item }} state=present
   with_items:
     - unzip
 
@@ -17,28 +16,28 @@
 
 - name: Create Spring Application user
   user: name={{spring_application_user}}
-        group={{spring_application_group}}     
+        group={{spring_application_group}}
         system=yes
         shell=/sbin/nologin
         createhome=no
         home=/var/app
 
-- name: Set Spring Application Directory Permissions 755                  
-  file:                                                         
-    dest: "{{spring_application_path}}"                                      
-    mode: 0755                                                  
-    state: directory                                            
-    owner: "{{spring_application_user}}"                                                
+- name: Set Spring Application Directory Permissions 755
+  file:
+    dest: "{{spring_application_path}}"
+    mode: 0755
+    state: directory
+    owner: "{{spring_application_user}}"
     group: "{{spring_application_group}}"
     recurse: true
-  become: true 
+  become: true
 
-- name: Set Spring Application Log Directory Permissions 755                  
-  file:                                                         
-    dest: "{{spring_application_path}}/log"                                      
-    mode: 0755                                                  
-    state: directory                                            
-    owner: "{{spring_application_user}}"                                                
+- name: Set Spring Application Log Directory Permissions 755
+  file:
+    dest: "{{spring_application_path}}/log"
+    mode: 0755
+    state: directory
+    owner: "{{spring_application_user}}"
     group: "{{spring_application_group}}"
     recurse: true
   become: true

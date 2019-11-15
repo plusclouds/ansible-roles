@@ -1,12 +1,32 @@
-- name: Install utilities 
-  yum: name={{ item }} state=present
+- name: Install utilities nodejs (Debian based OS's)
+  package: name={{ item }} state=present
   become: true
   with_items:
     - unzip
+    - nodejs
+    - npm
+  when: ansible_os_family == 'Debian'
+
+
+- name: Epel Release
+  yum:
+    name: 'epel-release'
+    state: installed
+  when: ansible_os_family == 'RedHat'
+
+
+
+- name: Install utilities nodejs
+  package: name={{ item }} state=present
+  become: true
+  with_items:
+    - unzip
+    - nodejs
+  when: ansible_os_family == 'RedHat'
 
 - name: Create application directory
   file:
-    path: "{{ nodejs_application_path }}" 
+    path: "{{ nodejs_application_path }}"
     state: directory
 
 - name: Unzip demo application
@@ -16,7 +36,7 @@
 
 - name: Npm install
   shell: npm install
-  args: 
+  args:
     chdir: "{{ nodejs_application_path }}"
 
 - name: Create Nodejs application group
@@ -25,36 +45,36 @@
 
 - name: Create Nodejs application user
   user: name={{ nodejs_application_user }}
-        group={{ nodejs_application_group }}    
+        group={{ nodejs_application_group }}
         createhome=yes
 
-- name: Set Nodejs application directory Permission 755                  
-  file:                                                         
-    dest: "{{ nodejs_application_path }}"                                      
-    mode: 0755                                                  
+- name: Set Nodejs application directory Permission 755
+  file:
+    dest: "{{ nodejs_application_path }}"
+    mode: 0755
     state: directory
-    owner: "{{ nodejs_application_user }}"                                                
-    group: "{{ nodejs_application_group }}"
-    recurse: true                                            
-  become: true
-
-- name: Set Nodejs application Log Directory Permissions 755                  
-  file:                                                         
-    dest: "{{nodejs_application_log}}/log"                                      
-    mode: 0755                                                  
-    state: directory                                            
-    owner: "{{ nodejs_application_user }}"                                                
+    owner: "{{ nodejs_application_user }}"
     group: "{{ nodejs_application_group }}"
     recurse: true
-  become: true                                                
-                                                                
-- name: Set application file permissions 644                      
-  command: find "{{ nodejs_application_path }}" -type f -exec chmod 0644 {} \;   
   become: true
 
-#- name: Start demo application 
-#  shell: ( ( nohup npm start 1>/dev/null 2>&1 ) & )   
-#  async: 2592000  # 60*60*24*30 – 1 month
-#  poll: 0
-#  args:
-#    chdir: "{{ nodejs_application_path }}"
+- name: Set Nodejs application Log Directory Permissions 755
+  file:
+    dest: "{{nodejs_application_log}}/log"
+    mode: 0755
+    state: directory
+    owner: "{{ nodejs_application_user }}"
+    group: "{{ nodejs_application_group }}"
+    recurse: true
+  become: true
+
+- name: Set application file permissions 644
+  command: find "{{ nodejs_application_path }}" -type f -exec chmod 0644 {} \;
+  become: true
+
+- name: Start demo application
+  shell: ( ( nohup npm start 1>/dev/null 2>&1 ) & )
+  async: 2592000  # 60*60*24*30 – 1 month
+  poll: 0
+  args:
+    chdir: "{{ nodejs_application_path }}"
