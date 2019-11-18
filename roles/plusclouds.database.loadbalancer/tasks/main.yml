@@ -1,2 +1,29 @@
-- name: Debian haproxy install 
-  include_tasks: Debain.yml 
+---
+
+- name: Ensure HAProxy is installed.
+  package: name=haproxy state=present
+
+- name: Ensure HAProxy is enabled (so init script will start it on Debian).
+  lineinfile:
+    dest: /etc/default/haproxy
+    regexp: "^ENABLED.+$"
+    line: "ENABLED=1"
+    state: present
+  when: ansible_os_family == 'Debian'
+
+
+- name: Set Selinux settings for HaProxy
+  command: setsebool -P haproxy_connect_any=1
+  when: ansible_os_family == 'RedHat'
+
+
+- name: Get HAProxy version.
+  command: haproxy -v
+  register: haproxy_version_result
+  changed_when: false
+  check_mode: false
+
+
+- name: Copy config haproxy.cfg
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  notify: Restart haproxy-server
