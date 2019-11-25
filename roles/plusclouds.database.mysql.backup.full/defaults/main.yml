@@ -1,5 +1,13 @@
 ---
-db_user: ""
-db_password: ""
-output_path: ""
-db_host: ""
+db_user: "root"
+db_password: "password"
+db_host: "localhost"
+
+backup_path: "/var/backup"
+script_path: "/home/scripts"
+
+cron_status: False
+cron_minute: '0'
+cron_hour: '2'
+cron_day: '*'
+cron_month: '*'
