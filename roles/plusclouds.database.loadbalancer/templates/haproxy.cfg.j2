@@ -14,9 +14,5 @@ listen mysql-cluster
     bind {{haproxy_bind_address}}:{{db_port}}
     mode tcp
     balance leastconn
-    server mysql-1 {{db_servers[0]}}:{{db_port}} weight 1
-    server mysql-2 {{db_servers[1]}}:{{db_port}} weight 1
-
-
-
-
+    server mysql-1 {{db_server[0]}}:{{db_port}} weight 1
+    server mysql-2 {{db_server[1]}}:{{db_port}} weight 1
