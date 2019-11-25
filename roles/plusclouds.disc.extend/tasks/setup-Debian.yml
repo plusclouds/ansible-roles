@@ -1,0 +1,51 @@
+---
+# tasks file for plusclouds.disc.extend
+
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+
+
+- name: Install pip2
+  apt:
+    name: python-pip
+    state: latest
+
+
+- name: Install pexpect Module
+  pip:
+    name: pexpect
+
+
+- name: "DISK | Create a partition for the added disk space"
+  expect:
+    command: fdisk {{ disc }}
+    responses:
+      'Command \(m for help\):':
+        - 'd'
+        - 'n'
+        - 'w'
+      'Select \(default.*$': 'p'
+      'Partition number.*$': "{{ partition_number }}"
+      'First sector.*$': "\n"
+      'Last sector.*$': "\n"
+    echo: yes
+  ignore_errors: yes
+
+
+- name: Reboot
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+
+- name: Wait for the reboot to complete.
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+
+
+- name: Expand filesystem
+  command: resize2fs {{ disc }}{{ partition_number }}

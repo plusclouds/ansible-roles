@@ -1,0 +1,50 @@
+---
+#include tasks
+
+
+#- include_tasks: setup-RedHat.yml
+#  when:
+#    - ansible_os_family == 'RedHat'
+
+#- include_tasks: setup-Debian.yml
+#  when:
+#    - ansible_os_family == 'Debian'
+
+
+- name: Setup Ubuntu 14.04
+  include_tasks: setup-Ubuntu14.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+
+- name: Setup Ubuntu 16.04
+  include_tasks: setup-Ubuntu16.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+
+- name: Setup Ubuntu 18.04
+  include_tasks: setup-Ubuntu18.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+
+- name: Setup Ubuntu 19.04
+  include_tasks: setup-Ubuntu19.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- name: Setup CentOS 7
+  include_tasks: setup-Centos7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+
+- name: Setup CentOS 8
+  include_tasks: setup-Centos8.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '8'
+
+
+- name: Setup RedHat
+  include_tasks: setup-RedHat.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution == 'Red Hat Enterprise Linux'
+
+
+- name: Setup Ubuntu Debian
+  include_tasks: setup-Debian.yml
+  when: ansible_distribution == 'Debian'
