@@ -1,4 +1,3 @@
+---
 - name: restart kibana
-  become: yes
-  service: name=kibana state=restarted enabled=yes
-  register: kibana_restarted
+  service: name=kibana state=restarted
