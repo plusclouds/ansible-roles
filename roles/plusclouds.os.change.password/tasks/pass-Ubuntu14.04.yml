@@ -1,5 +1,5 @@
 ---
 # tasks file for plusclouds.change.passwords
 
-- name: Change Password for {{ item.name }}
+- name: Change Password for {{ username }}
   shell: "(echo {{ password }}; echo {{ password }}) | passwd  {{ username }}"
