@@ -1,5 +1,9 @@
 ---
+
 balancer_vhosts:
-    - { name: "example1",  upstreams: ['localhost', 'localhost' ] }
-    - { name: "example2",  upstreams: ['localhost', 'localhost' ] }
-balancing_method: 'least_conn'  #default round robin empty, least_conn, ip-hash
+    - { name: "deneme",  server: '10.8.1.1' }
+
+
+nginx_conf_path: /etc/nginx/sites-available/
+
+server: 10.8.1.1

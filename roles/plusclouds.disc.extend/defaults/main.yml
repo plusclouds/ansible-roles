@@ -1,0 +1,7 @@
+---
+# defaults file for plusclouds.disc.extend
+
+ansible_mounts: /dev/xvda3
+disc: /dev/xvda
+partition_number: 3
+fs_type: ext4   #ext4, ext3 or lvm

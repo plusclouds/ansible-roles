@@ -1,20 +1,9 @@
 ---
-- name: Import Task File
-  import_tasks: debian.yml
-  when: ansible_os_family == 'Debian'
 
-- name: Remove default config
-  file:
-    path: /etc/nginx/sites-enabled/default
+- name: Delete host line in {{ item.name }} file.
+  lineinfile:
+    path: "{{ nginx_conf_path }}/{{ item.name }}.com.conf"
+    regexp: '        server {{ item.server }};'
     state: absent
-
-- name: Nginx | Vhosts copy
-  template: src=vhosts.j2 dest=/etc/nginx/sites-enabled/{{ item.name }}.conf
-  with_items: "{{balancer_vhosts}}"
+  with_items: "{{ balancer_vhosts }}"
   notify: restart nginx
-
-- name: Enable init.d
-  service:
-    name: nginx
-    state: started
-    enabled: yes

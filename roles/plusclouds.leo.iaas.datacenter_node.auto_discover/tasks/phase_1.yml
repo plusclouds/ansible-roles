@@ -10,9 +10,12 @@
     timeout: 300
   register: datacenter_node
 
+- set_fact:
+    datacenter: "{{ datacenter_node.json.data.0.datacenter.data }}"
+
 - name: Check if datacenter node has compute pool
   uri:
-    url: http://apiv2/v2/iaas/compute-pools?datacenterNode={{ datacenter_node.json.data.0.id }}&fields=username,password,master_ip_addr,management_url
+    url: http://apiv2/v2/iaas/compute-pools?datacenter={{ datacenter.id }}&fields=username,password,master_ip_addr,management_url
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -24,7 +27,7 @@
 
 - name: Check if datacenter node has storage pool
   uri:
-    url: http://apiv2/v2/iaas/storage-pools?datacenterNode={{ datacenter_node.json.data.0.id }}
+    url: http://apiv2/v2/iaas/storage-pools?datacenter={{ datacenter.id }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -40,7 +43,7 @@
 
 - name: Check if datacenter node has network pool
   uri:
-    url: http://apiv2/v2/iaas/network-pools?datacenterNode={{ datacenter_node.json.data.0.id }}
+    url: http://apiv2/v2/iaas/network-pools?datacenter={{ datacenter.id }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"

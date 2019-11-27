@@ -1,9 +1,29 @@
 ---
-- name: Creates directory
-  file: path={{ output_path }} state=directory
+- name: Creates backup path "{{ backup_path }}"
+  file: path={{ backup_path }} state=directory
 
-- name: Transfer the script
-  template: src=backup.sh.j2 dest=/home/backup.sh owner=root group=root mode=0777
+- name: Creates script directory {{ script_path }}
+  file: path={{ script_path }} state=directory
+
+- name: Creates daily backup cronjob if true
+  cron:
+    minute: '{{ cron_minute }}'
+    hour: '{{ cron_hour }}'
+    day: '{{ cron_day }}'
+    month: '{{ cron_month }}'
+    name: 'Backup mysql(daily schedule)'
+    cron_file: 'mysql-daily-backup'
+    user: 'root'
+    job: 'bash {{ script_path }}/backup.sh backup > /dev/null'
+  when: cron_status == True
+
+
+- name: Copy script file
+  template:
+    src: 'backup.sh.j2'
+    dest: '{{ script_path }}/backup.sh'
+    mode: 0777
+
 
 - name: Execute the script
-  command: sh /home/backup.sh
+  command: sh {{ script_path }}/backup.sh

@@ -1,0 +1,28 @@
+---
+# Default variables for PlusClouds Repo service
+
+# @param string Name of the linux distribution that will be used to create repository machine
+preferred_template_distribution: "debian"
+# @param string Version of the linux distribution
+preferred_template_version: "9.9"
+# @param string Tag of the linux distribution if you want to setup a specific machine
+preferred_template_tag: "template v1.1"
+
+# @param networks.id ID of network that will be setup
+preferred_network: ""
+
+# @param datacentersNodes.slug Slug of the datacenter node that will be setup
+datacenter_node_slug: ""
+
+# @param cpu CPU count of virtual machine
+preferred_cpu: "2"
+# @param ram Amount of ram required for the virtual machine
+preferred_ram: "1024"
+# @param disk_size Size of the disk required
+preferred_disk: "10240"
+
+# @param boolean Enable if you want to boot after create.
+is_boot_after_create: true
+
+# @param boolean Enable if you want to add to virtual_machines list for additional roles.
+add_to_host: true
