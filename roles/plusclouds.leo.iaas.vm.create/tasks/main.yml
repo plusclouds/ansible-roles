@@ -1,0 +1,103 @@
+---
+- name: Get Cloud Node Information
+  uri:
+    url: http://apiv2/v2/iaas/datacenter-nodes?include=datacenter&slug={{ datacenter_node_slug }}
+    method: GET
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 200
+    timeout: 300
+  register: datacenter_node
+
+- name: Find required template from template engine
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/templates?distro={{ preferred_template }}&version={{ preferred_version }}&datacenterNode={{ preferred_node }}
+    method: GET
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 200
+    timeout: 300
+  register: template
+
+- name: Clone the template
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ template.json.data.0.id }}/clone
+    body: "name={{ application }} Server&total_cpu=2&total_ram=512"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  register: cloned_vm
+
+- name: Wait until the template is cloned
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}/status
+    method: GET
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 200, 404, 500
+    timeout: 300
+  register: cloned_vm_status
+  until: cloned_vm_status.json.data.status == "halted"
+  retries: 30
+  delay: 3
+  ignore_errors: True
+
+- name: Set Virtual Interface 0 for cloned vm
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}/set-network-card
+    method: PUT
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "name={{ application }}_vif_0&network_ref={{ preferred_network }}&device=0"
+    return_content: yes
+    status_code: 201
+  register: cloned_vm_vif0
+
+- name: Add new IP to VIF0
+  uri:
+    url: http://apiv2/v2/packetbender/ip
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "network_ref={{ preferred_network }}&virtual_network_card_ref={{ cloned_vm_vif0.json.data.id }}"
+    status_code: 201
+  register: ip_address
+
+- name: wait for config apply
+  wait_for:
+    timeout: 10
+  when: is_boot_after_create == true
+
+- name: Boot the server
+  uri:
+    url: http://apiv2/v2/iaas/virtual-machines/{{ cloned_vm.json.data.id }}/start
+    method: PUT
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    return_content: yes
+    status_code: 204
+    timeout: 300
+  when: is_boot_after_create == true
+
+- name: Wait for ping
+  local_action: shell ping -q -c 1 -W 1 {{ ip_address.json.data.ip_addr }}
+  register: response
+  retries: 10
+  until: ('100% packet loss' not in response.stdout)
+  ignore_errors: yes
+  when: is_boot_after_create == true
+
+- name: Add host to group virtual_machines
+  add_host:
+    name: "{{ cloned_vm.json.data.0.virtualNetworkCards.data.0.ipList.data.0.ip_addr }}"
+    groups: netgateway
+    ansible_ssh_user: "{{ cloned_vm.json.data.0.username }}"
+    ansible_ssh_pass: "{{ cloned_vm.json.data.0.password }}"
+  args: "ansible_ssh_user={{ cloned_vm.json.data.0.username }} ansible_ssh_pass={{ cloned_vm.json.data.0.password }} ansible_sudo_pass={{ cloned_vm.json.data.0.username }}"
+  when: add_to_host == true
