@@ -1,0 +1,21 @@
+DEVICE=eth3
+TYPE=Ethernet
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=static
+IPADDR={{ eth3_ipaddr }}
+NETMASK={{eth3_netmask}}
+NETWORK={{eth3_network}}
+{% if eth3_dns_name_server1 %}
+DNS1={{eth3_dns_name_server1}}
+{% endif %}
+{% if eth3_dns_name_server2%}
+DNS2={{eth3_dns_name_server1}}
+{% endif %}
+{% if eth3_gw%}
+GATEWAY={{eth3_gw}}
+{% endif %}
+USERCTL=no
+PEERDNS=yes
+IPV6INIT=no
+ARPCHECK=no
