@@ -1,60 +1,61 @@
-dn: ou=Executives,dc=ozan,dc=com
-objectClass: organizationalUnit
-objectClass: top
-
-dn: ou=Machines,dc=ozan,dc=com
-ou: Machines
-objectClass: organizationalUnit
-objectClass: top
-
-dn: dc=branch,dc=ozan,dc=com
-dc: branch
-o: Branch
-objectClass: dcObject
-objectClass: top
-objectClass: organization
-
-dn: ou=Preferred Partners,dc=branch,dc=ozan,dc=com
-objectClass: organizationalUnit
-objectClass: top
-
-dn: ou=Managers,dc=ozan,dc=com
-ou: Managers
-objectClass: organizationalUnit
-objectClass: top
-
-dn: ou=Certified Partner,dc=branch,dc=ozan,dc=com
-ou: Certified Partner
-objectClass: organizationalUnit
-objectClass: top
-
-dn: ou=Registered Partner,dc=branch,dc=ozan,dc=com
-ou: Registered Partner
-objectClass: organizationalUnit
-objectClass: top
-
-dn: ou=Country Managers,dc=ozan,dc=com
-ou: Country Managers
-objectClass: organizationalUnit
-objectClass: top
-
-dn: dc=operations,dc=ozan,dc=com
-dc: operations
-o: Operations
-objectClass: dcObject
-objectClass: top
-objectClass: organization
-
-dn: dc=enterprise,dc=ozan,dc=com
-dc: enterprise
-o: Enterprise
-objectClass: dcObject
-objectClass: top
-objectClass: organization
-
-dn: dc=development,dc=ozan,dc=com
-objectClass: dcObject
-objectClass: top
-objectClass: organization
-dc: development
-o: Development
+# dn: ou=Executives,dc=plusclouds,dc=com
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: ou=Machines,dc=plusclouds,dc=com
+# ou: Machines
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: dc=branch,dc=plusclouds,dc=com
+# dc: branch
+# o: Branch
+# objectClass: dcObject
+# objectClass: top
+# objectClass: organization
+#
+#
+# dn: ou=Preferred Partners,dc=branch,dc=ozan,dc=com
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: ou=Managers,dc=ozan,dc=com
+# ou: Managers
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: ou=Certified Partner,dc=branch,dc=ozan,dc=com
+# ou: Certified Partner
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: ou=Registered Partner,dc=branch,dc=ozan,dc=com
+# ou: Registered Partner
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: ou=Country Managers,dc=ozan,dc=com
+# ou: Country Managers
+# objectClass: organizationalUnit
+# objectClass: top
+#
+# dn: dc=operations,dc=ozan,dc=com
+# dc: operations
+# o: Operations
+# objectClass: dcObject
+# objectClass: top
+# objectClass: organization
+#
+# dn: dc=enterprise,dc=ozan,dc=com
+# dc: enterprise
+# o: Enterprise
+# objectClass: dcObject
+# objectClass: top
+# objectClass: organization
+#
+# dn: dc=development,dc=ozan,dc=com
+# objectClass: dcObject
+# objectClass: top
+# objectClass: organization
+# dc: development
+# o: Development
