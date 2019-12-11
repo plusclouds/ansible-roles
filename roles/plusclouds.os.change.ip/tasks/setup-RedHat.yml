@@ -1,0 +1,43 @@
+---
+
+- name: Copy the interfaces file eth0
+  template:
+    src: ifcfg-eth0.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+  when:  eth0_ipaddr  > 1
+
+
+- name: Copy the interfaces file eth1
+  template:
+    src: ifcfg-eth1.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth1
+  when:  eth1_ipaddr  > 1
+
+
+- name: Copy the interfaces file eth2
+  template:
+    src: ifcfg-eth2.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth2
+  when:  eth2_ipaddr  > 1
+
+
+
+- name: Copy the interfaces file eth3
+  template:
+    src: ifcfg-eth3.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth3
+  when: eth3_ipaddr  > 1
+
+
+- name: Copy the interfaces file eth4
+  template:
+    src: ifcfg-eth4.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth4
+  when:  eth4_ipaddr  > 1
+
+
+- name: Copy the interfaces file eth5
+  template:
+    src: ifcfg-eth5.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth5
+  when:  eth5_ipaddr  > 1

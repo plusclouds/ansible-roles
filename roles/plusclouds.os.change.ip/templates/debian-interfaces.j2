@@ -1,0 +1,104 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+
+
+{% if eth0_ipaddr %}
+auto eth0
+iface eth0 inet static
+    address {{ eth0_ipaddr }}
+    network {{ eth0_network }}
+    netmask {{ eth0_netmask }}
+{% if eth0_gw %}
+    gateway {{eth0_gw}}
+{% endif %}
+{% if eth0_dns_name_server2 %}
+    dns_nameservers {{ eth0_dns_name_server1 }} {{ eth0_dns_name_server2 }}
+{% endif %}
+{% endif %}
+
+
+{% if eth1_ipaddr %}
+auto eth1
+iface eth1 inet static
+    address {{ eth1_ipaddr }}
+    network {{ eth1_network }}
+    netmask {{ eth1_netmask }}
+{% if eth1_gw %}
+    gateway {{eth1_gw}}
+{% endif %}
+{% if eth1_dns_name_server2 %}
+    dns_nameservers {{ eth1_dns_name_server1 }} {{ eth1_dns_name_server2 }}
+{% endif %}
+{% endif %}
+
+
+
+{% if eth2_ipaddr %}
+auto eth2
+iface eth2 inet static
+    address {{ eth2_ipaddr }}
+    network {{ eth2_network }}
+    netmask {{ eth2_netmask }}
+{% if eth2_gw %}
+    gateway {{eth2_gw}}
+{% endif %}
+{% if eth2_dns_name_server2 %}
+    dns_nameservers {{ eth2_dns_name_server1 }} {{ eth2_dns_name_server2 }}
+{% endif %}
+{% endif %}
+
+
+
+
+{% if eth3_ipaddr %}
+auto eth3
+iface eth3 inet static
+    address {{ eth3_ipaddr }}
+    network {{ eth3_network }}
+    netmask {{ eth3_netmask }}
+{% if eth3_gw %}
+    gateway {{eth3_gw}}
+{% endif %}
+{% if eth3_dns_name_server2 %}
+    dns_nameservers {{ eth3_dns_name_server1 }} {{ eth3_dns_name_server2 }}
+{% endif %}
+{% endif %}
+
+
+
+{% if eth4_ipaddr %}
+auto eth4
+iface eth4 inet static
+    address {{ eth4_ipaddr }}
+    network {{ eth4_network }}
+    netmask {{ eth4_netmask }}
+{% if eth4_gw %}
+    gateway {{eth4_gw}}
+{% endif %}
+{% if eth4_dns_name_server2 %}
+    dns_nameservers {{ eth4_dns_name_server1 }} {{ eth4_dns_name_server2 }}
+{% endif %}
+{% endif %}
+
+
+
+
+{% if eth5_ipaddr %}
+auto eth5
+iface eth5 inet static
+    address {{ eth5_ipaddr }}
+    network {{ eth5_network }}
+    netmask {{ eth5_netmask }}
+{% if eth5_gw %}
+    gateway {{eth5_gw}}
+{% endif %}
+{% if eth5_dns_name_server2 %}
+    dns_nameservers {{ eth5_dns_name_server1 }} {{ eth5_dns_name_server2 }}
+{% endif %}
+{% endif %}

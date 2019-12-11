@@ -1,7 +1,9 @@
 ---
 
+- include_tasks: setup-RedHat.yml
+  when:
+    - ansible_os_family == 'RedHat'
 
-- name: Copy the interfaces file /etc/network/interfaces path
-  template:
-    src: interfaces.j2
-    dest: /etc/network/interfaces
+- include_tasks: setup-Debian.yml
+  when:
+    - ansible_os_family == 'Debian'

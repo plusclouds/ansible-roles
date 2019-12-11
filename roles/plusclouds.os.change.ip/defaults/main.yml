@@ -1,7 +1,46 @@
 ---
 # defaults file for mightydok-winzabbixagent
 
-eth0: 10.4.0.0
-eth1: 10.8.0.0
-eth2: 
-dns_name_server: '8.8.8.8 8.8.4.4'
+eth0_ipaddr:
+eth0_netmask:
+eth0_network:
+eth0_dns_name_server1:
+eth0_dns_name_server2:
+eth0_gw:
+
+
+eth1_ipaddr:
+eth1_netmask:
+eth1_network:
+eth1_dns_name_server1:
+eth1_dns_name_server2:
+eth1_gw:
+
+eth2_ipaddr:
+eth2_netmask:
+eth2_network:
+eth2_dns_name_server1:
+eth2_dns_name_server2:
+eth2_gw:
+
+eth3_ipaddr:
+eth3_netmask:
+eth3_network:
+eth3_dns_name_server1:
+eth3_dns_name_server2:
+eth3_gw:
+
+
+eth4_ipaddr:
+eth4_netmask:
+eth4_network:
+eth4_dns_name_server1:
+eth4_dns_name_server2:
+eth4_gw:
+
+eth5_ipaddr:
+eth5_netmask:
+eth5_network:
+eth5_dns_name_server1:
+eth5_dns_name_server2:
+eth5_gw:

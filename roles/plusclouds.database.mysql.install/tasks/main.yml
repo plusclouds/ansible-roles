@@ -10,15 +10,37 @@
     - perl-modules
     - python-software-properties
 
+#- name: Download sourcelist
+#  shell: wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb -O /home/mysql8.deb
+#
+#
+#- name: debian | set license as accepted
+#  debconf:
+#    name="mysql-apt-config"
+#    question="mysql-apt-config/select-product"
+#    value='Ok'
+#    vtype='select'
+
+- name: Install
+  apt:
+    deb: https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb
+    #deb-options: "Ok"
+
+#- name: apply the sourcelist
+#  shell: dpkg –i /home/mysql8.deb
+
+- name: Run apt update
+  apt:  update_cache=yes
+
 - name: Install MYsql Server and Client
   apt: pkg={{ item }} state=present update_cache=yes force=yes
   with_items:
     - mysql-server
     - mysql-client
 
-- name: update mysql root password for all root accounts
-  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_password }}
-  when: ansible_hostname != 'localhost'
+#- name: update mysql root password for all root accounts
+#  mysql_user: name=root host={{ ansible_hostname }} password={{ mysql_root_password }}
+#  when: ansible_hostname != 'localhost'
 
 - name: update mysql root password for all root accounts
   mysql_user: name=root host={{ item }} password={{ mysql_root_password }}

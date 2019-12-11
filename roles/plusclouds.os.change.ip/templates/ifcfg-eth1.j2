@@ -1,0 +1,21 @@
+DEVICE=eth1
+TYPE=Ethernet
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=static
+IPADDR={{ eth1_ipaddr }}
+NETMASK={{eth1_netmask}}
+NETWORK={{eth1_network}}
+{% if eth1_dns_name_server1 %}
+DNS1={{eth1_dns_name_server1}}
+{% endif %}
+{% if eth1_dns_name_server2%}
+DNS2={{eth1_dns_name_server1}}
+{% endif %}
+{% if eth1_gw%}
+GATEWAY={{eth1_gw}}
+{% endif %}
+USERCTL=no
+PEERDNS=yes
+IPV6INIT=no
+ARPCHECK=no
