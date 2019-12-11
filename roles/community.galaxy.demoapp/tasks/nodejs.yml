@@ -1,10 +1,9 @@
 - name: Install utilities nodejs (Debian based OS's)
   package: name={{ item }} state=present
-  become: true
+  #become: true
   with_items:
     - unzip
-    - nodejs
-    - npm
+    # - npm
   when: ansible_os_family == 'Debian'
 
 
@@ -18,10 +17,9 @@
 
 - name: Install utilities nodejs
   package: name={{ item }} state=present
-  become: true
+  #become: true
   with_items:
     - unzip
-    - nodejs
   when: ansible_os_family == 'RedHat'
 
 - name: Create application directory
@@ -56,7 +54,7 @@
     owner: "{{ nodejs_application_user }}"
     group: "{{ nodejs_application_group }}"
     recurse: true
-  become: true
+  #become: true
 
 - name: Set Nodejs application Log Directory Permissions 755
   file:
@@ -66,11 +64,11 @@
     owner: "{{ nodejs_application_user }}"
     group: "{{ nodejs_application_group }}"
     recurse: true
-  become: true
+  #become: true
 
 - name: Set application file permissions 644
   command: find "{{ nodejs_application_path }}" -type f -exec chmod 0644 {} \;
-  become: true
+  #become: true
 
 - name: Start demo application
   shell: ( ( nohup npm start 1>/dev/null 2>&1 ) & )
