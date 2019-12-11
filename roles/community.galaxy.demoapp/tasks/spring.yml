@@ -30,7 +30,7 @@
     owner: "{{spring_application_user}}"
     group: "{{spring_application_group}}"
     recurse: true
-  become: true
+  #become: true
 
 - name: Set Spring Application Log Directory Permissions 755
   file:
@@ -40,7 +40,7 @@
     owner: "{{spring_application_user}}"
     group: "{{spring_application_group}}"
     recurse: true
-  become: true
+  #become: true
 
 - name: Set Spring Application File Permissions
   command: find {{ spring_application_path }} -type f -exec chmod 0644 {} \;
