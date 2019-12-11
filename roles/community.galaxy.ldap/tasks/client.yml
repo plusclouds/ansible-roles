@@ -1,8 +1,8 @@
 ---
 - name: Ensure dependencies are installed
-  yum: name={{ item }} state=installed
+  yum: name={{ item }} state=present
   with_items:
-    - openldap-clients 
+    - openldap-clients
     - nss-pam-ldapd
     - pam_ldap
     - openssh-ldap
@@ -10,13 +10,13 @@
   when: ansible_os_family == "RedHat"
 
 - name: Ensure dependencies are installed
-  apt: name={{ item }} state=installed update_cache=yes cache_valid_time=86400
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
   with_items:
     - ldap-utils
-    - libnss-ldap 
-    - libpam-ldap 
+    - libnss-ldap
+    - libpam-ldap
     - nscd
-    - auth-client-config
+    #- auth-client-config
   when: ansible_os_family == "Debian"
 
 - name: Install openssl-devel if LDAP server uses SSL
@@ -32,7 +32,7 @@
   register: result
   changed_when: "'OK' in result.stdout"
   when: ansible_os_family == "RedHat"
- 
+
 - name: Ensure ldap authentication is enabled
   shell: /usr/sbin/authconfig --enableldapauth --update
   register: result
@@ -72,7 +72,7 @@
 - name: Setting LDAP client
   shell: "{{ item }}"
   with_items:
-    - "echo ldap-auth-config    ldap-auth-config/rootbindpw {{ ldap_root_password }}  | debconf-set-selections"  
+    - "echo ldap-auth-config    ldap-auth-config/rootbindpw {{ ldap_root_password }}  | debconf-set-selections"
     - "echo ldap-auth-config    ldap-auth-config/bindpw {{ ldap_root_password }} | debconf-set-selections"
     - "echo ldap-auth-config    ldap-auth-config/ldapns/ldap-server string  {{ ldap_server_uri }} | debconf-set-selections"
     - "echo ldap-auth-config    ldap-auth-config/dbrootlogin    boolean true | debconf-set-selections"
@@ -90,15 +90,15 @@
     - "echo nslcd   nslcd/ldap-binddn   {{ ldap_root_dn }}  | debconf-set-selections"
     - "echo nslcd   nslcd/ldap-base string  dc=example,dc=com | debconf-set-selections"
     - "echo nslcd   nslcd/ldap-starttls boolean false | debconf-set-selections"
-    - "auth-client-config -t nss -p lac_ldap"
+  #  - "auth-client-config -t nss -p lac_ldap"
   when: ansible_os_family == "Debian"
   changed_when: False
 
 - name: Ensure dependencies are installed
-  apt: name={{ item }} state=installed update_cache=yes cache_valid_time=86400
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
   with_items:
     - nslcd
-    - auth-client-config
+  #  - auth-client-config
     - expect
   when: ansible_os_family == "Debian"
 
@@ -106,11 +106,11 @@
   template: src=templates/ldap-auth-config.sh.j2 dest=./ldap-auth-config.sh mode=0755
   when: ansible_os_family == "Debian"
 
-- name: Execute ldap-auth-config in non interactive mode
-  shell: ./ldap-auth-config.sh
-  changed_when: False
-  notify: restart nscd
-  when: ansible_os_family == "Debian"
+# - name: Execute ldap-auth-config in non interactive mode
+#   shell: ./ldap-auth-config.sh
+#   changed_when: False
+#   notify: restart nscd
+#   when: ansible_os_family == "Debian"
 
 - name: Ensure mkhomedir is set
   lineinfile: dest=/etc/pam.d/sshd regexp="^session\srequired\spam_mkhomedir.so\sumask=0022\sskel=/etc/skel" line="session required pam_mkhomedir.so umask=0022 skel=/etc/skel"
@@ -128,11 +128,11 @@
   changed_when: False
   notify: restart nscd
 
-- name: Update pam
-  shell: dpkg-reconfigure -fnoninteractive ldap-auth-config 
-  when: ansible_os_family == "Debian"
-  changed_when: False
-  notify: restart nscd
+# - name: Update pam
+#   shell: dpkg-reconfigure -fnoninteractive ldap-auth-config
+#   when: ansible_os_family == "Debian"
+#   changed_when: False
+#   notify: restart nscd
 
 - name: restart nscd
   service: name=nscd state=restarted

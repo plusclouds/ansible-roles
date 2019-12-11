@@ -10,7 +10,7 @@
     - pam_ldap
 
 - name: Ensure openldap is installed.
-  apt: name={{ item }} state=installed update_cache=yes cache_valid_time=86400
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
   when: ansible_os_family == "Debian"
   with_items:
     - slapd
@@ -41,6 +41,7 @@
 
 - name: Ensure sample conf file is copied
   shell: creates={{ ldap_dir }}/DB_CONFIG cp /usr/share/openldap-servers/DB_CONFIG.example {{ ldap_dir }}/DB_CONFIG
+  when: ansible_os_family == "RedHat"
 
 - name: Ensure sample conf file is copied
   shell: creates={{ slapd_conf_path }} cp /usr/share/openldap-servers/slapd.conf.obsolete {{ slapd_conf_path }}
@@ -98,7 +99,7 @@
   template: src=templates/{{ item }} dest=/tmp/{{ item }}
   with_items:
     - addou.ldif
-    - addgroup.ldif
+    # - addgroup.ldif
 
 #- name: list organization unit
 #  shell: ldapsearch -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -b "{{ ldap_suffix }}" "ou={{ ldap_users_ou }}"
@@ -140,9 +141,9 @@
 #  shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addgroup.ldif
 #  when: group_list.stdout.count("cn={{ ldap_samplegroup_name }},ou={{ ldap_group_ou }},{{ ldap_suffix }}") < 1 and ansible_os_family == "RedHat"
 
-- name: Ensure group is created
-  shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addgroup.ldif
-  ignore_errors: yes
+# - name: Ensure group is created
+#   shell: ldapadd -D "{{ ldap_root_dn }}" -w {{ ldap_root_password }} -f /tmp/addgroup.ldif
+#   ignore_errors: yes
   #when: group_list.stdout.count("cn={{ ldap_samplegroup_name }},ou={{ ldap_group_ou }},{{ ldap_suffix }}") < 1 and ansible_os_family == "Debian"
 
 #- name: list organization unit
