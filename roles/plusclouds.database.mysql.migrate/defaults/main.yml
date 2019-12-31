@@ -1,12 +1,12 @@
 src_database_name: "" # Source Database Name
-src_database_host: "" # Source Database Host
-src_database_port: "" # Source Database Port
-src_database_user: "" # Source Database User
+src_database_host: "127.0.0.1" # Source Database Host
+src_database_port: "3306" # Source Database Port
+src_database_user: "root" # Source Database User
 src_database_password: "" # Source Database User Password
 
-dst_database_host: "" # Destination Database Host
-dst_database_port: ""
-dst_database_user: "" # Destination Database User
+dst_database_host: "127.0.0.1" # Destination Database Host
+dst_database_port: "3306"
+dst_database_user: "root" # Destination Database User
 dst_database_password: "" # Destination Database User Password
 
-force_drop_database: yes # Force to delete database if exist on 
+force_drop_database: yes # Force to delete database if exist on
