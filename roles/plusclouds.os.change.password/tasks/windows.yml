@@ -1,7 +1,7 @@
 ---
 # tasks file for plusclouds.change.passwords
 
-- name: Ensure user bob is present
+- name: Change Password for {{ username }}
   win_user:
     name: {{ username }}
     password: {{ password }}

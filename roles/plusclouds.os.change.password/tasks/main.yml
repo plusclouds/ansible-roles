@@ -15,6 +15,10 @@
   include_tasks: pass-Ubuntu18.04.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
+- name: Setup Debian
+  include_tasks: pass-Debian.yml
+  when: ansible_distribution == 'Debian'
+
 
 - name: Setup CentOS 6
   include_tasks: pass-CentOS6.yml
