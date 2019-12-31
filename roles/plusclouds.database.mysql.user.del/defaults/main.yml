@@ -1,5 +1,6 @@
 ---
 # defaults file for plusclouds.database.mysql.user.del
-mysql_root_user: ""
-mysql_root_password: ""
+login_user: "root"
+login_password: ""
 user_name: "" #username which is gonna be deleted
+user_host: "localhost"
