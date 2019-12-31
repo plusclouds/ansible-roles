@@ -1,8 +1,8 @@
 stages:
-  - build
+  - test
 
-build_environment:
-  stage: build
+test_environment:
+  stage: test
   script:
     - su ansible
     - chmod +x update-and-test.sh
