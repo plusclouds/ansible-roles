@@ -5,8 +5,8 @@ stages:
 build_environment:
   stage: deploy
   script:
-    - mkdir /home/ansible/repo -P
-    - cp * /home/ansible/repo -R
+    - mkdir /home/ansible/repo -p
+    - cp * /home/ansible/repo -r
 
 test_environment:
   stage: scan
