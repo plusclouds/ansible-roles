@@ -6,7 +6,7 @@ build_environment:
   stage: deploy
   script:
     - mkdir /home/ansible/repo -p
-    - cp * /home/ansible/repo -r
+    - rsync -ac * /home/ansible/repo
 
 test_environment:
   stage: scan
