@@ -1,8 +1,15 @@
 stages:
-  - test
+  - deploy
+  - scan
+
+build_environment:
+  stage: deploy
+  script:
+    - mkdir /home/ansible/repo -P
+    - cp * /home/ansible/repo -R
 
 test_environment:
-  stage: test
+  stage: scan
   script:
     - su ansible
     - chmod +x update-and-test.sh
