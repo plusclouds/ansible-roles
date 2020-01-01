@@ -2,4 +2,5 @@
 roles:
 
 test_roles:
+  - plusclouds.os.update
   - plusclouds.nodejs.install
