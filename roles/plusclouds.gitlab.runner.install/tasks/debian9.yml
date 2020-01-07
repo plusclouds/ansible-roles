@@ -20,6 +20,8 @@
     owner: root
     group: root
     mode: 0600
+  become: yes
+  become_method: sudo
 
 - name: register GitLab Runner
   command: |
