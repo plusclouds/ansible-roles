@@ -1,0 +1,32 @@
+---
+- name: Install a list of packages
+  apt:
+    pkg:
+      - curl
+      - wget
+      - gnupg2
+      - ca-certificates
+      - lsb-release
+      - apt-transport-https
+
+- name: Add apt key for Debian
+  become: true
+  apt_key:
+    url: https://packages.sury.org/php/apt.gpg
+    state: present
+  when: ansible_distribution|lower == "debian"
+
+- name: Add repository for Debian
+  become: true
+  apt_repository:
+    repo: deb https://packages.sury.org/php/ stretch main
+    state: present
+
+- name: Update apt
+  become: yes
+  apt: update_cache=yes
+
+- name: Install a list of packages
+  apt:
+    pkg:
+      - php7.1-fpm
