@@ -33,6 +33,6 @@
       --executor {{ runner_executor }} \
       --machine-idle-nodes {{runner_idle_nodes}} \
       --machine-idle-time {{runner_idle_time}} \
-      --machine-max-builds {{runner_max_builds}} \
+      --machine-max-builds {{runner_max_builds}}
   become: yes
   become_method: sudo
