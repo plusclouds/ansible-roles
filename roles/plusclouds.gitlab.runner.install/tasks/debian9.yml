@@ -12,6 +12,7 @@
 
 - name: unregister GitLab Runner
   command: /usr/bin/gitlab-runner unregister --url {{ gitlab_url }} --token {{ runner_token }}
+  ignore_errors: yes
 
 - name: configure GitLab Runner
   template:
