@@ -1,0 +1,7 @@
+---
+- name: Openresty | Vhosts copy
+  lineinfile:
+    path: /etc/openresty/sites-enabled/{{ upstream_name }}.conf
+    insertafter: 'upstream {{ upstream_name }} {'
+    line: 'server {{ upstream }} max_fails=1 fail_timeout=10s;'
+  notify: Reload Openresty

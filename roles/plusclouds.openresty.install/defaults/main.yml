@@ -11,7 +11,7 @@ openresty_recommended_yum:
 # Protocol to be used for package download.
 openresty_repo_protocol: https
 
-centos_conf_path: /usr/local/openresty/nginx/conf/
+centos_conf_path: /etc/openresty/
 debian_conf_path: /etc/openresty/
 
 log_path: /var/log/openresty/
@@ -23,9 +23,9 @@ openresty_conf_file_path: /etc/openresty/nginx.conf
 debian_openresty_mime_file_path: "{{ debian_conf_path }}mime.types"
 redhat_openresty_mime_file_path: "{{ centos_conf_path }}mime.types"
 nginx_pidfile: /run/nginx.pid
-debian_openresty_vhost_path: /etc/openresty/application
-redhat_openresty_vhost_path: /usr/local/openresty/nginx/conf/application
-nginx_default_vhost_path: /etc/openresty/application
+debian_openresty_vhost_path: /etc/openresty/sites-enabled
+redhat_openresty_vhost_path: /etc/openresty/sites-enabled
+nginx_default_vhost_path: /etc/openresty/sites-enabled
 
 # Used only for Debian/Ubuntu installation, as the -t option for apt.
 nginx_default_release: ""

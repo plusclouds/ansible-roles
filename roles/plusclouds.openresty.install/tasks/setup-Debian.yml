@@ -37,7 +37,7 @@
     mode: 0755
     recurse: yes
   with_items:
-     - "{{ debian_conf_path }}application"
+     - "{{ debian_openresty_vhost_path }}"
      - "{{ log_path }}"
 
 

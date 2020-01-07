@@ -1,0 +1,19 @@
+upstream {{ item.name }} {
+{% for upstream in item.upstreams %}
+server {{ upstream }} max_fails=1 fail_timeout=10s;
+{% endfor %}
+{{ balancing_method }};
+}
+
+server {
+     listen         80;
+     server_name    {{ item.name }};
+
+     location / {
+          proxy_pass http://{{ item.name }};
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+     }
+}

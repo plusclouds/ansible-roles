@@ -1,0 +1,4 @@
+---
+balancer_vhosts:
+    - { name: "",  upstreams: ["", "" ] }
+balancing_method: "least_conn"  #default round robin empty, least_conn, ip-hash

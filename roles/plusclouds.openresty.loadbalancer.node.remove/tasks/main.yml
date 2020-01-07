@@ -1,0 +1,7 @@
+---
+- name: Delete host line in {{ upstream_name }} file.
+  lineinfile:
+    path: "/etc/openresty/sites-enabled/{{ upstream_name }}.conf"
+    regexp: 'server {{ upstream }}'
+    state: absent
+  notify: Reload Openresty
