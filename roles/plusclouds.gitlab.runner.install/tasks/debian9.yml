@@ -11,7 +11,7 @@
     state: present
 
 - name: unregister GitLab Runner
-  command: /usr/bin/gitlab-runner unregister
+  command: /usr/bin/gitlab-runner unregister --url {{ gitlab_url }} --token {{ runner_token }}
 
 - name: configure GitLab Runner
   template:
