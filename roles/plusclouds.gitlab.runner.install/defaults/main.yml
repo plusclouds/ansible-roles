@@ -1,0 +1,13 @@
+---
+# taken from https://github.com/StanfordLegion
+
+gitlab_url: "https://gitlab.com"
+
+runner_name: gitlab_runner
+runner_token: this_should_be_a_token
+runner_tags: master
+runner_executor: shell
+runner_limit: 24 # maximum number of concurrent jobs to process
+runner_idle_nodes: 0 # number of nodes to keep idle
+runner_idle_time: 300 # (seconds) time machine is idle before being removed
+runner_max_builds: 20 # number of times machine is reused before being replaced
