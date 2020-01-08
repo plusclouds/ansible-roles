@@ -24,6 +24,13 @@
   become: yes
   become_method: sudo
 
+- name: Check if gitlab runner is already registered
+  command: /usr/bin/gitlab-runner verify
+  become: yes
+  become_method: sudo
+  register: gitlab_registration
+  ignore_errors: yes
+
 - name: register GitLab Runner
   command: |
     /usr/bin/gitlab-runner register \
@@ -39,3 +46,4 @@
       --machine-max-builds {{runner_max_builds}}
   become: yes
   become_method: sudo
+  when: ('is alive' not in gitlab_registration.stdout)
