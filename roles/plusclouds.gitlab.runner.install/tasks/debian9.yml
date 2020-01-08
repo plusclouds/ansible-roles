@@ -10,8 +10,11 @@
       - gitlab-ci-multi-runner
     state: present
 
-- name: unregister GitLab Runner
-  command: /usr/bin/gitlab-runner unregister --url {{ gitlab_url }} --token {{ runner_token }}
+- name: Check if gitlab runner is already registered
+  command: /usr/bin/gitlab-runner verify
+  become: yes
+  become_method: sudo
+  register: gitlab_registration
   ignore_errors: yes
 
 - name: configure GitLab Runner
@@ -23,13 +26,7 @@
     mode: 0600
   become: yes
   become_method: sudo
-
-- name: Check if gitlab runner is already registered
-  command: /usr/bin/gitlab-runner verify
-  become: yes
-  become_method: sudo
-  register: gitlab_registration
-  ignore_errors: yes
+  when: ('is alive' not in gitlab_registration.stderr)
 
 - name: register GitLab Runner
   command: |
@@ -46,4 +43,4 @@
       --machine-max-builds {{runner_max_builds}}
   become: yes
   become_method: sudo
-  when: ('is alive' not in gitlab_registration.stdout)
+  when: ('is alive' not in gitlab_registration.stderr)
