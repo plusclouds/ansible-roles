@@ -27,7 +27,6 @@
     install_recommends: "{{ openresty_recommended_install }}"
   notify: restart openresty
 
-
 - name: "Create {{ debian_conf_path }} and {{ log_path }} directory"
   file:
     state: directory
@@ -39,7 +38,6 @@
   with_items:
      - "{{ debian_openresty_vhost_path }}"
      - "{{ log_path }}"
-
 
 - name: "Create log file"
   file:

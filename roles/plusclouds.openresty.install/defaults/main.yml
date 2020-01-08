@@ -16,7 +16,6 @@ debian_conf_path: /etc/openresty/
 
 log_path: /var/log/openresty/
 
-
 openresty_user: "root"
 root_group: "root"
 openresty_conf_file_path: /etc/openresty/nginx.conf
