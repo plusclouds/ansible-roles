@@ -42,8 +42,7 @@ nginx_package_name: "nginx"
 nginx_conf_template: "nginx.conf.j2"
 nginx_vhost_template: "vhost.j2"
 
-nginx_worker_processes: >-
-  "{{ ansible_processor_vcpus | default(ansible_processor_count) }}"
+nginx_worker_processes: "4"
 nginx_worker_connections: "1024"
 nginx_multi_accept: "on"
 
