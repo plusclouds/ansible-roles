@@ -1,0 +1,11 @@
+---
+- name: Check if Proxy Config Exists
+  stat: path=/etc/openresty/sites-enabled/{{ domain_name }}.conf
+  register: proxy_config
+
+- name: Create Proxy Config
+  file:
+    state: absent
+    path:  /etc/openresty/sites-enabled/{{ domain_name }}.conf
+  when: proxy_config.stat.exists == True
+  notify: Reload Openresty

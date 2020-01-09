@@ -1,0 +1,16 @@
+stages:
+  - deploy
+  - scan
+
+build_environment:
+  stage: deploy
+  script:
+    - mkdir /home/ansible/repo -p
+    - rsync -ac * /home/ansible/repo
+
+test_environment:
+  stage: scan
+  script:
+    - su ansible
+    - chmod +x update-and-test.sh
+    - bash update-and-test.sh

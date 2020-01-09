@@ -1,13 +1,13 @@
 ---
 user_token: ""
 
-application: "isbank-poc-app"
-application_type: "growing"
+application: "leo"
+application_type: "micro"
 
-app_server_count: 2
+app_server_count: 1
 
-preferred_template: "load-balancer"
-preferred_version: "16.04"
+preferred_template: "debian"
+preferred_version: "9.9"
 
-preferred_node: "AQmLZqYnBd"
-preferred_network: "plGrwbMLwQ"
+preferred_node: "yDQLBvLwmR"
+preferred_network: "kJzYaDWNBy"

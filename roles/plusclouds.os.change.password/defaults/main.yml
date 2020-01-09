@@ -1,6 +1,6 @@
 ---
 username: 'root'
-password: 'pass123'
+password: 'MyStrongPassword'
 is_procedure: = true #or false
 is_token_required: true #or false
 token_variable: {user_token}

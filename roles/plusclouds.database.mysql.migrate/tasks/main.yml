@@ -1,3 +1,18 @@
+---
+
+- name: Install MySQL-Python(for RedHat based systems)
+  package: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - MySQL-python
+  when: ansible_os_family == 'RedHat'
+
+- name: Install python-mysqldb (for Debian based systems)
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - python-pycurl
+    - python-mysqldb
+  when: ansible_os_family == 'Debian'
+
 - name: create a backup
   mysql_db:
     name: "{{ src_database_name }}"
@@ -7,6 +22,11 @@
     login_port: "{{ src_database_port }}"
     login_user: "{{ src_database_user }}"
     login_password: "{{ src_database_password }}"
+
+
+# - name: Dump database to /home path
+#   command: mysqldump -u {{ src_database_user }} -p "{{ src_database_password }}" "{{ src_database_name }}" > /home/{{ src_database_name }}.sql.gz
+
 
 - name: Drop database
   mysql_db:
@@ -32,3 +52,7 @@
     login_port: "{{ dst_database_port }}"
     login_user: "{{ dst_database_user }}"
     login_password: "{{ dst_database_password }}"
+
+
+# - name: Import database to remote host
+#   shell: mysql -h host -u user_name -pPassword database < file.sql

@@ -1,0 +1,17 @@
+---
+- name: Check if Proxy Config Exists
+  stat: path=/etc/openresty/sites-enabled/{{ domain_name }}.conf
+  register: proxy_config
+
+- name: Check if Proxy Params Exists
+  stat: path=/etc/openresty/proxy_params
+  register: proxy_params
+
+- name: Add Proxy Params if not exists
+  template: src=proxy_params.j2 dest=/etc/openresty/proxy_params owner=root group=root mode=0600
+  when: proxy_params.stat.exists == False
+
+- name: Create Proxy Config
+  template: src=proxy_conf.j2 dest=/etc/openresty/sites-enabled/{{ domain_name }}.conf owner=root group=root mode=0600
+  when: proxy_config.stat.exists == False
+  notify: Reload Openresty

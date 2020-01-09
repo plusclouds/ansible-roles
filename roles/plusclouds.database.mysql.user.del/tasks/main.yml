@@ -1,9 +1,27 @@
 ---
 # tasks file for plusclouds.database.mysql.user.del
-- name: Delete user 
+- name: Install MySQL-Python (for RedHat based systems)
+  package: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - MySQL-python
+  when: ansible_os_family == 'RedHat'
+
+- name: Install python-mysqldb (for Debian based systems)
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - python-pycurl
+    - python-mysqldb
+  when: ansible_os_family == 'Debian'
+
+
+- name: Delete user
   mysql_user:
-    login_user: "{{ mysql_root_user }}"
-    login_password: "{{ mysql_root_password }}"
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
     name: "{{ user_name }}"
     host_all: yes
     state: absent
+
+
+# - name: Delete user
+#   command: mysql -e "drop user '"{{ user_name }}"'@'"{{ user_host }}"';" -u"{{ login_user }}" -p"{{ login_password }}"

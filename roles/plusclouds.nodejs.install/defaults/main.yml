@@ -4,7 +4,7 @@
 nodejs_version: "10.x"
 
 # The user for whom the npm packages will be installed.
-# nodejs_install_npm_user: username
+nodejs_install_npm_user: root
 
 # The directory for global installations.
 npm_config_prefix: "/usr/local/lib/npm"
@@ -25,3 +25,6 @@ nodejs_npm_global_packages: []
 
 # The path of a package.json file used to install packages globally.
 nodejs_package_json_path: ""
+
+prereqisities:
+  - 

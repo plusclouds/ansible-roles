@@ -1,2 +1,3 @@
 ---
-# handlers file for elastic-beats
+- name: restart filebeat
+  service: name=filebeat state=restarted

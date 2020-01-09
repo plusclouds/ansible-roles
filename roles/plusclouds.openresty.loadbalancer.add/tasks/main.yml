@@ -1,0 +1,5 @@
+---
+- name: Openresty | Vhosts copy
+  template: src=vhosts.j2 dest=/etc/openresty/sites-enabled/{{ item.name }}.conf
+  with_items: "{{ balancer_vhosts }}"
+  notify: Reload Openresty

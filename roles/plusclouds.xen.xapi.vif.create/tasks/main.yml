@@ -1,0 +1,3 @@
+---
+- name: Creating VIF for virtual machine
+  raw: xe vif-create vm-uuid={{ vm_uuid }} network-uuid={{ network_uuid }} device={{ device }} mac={{ mac }}

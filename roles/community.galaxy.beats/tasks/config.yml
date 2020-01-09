@@ -1,55 +1,28 @@
-- name: Copy beats yum repo file
-  copy:
-    src=beat.repo
-    dest=/etc/yum.repos.d/beat.repo
-    owner=root
-    group=root
-    mode=0644
-  become: true
+---
+- name: Copy Filebeat configuration.
+  template:
+    src: filebeat.yml.j2
+    dest: "/etc/filebeat/filebeat.yml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart filebeat
 
-- name: Creates Cert Directory
+- name: Ensure Filebeat SSL key pair directory exists.
   file:
-    path: /etc/beat
+    path: "{{ filebeat_ssl_dir }}"
     state: directory
-    mode: 0755
+  when: filebeat_ssl_key_file | bool
 
-- name: Import ElasticSearch GPG Key
-  rpm_key: key=http://packages.elastic.co/GPG-KEY-elasticsearch
-    state=present
-
-# - name: Check ELK server SSL client certificate
-#   stat: path=/etc/beat/beat-forwarder.crt
-#   ignore_errors: true
-#   register: elk_client_ssl_cert_exists
-
-# - name: Install ELK server SSL client certificate
-#   get_url:
-#     url=http://{{ elk_server }}:{{ elk_server_ssl_cert_port }}/beat-forwarder.crt
-#     dest=/etc/beat/beat-forwarder.crt
-#   become: true
-#   when: (elk_client_ssl_cert_exists != 0)
-
-# - name: Install ELK server SSL client certificate
-#   get_url:
-#     url=http://{{ elk_server }}:{{ elk_server_ssl_cert_port }}/beat-forwarder.key
-#     dest=/etc/beat/beat-forwarder.key
-#   become: true
-#   when: (elk_client_ssl_cert_exists != 0)
-
-- name: Set Log Directory Permissions 755                  
-  file:                                                         
-    dest: "{{ item.path }}"                                      
-    mode: 0755                                                  
-    state: directory                                            
-    owner: "{{ item.owner }}"                                                
-    group: "{{ item.group }}"
-  become: true
+- name: Copy SSL key and cert for filebeat.
+  copy:
+    src: "{{ item }}"
+    dest: "{{ filebeat_ssl_dir }}/{{ item | basename }}"
+    mode: 0644
   with_items:
-    - "{{logdirectories|default([])}}"
-  
-                                                                
-- name: Set Log File Permissions 644                      
-  command: find "{{ item.path }}" -type f -exec chmod 0644 {} \;   
-  become: true
-  with_items:
-    - "{{logdirectories|default([])}}"
+    - "{{ filebeat_ssl_key_file }}"
+    - "{{ filebeat_ssl_certificate_file }}"
+  notify: restart filebeat
+  when:
+    - filebeat_ssl_key_file | bool
+    - filebeat_ssl_certificate_file | bool

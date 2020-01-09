@@ -1,0 +1,3 @@
+---
+- name: Reload Openresty
+  service: name=openresty state=reloaded

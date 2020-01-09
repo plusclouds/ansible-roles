@@ -27,22 +27,28 @@
     install_recommends: "{{ openresty_recommended_install }}"
   notify: restart openresty
 
-#Dizin kontrolü
-- name: "Check that {{ debian_conf_path }} exist"
-  stat:
-    path: "{{ centos_conf_path }}"
-  register: conf_path_dir_exists
 
-#Yukarıdaki dizin yok ise dizin create eder.
-- name: "Create {{ debian_conf_path }} directory"
+- name: "Create {{ debian_conf_path }} and {{ log_path }} directory"
   file:
     state: directory
-    path: "{{ debian_conf_path }}"
+    path: "{{ item }}"
     owner: root
     group: root
     mode: 0755
     recurse: yes
-  when: conf_path_dir_exists.stat.exists == False
+  with_items:
+     - "{{ debian_openresty_vhost_path }}"
+     - "{{ log_path }}"
+
+
+- name: "Create log file"
+  file:
+    state: touch
+    path: "{{ item }}"
+    owner: "{{ openresty_user }}"
+  with_items:
+     - "{{ log_path }}error.log"
+     - "{{ log_path }}access.log"
 
 - name: Copy the Customize nginx.conf file
   template:

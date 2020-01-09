@@ -1,0 +1,7 @@
+---
+# Install OpenResty Package Manager and OpenResty Doc
+domain_name: ""
+listen_port: "80"
+ip_address: ""
+port: ""
+proxy_address: "{{ ip_address }}:{{ port }}"
