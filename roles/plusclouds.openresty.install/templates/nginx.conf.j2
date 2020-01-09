@@ -34,8 +34,6 @@ http {
 
     client_max_body_size {{ nginx_client_max_body_size }};
 
-    log_format  main  {{ nginx_log_format|indent(23) }};
-
     access_log  {{ nginx_access_log }};
 
     sendfile        {{ nginx_sendfile }};
