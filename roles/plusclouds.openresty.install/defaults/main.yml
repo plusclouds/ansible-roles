@@ -47,7 +47,7 @@ nginx_worker_connections: "1024"
 nginx_multi_accept: "on"
 
 nginx_error_log: "{{ log_path }}error.log warn"
-nginx_access_log: "{{ log_path }}access.log main buffer=16k flush=2m"
+nginx_access_log: "{{ log_path }}access.log"
 
 nginx_sendfile: "on"
 nginx_tcp_nopush: "on"
