@@ -22,6 +22,8 @@ http {
 
 {% block http_basic %}
 
+    include /etc/openresty/mime.types.default;
+
 {% if ansible_os_family in ['Debian','Ubuntu'] %}
     include {{ debian_openresty_mime_file_path }}/*;
 {% endif %}
