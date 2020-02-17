@@ -12,6 +12,5 @@ build_environment:
 test_environment:
   stage: scan
   script:
-    - su ansible
     - chmod +x update-and-test.sh
     - bash update-and-test.sh
