@@ -1,74 +1,91 @@
 ---
-# Main list of tasks to be executed.
-#
-#   Fail the play if it runs on an unsupported platform.
-- name: Assert platform is supported
-  tags: maven
+- name: load version vars
+  with_first_found:
+    - '../vars/versions/{{ maven_version }}.yml'
+    - ../vars/versions/default.yml
+  include_vars: '{{ item }}'
+
+- name: assert version vars
   assert:
     that:
-      - ansible_os_family in ['Archlinux', 'Debian', 'RedHat', 'Suse']
+      - "maven_redis_sha256sum not in (None, '')"
 
+- name: install which (yum, dnf, zypper)
+  become: yes
+  package:
+    name: which
+    state: present
+  when: ansible_pkg_mgr in ('yum', 'dnf', 'zypper')
 
-- name: Install Maven download directory (remote)
-  tags: maven
+- name: create download directory
   file:
-    state=directory
-    owner=0
-    group=0
-    mode=0755
-    dest={{ ansible_data_path }}
+    state: directory
+    mode: 'u=rwx,go=rx'
+    dest: '{{ maven_download_dir }}'
 
+- name: download Maven
+  get_url:
+    url: '{{ maven_mirror }}/{{ maven_redis_filename }}'
+    dest: '{{ maven_download_dir }}/{{ maven_redis_filename }}'
+    sha256sum: '{{ maven_redis_sha256sum }}'
+    force: no
+    use_proxy: yes
+    validate_certs: yes
+    timeout: '{{ maven_download_timeout }}'
+    mode: 'u=rw,go=r'
 
-- name: Download Maven (remote)
-  tags: maven
-  get_url: 
-    dest={{ ansible_data_path }}/{{ maven_redis_filename }}
-    url={{ maven_mirror }}/maven-{{ maven_version_major }}/{{ maven_version }}/binaries/{{ maven_redis_filename }}
-    owner=0
-    group=0
-    mode=0644
-    sha256sum={{ maven_redis_sha256sum }}
-
-
-- name: Install Maven installation directory
-  tags: maven
+- name: create Maven installation directory
+  become: yes
   file:
-    state=directory
-    owner=0
-    group=0
-    mode=0755
-    dest={{ maven_install_dir }}
+    state: directory
+    owner: root
+    group: root
+    mode: 'u=rwx,go=rx'
+    dest: '{{ maven_install_dir }}'
 
+- name: install unarchive module dependencies (dnf, zypper)
+  become: yes
+  package:
+    name:
+      - tar
+      - unzip
+      - gzip
+    state: present
+  when: ansible_pkg_mgr in ('dnf', 'zypper')
 
-- name: Install Maven
-  tags: maven
+- name: install Maven
+  become: yes
   unarchive:
-    src={{ ansible_data_path }}/{{ maven_redis_filename }}
-    dest={{ maven_install_dir }}
-    copy=no
+    src: '{{ maven_download_dir }}/{{ maven_redis_filename }}'
+    dest: '{{ maven_install_dir }}'
+    copy: no
+    owner: root
+    group: root
+    mode: 'go-w'
+    creates: '{{ maven_install_dir }}/apache-maven-{{ maven_version }}'
 
+- name: create symbolic links
+  include_tasks: create-symbolic-links.yml
+  when: maven_is_default_installation
 
-- name: Install Maven bin directory
-  tags: maven
+- name: create Ansible facts.d directory
+  become: yes
   file:
-    state=directory
-    owner=0
-    group=0
-    mode=0755
-    dest={{ maven_bin_path }}
+    state: directory
+    dest: /etc/ansible/facts.d
+    owner: root
+    group: root
+    mode: 'u=rwx,go=rx'
 
-
-- name: Install Maven binary
-  tags: maven
-  file:
-    state=link
-    force=true
-    src={{ maven_install_dir }}/apache-maven-{{ maven_version }}/bin/mvn
-    dest={{ maven_bin_path }}/mvn
-
-
-- name: Set Maven Home (M2_HOME)
+- name: install Maven facts
+  become: yes
   template:
-    src: maven_home.sh.j2
-    dest: /etc/profile.d/maven_home.sh
-    mode: 0644
+    src: facts.j2
+    dest: '/etc/ansible/facts.d/{{ maven_fact_group_name }}.fact'
+    owner: root
+    group: root
+    mode: 'u=rw,go=r'
+
+- name: re-read facts
+  setup:
+    filter: ansible_local

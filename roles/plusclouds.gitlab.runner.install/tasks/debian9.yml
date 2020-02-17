@@ -9,6 +9,7 @@
     pkg:
       - gitlab-ci-multi-runner
     state: present
+    update_cache: yes
 
 - name: Check if gitlab runner is already registered
   command: /usr/bin/gitlab-runner verify

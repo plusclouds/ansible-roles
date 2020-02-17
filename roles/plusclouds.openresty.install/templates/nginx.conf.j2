@@ -22,10 +22,12 @@ http {
 
 {% block http_basic %}
 
-{% if ansible_os_family == "Debian" %}
+    include /etc/openresty/mime.types.default;
+
+{% if ansible_os_family in ['Debian','Ubuntu'] %}
     include {{ debian_openresty_mime_file_path }}/*;
 {% endif %}
-{% if ansible_os_family == "Redhat" %}
+{% if ansible_os_family in ['Redhat'] %}
     include {{ redhat_openresty_mime_file_path }}/*;
 {% endif %}
     default_type  application/octet-stream;
@@ -33,8 +35,6 @@ http {
     server_names_hash_bucket_size {{ nginx_server_names_hash_bucket_size }};
 
     client_max_body_size {{ nginx_client_max_body_size }};
-
-    log_format  main  {{ nginx_log_format|indent(23) }};
 
     access_log  {{ nginx_access_log }};
 
@@ -52,7 +52,7 @@ http {
 {% endblock %}
 
 {% block http_gzip %}
-    # gzip on;
+    gzip on;
 {% endblock %}
 
 {% if nginx_extra_http_options %}
@@ -61,10 +61,10 @@ http {
 
 
 {% block http_includes %}
-{% if ansible_os_family == "Debian" %}
+{% if ansible_os_family in ['Debian','Ubuntu'] %}
     include {{ debian_openresty_vhost_path }}/*;
 {% endif %}
-{% if ansible_os_family == "Redhat" %}
+{% if ansible_os_family in ['Redhat'] %}
     include {{ redhat_openresty_vhost_path }}/*;
 {% endif %}
 
