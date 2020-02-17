@@ -1,5 +1,5 @@
 ---
-# tasks file for plusclouds.datebase.mysql.install
+# tasks file for plusclouds.database.mysql.install
 - name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
   apt: pkg={{ item }} state=present update_cache=yes
   with_items:
@@ -8,7 +8,6 @@
     - python-pycurl
     - python-mysqldb
     - perl-modules
-    - python-software-properties
 
 #- name: Download sourcelist
 #  shell: wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb -O /home/mysql8.deb
