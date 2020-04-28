@@ -18,9 +18,9 @@
   apt:
     update_cache: yes
 
-- name: Install PHP7.3-FPM
+- name: Install PHP7.4-FPM
   apt:
     name: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: "{{ ubuntu16_php_pkgs }}"
+  with_items: "{{ ubuntu14_php_pkgs }}"

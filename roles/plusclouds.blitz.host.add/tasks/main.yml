@@ -1,4 +1,10 @@
 ---
 # tasks file for plusclouds.blitz.add-host
+- name: Firewall configuration 
+  include_tasks: applyfwrules.yml
+
+- name: Disk Monitoring
+  include_tasks: diskmon.yml
+
 - name: adding host to Blitz
   include_tasks: addhost.yml
