@@ -9,9 +9,9 @@
 
 
 
-- name: install php7.2
+- name: install php7.1
   yum:
     name: "{{ item }}"
-    enablerepo: epel,remi,remi-php72
+    enablerepo: epel,remi,remi-php71
     state: installed
   with_items: "{{ centos7_php_pkgs }}"

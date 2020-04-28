@@ -1,21 +1,17 @@
 ---
-
 - name: Repo Update
   become: true
   apt:
     update_cache: yes
 
-
 - name: Install server properties
   become: yes
   apt: name=software-properties-common state=latest
-
 
 - name: Install the PHP Repository
   apt_repository:
     repo: 'ppa:ondrej/php'
     state: present
-
 
 - name: Repo update
   become: true

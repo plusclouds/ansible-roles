@@ -22,7 +22,7 @@
   apt:
     update_cache: yes
 
-- name: Install PHP7.2-FPM
+- name: Install PHP7.1-FPM
   apt:
     name: "{{ item }}"
     state: latest

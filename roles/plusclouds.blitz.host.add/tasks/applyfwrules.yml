@@ -1,0 +1,7 @@
+---
+- name: Allow zabbix
+  shell: iptables -A INPUT -p tcp -s {{ blitz_server_bilgileri.blitz_monitoring_server_ip }} -j ACCEPT
+
+- name: Allow zabbix server ip output
+  shell: iptables -A OUTPUT -p tcp -d {{ blitz_server_bilgileri.blitz_monitoring_server_ip }} -j ACCEPT
+

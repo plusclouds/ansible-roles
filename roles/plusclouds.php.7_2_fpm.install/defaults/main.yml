@@ -1,8 +1,7 @@
 ---
 # defaults file for install-lemp
 ubuntu14_php_pkgs:
-  - php
-  - php-pear
+  - php7.2
   - php7.2-fpm
   - php7.2-curl
   - php7.2-gd
@@ -17,8 +16,7 @@ ubuntu14_php_pkgs:
   - php7.2-intl
 
 ubuntu16_php_pkgs:
-  - php
-  - php-pear
+  - php7.2
   - php7.2-fpm
   - php7.2-curl
   - php7.2-gd
@@ -34,8 +32,7 @@ ubuntu16_php_pkgs:
 
 
 ubuntu18_php_pkgs:
-  - php
-  - php-pear
+  - php7.2
   - php7.2-fpm
   - php7.2-curl
   - php7.2-gd
@@ -81,3 +78,22 @@ centos7_php_pkgs:
   - php-pear
   - php-bcmath
   - php-json
+
+debian9_php_pkgs:
+  - php7.2
+  - php7.2-bcmath
+  - php7.2-cli
+  - php7.2-common
+  - php7.2-curl
+  - php7.2-fpm
+  - php7.2-gmp
+  - php7.2-json
+  - php7.2-mbstring
+  - php7.2-mysql
+  - php7.2-opcache
+  - php7.2-readline
+  - php7.2-soap
+  - php7.2-sqlite3
+  - php7.2-xml
+  - php7.2-xmlrpc
+  - php7.2-zip
