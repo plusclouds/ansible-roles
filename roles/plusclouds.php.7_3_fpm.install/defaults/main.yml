@@ -80,3 +80,22 @@ centos7_php_pkgs:
   - php-pear
   - php-bcmath
   - php-json
+
+debian9_php_pkgs:
+  - php7.3
+  - php7.3-bcmath
+  - php7.3-cli
+  - php7.3-common
+  - php7.3-curl
+  - php7.3-fpm
+  - php7.3-gmp
+  - php7.3-json
+  - php7.3-mbstring
+  - php7.3-mysql
+  - php7.3-opcache
+  - php7.3-readline
+  - php7.3-soap
+  - php7.3-sqlite3
+  - php7.3-xml
+  - php7.3-xmlrpc
+  - php7.3-zip

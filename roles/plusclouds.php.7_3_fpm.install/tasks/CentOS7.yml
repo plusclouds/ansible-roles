@@ -7,8 +7,6 @@
 - name: Add Repository 'remi-repo'
   command: rpm -ih http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-
-
 - name: install php7.3
   yum:
     name: "{{ item }}"
