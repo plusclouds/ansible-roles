@@ -1,8 +1,21 @@
 ---
-- name: Install a list of packages
+- name: Check sudo exists
+  stat:
+    path: /etc/init.d/sudo
+  register: stat_result
+
+- debug: 
+    var: stat_result.stat.exists
+
+- name: Install sudo if not installed
   apt:
     pkg:
       - sudo
+  when: not stat_result.stat.exists
+
+- name: Install a list of packages
+  apt:
+    pkg:
       - curl
       - wget
       - gnupg2
