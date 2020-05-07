@@ -14,6 +14,7 @@ ubuntu14_php_pkgs:
   - php7.1-cli
   - php7.1-json
   - php7.1-intl
+  - php7.1-ssh
 
 ubuntu16_php_pkgs:
   - php7.1
@@ -29,7 +30,7 @@ ubuntu16_php_pkgs:
   - php7.1-cli
   - php7.1-json
   - php7.1-intl
-
+  - php7.1-ssh
 
 ubuntu18_php_pkgs:
   - php7.1  
@@ -45,7 +46,7 @@ ubuntu18_php_pkgs:
   - php7.1-cli
   - php7.1-json
   - php7.1-intl
-
+  - php7.1-ssh
 
 centos7_php_pkgs:
   - php
@@ -62,6 +63,7 @@ centos7_php_pkgs:
   - php-pear
   - php-bcmath
   - php-json
+  - php-ssh
 
 debian9_php_pkgs:
   - php7.1
@@ -82,3 +84,5 @@ debian9_php_pkgs:
   - php7.1-xml
   - php7.1-xmlrpc
   - php7.1-zip
+  - php7.1-ssh
+  - php-ssh2
