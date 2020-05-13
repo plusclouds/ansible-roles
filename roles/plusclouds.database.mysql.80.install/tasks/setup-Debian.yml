@@ -14,6 +14,12 @@
   shell: wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb -O /home/mysql8.deb
 
 - shell: apt-key adv --keyserver keys.gnupg.net --recv-keys 8C718D3B5072E1F5
+  ignore_errors: yes
+  
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: 8C718D3B5072E1F5
 
 - name: debian | set license as accepted
   debconf:
