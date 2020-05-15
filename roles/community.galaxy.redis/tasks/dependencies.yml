@@ -2,17 +2,21 @@
 - shell: apt update
   when: ansible_os_family == "Debian"
 
-- name: install debian dependencies
-  apt:
-    pkg: "{{ item }}"
-    state: present
-  with_items:
-    - gcc
-    - make
-    - libc6-dev
-    # This should be `else omit`, but it fails on Ansible 1.x, so just duplicate gcc
-    - "{{ 'libc6-dev-i386' if redis_make_32bit|bool else 'gcc' }}"
+- shell: apt install gcc make libc6-dev -y
   when: ansible_os_family == "Debian"
+
+
+#- name: install debian dependencies
+#  apt:
+#    pkg: "{{ item }}"
+#    state: present
+#  with_items:
+#    - gcc
+#    - make
+#    - libc6-dev
+#    # This should be `else omit`, but it fails on Ansible 1.x, so just duplicate gcc
+#    - "{{ 'libc6-dev-i386' if redis_make_32bit|bool else 'gcc' }}"
+#  when: ansible_os_family == "Debian"
 
 - name: install redhat dependencies
   yum:
