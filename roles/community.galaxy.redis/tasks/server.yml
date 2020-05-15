@@ -50,6 +50,7 @@
   when:
     - redis_as_service
     - ansible_service_mgr|default() == "systemd"
+    - redis_unit_file|changed
 
 - name: set redis to start at boot
   service:
