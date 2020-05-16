@@ -85,4 +85,4 @@ debian9_php_pkgs:
   - php7.1-xmlrpc
   - php7.1-zip
   - php7.1-ssh
-  - php-ssh2
+  - php7.1-ssh2

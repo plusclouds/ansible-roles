@@ -30,7 +30,7 @@ redis_service_name: "redis_{{ redis_port }}"
 ## Networking/connection options
 redis_bind: 0.0.0.0
 redis_port: 6379
-redis_password: false
+redis_password: password
 # Slave replication options
 redis_min_slaves_to_write: 0
 redis_min_slaves_max_lag: 10
@@ -109,7 +109,7 @@ redis_sentinel_monitors:
     host: localhost
     port: 6379
     quorum: 2
-    auth_pass: ant1r3z
+    auth_pass: password
     down_after_milliseconds: 30000
     parallel_syncs: 1
     failover_timeout: 180000

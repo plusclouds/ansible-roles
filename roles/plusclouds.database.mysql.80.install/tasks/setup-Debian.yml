@@ -14,6 +14,12 @@
   shell: wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb -O /home/mysql8.deb
 
 - shell: apt-key adv --keyserver keys.gnupg.net --recv-keys 8C718D3B5072E1F5
+  ignore_errors: yes
+  
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: 8C718D3B5072E1F5
 
 - name: debian | set license as accepted
   debconf:
@@ -26,8 +32,7 @@
   apt:
     deb: https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb
 
-- name: Run apt update
-  apt:  update_cache=yes
+- shell: apt update
 
 - name: Install MYsql Server and Client
   apt: pkg={{ item }} state=present update_cache=yes force=yes
@@ -38,14 +43,14 @@
 - name: Create .my.cnf for ansible user
   template: src=.my.cnf.j2 dest=~/.my.cnf
 
-- shell: mysql -e "alter user 'root'@'localhost' identified with mysql_native_password by ''"
+#- shell: mysql -e "alter user 'root'@'localhost' identified with mysql_native_password by ''"
 
-- name: update mysql root password for all root accounts
-  mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password=''
-  with_items:
-   - 127.0.0.1
-   - ::1
-   - localhost
+#- name: update mysql root password for all root accounts
+#  mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password=''
+#  with_items:
+#   - 127.0.0.1
+#   - ::1
+#   - localhost
 
-- debug:
-    msg: "mysql root password is {{ mysql_root_password }}"
+#- debug:
+#    msg: "mysql root password is {{ mysql_root_password }}"
