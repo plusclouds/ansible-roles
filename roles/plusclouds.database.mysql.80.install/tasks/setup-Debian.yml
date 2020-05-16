@@ -51,8 +51,8 @@
    - ::1
    - localhost
 
-#- name: Create .my.cnf for ansible user
-#  template: src=.my.cnf.j2 dest=~/.my.cnf
+- name: Create .my.cnf for ansible user
+  template: src=.my.cnf.j2 dest=~/.my.cnf
 
 #- debug:
 #    msg: "mysql root password is {{ mysql_root_password }}"
