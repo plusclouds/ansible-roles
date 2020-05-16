@@ -1,6 +1,22 @@
 ---
 - shell: apt update
 
+- name: Get installed packaged
+  shell: dpkg -l | grep mysql-server
+  register: packages
+
+- name: Check if mysql is installed already
+  set_fact:
+    installed: 1
+  when: packages.stdout is search("mysql-server")
+
+- debug:
+    msg: "MySQL Server is installed already"
+  when: installed == 1
+
+- meta: end_play
+  when: installed == 1
+
 - name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
   apt: pkg={{ item }} state=present update_cache=yes
   with_items:
