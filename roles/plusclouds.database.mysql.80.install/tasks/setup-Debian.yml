@@ -40,20 +40,7 @@
     - mysql-server
     - mysql-client
 
-- name: Create .my.cnf for ansible user
-  template: src=.my.cnf.j2 dest=~/.my.cnf
-
-- shell: service mysql stop
-
-- shell: mysqld_safe --skip-grant-tables
-
-- shell: mysql -e "flush privileges; alter user 'root'@'localhost' identified with mysql_native_password"
-
-- shell: pkill mysqld
-
-- shell: service mysql start
-
-- shell: mysql -e "alter user 'root'@'localhost' identified with mysql_native_password by '{{ mysql_root_password }}'"
+- shell: mysql -e "alter user 'root'@'localhost' identified with mysql_native_password by ''"
 
 - name: update mysql root password for all root accounts
   mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password=''
@@ -62,5 +49,8 @@
    - ::1
    - localhost
 
-- debug:
-    msg: "mysql root password is {{ mysql_root_password }}"
+#- name: Create .my.cnf for ansible user
+#  template: src=.my.cnf.j2 dest=~/.my.cnf
+
+#- debug:
+#    msg: "mysql root password is {{ mysql_root_password }}"
