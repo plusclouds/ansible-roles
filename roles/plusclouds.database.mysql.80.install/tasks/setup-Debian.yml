@@ -6,7 +6,7 @@
 - name: Get installed packaged
   shell: dpkg -l | grep mysql-server
   register: packages
-  ignore_errors: true
+  ignore_errors: yes
 
 - set_fact:
     installed: 0
