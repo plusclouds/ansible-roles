@@ -87,7 +87,7 @@ centos7_php_pkgs:
   - php-bcmath
   - php-json
   - php-gd
-  - php7.2-ldap
+  - php-ldap
 
 debian9_php_pkgs:
   - php7.2
