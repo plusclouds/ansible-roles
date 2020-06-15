@@ -17,6 +17,7 @@ ubuntu14_php_pkgs:
   - php7.1-ssh
   - php7.1-ssh2
   - php7.1-ldap
+  - php7.1-gd
 
 ubuntu16_php_pkgs:
   - php7.1
@@ -35,6 +36,7 @@ ubuntu16_php_pkgs:
   - php7.1-ssh
   - php7.1-ssh2
   - php7.1-ldap
+  - php7.1-gd
 
 ubuntu18_php_pkgs:
   - php7.1  
@@ -53,6 +55,7 @@ ubuntu18_php_pkgs:
   - php7.1-ssh
   - php7.1-ssh2
   - php7.1-ldap
+  - php7.1-gd
 
 centos7_php_pkgs:
   - php
@@ -71,6 +74,7 @@ centos7_php_pkgs:
   - php-json
   - php-ssh
   - php-ldap
+  - php-gd
 
 debian9_php_pkgs:
   - php7.1
@@ -94,3 +98,4 @@ debian9_php_pkgs:
   - php7.1-ssh
   - php7.1-ssh2
   - php7.1-ldap
+  - php7.1-gd
