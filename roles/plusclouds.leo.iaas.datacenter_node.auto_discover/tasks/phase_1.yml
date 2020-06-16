@@ -1,7 +1,7 @@
 ---
 - name: Get Cloud Node Information
   uri:
-    url: http://{leo_url}/v2/iaas/datacenter-nodes?include=datacenter&slug={{ datacenter_node_slug }}
+    url: http://{{leo_url}}/v2/iaas/datacenter-nodes?include=datacenter&slug={{ datacenter_node_slug }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -15,7 +15,7 @@
 
 - name: Check if datacenter node has compute pool
   uri:
-    url: http://{leo_url}/v2/iaas/compute-pools?datacenter={{ datacenter.id }}&fields=username,password,master_ip_addr,management_url
+    url: http://{{leo_url}}/v2/iaas/compute-pools?datacenter={{ datacenter.id }}&fields=username,password,master_ip_addr,management_url
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -27,7 +27,7 @@
 
 - name: Check if datacenter node has storage pool
   uri:
-    url: http://{leo_url}/v2/iaas/storage-pools?datacenter={{ datacenter.id }}
+    url: http://{{leo_url}}/v2/iaas/storage-pools?datacenter={{ datacenter.id }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -43,7 +43,7 @@
 
 - name: Check if datacenter node has network pool
   uri:
-    url: http://{leo_url}/v2/iaas/network-pools?datacenter={{ datacenter.id }}
+    url: http://{{leo_url}}/v2/iaas/network-pools?datacenter={{ datacenter.id }}
     method: GET
     headers:
       Authorization: "Bearer {{ user_token }}"
