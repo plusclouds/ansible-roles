@@ -1,7 +1,7 @@
 ---
 - name: Create default storage pool if Cloud Node does not have any
   uri:
-    url: http://apiv2/v2/iaas/storage-pools
+    url: http://{{ leo_url }}/v2/iaas/storage-pools
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
