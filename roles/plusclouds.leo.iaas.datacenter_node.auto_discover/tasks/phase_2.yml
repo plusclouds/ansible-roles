@@ -1,7 +1,7 @@
 ---
 - name: Sync. Compute Members
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/compute-members
+    url: http://{{leo_url}}/v2/iaas/cron/sync/compute-members
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -16,7 +16,7 @@
 
 - name: Sync. Storage Volumes
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/storage-volumes
+    url: http://{{leo_url}}/v2/iaas/cron/sync/storage-volumes
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -31,7 +31,7 @@
 
 - name: Sync. Networks
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/networks
+    url: http://{{leo_url}}/v2/iaas/cron/sync/networks
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"

@@ -1,7 +1,7 @@
 ---
 - name: Sync. Virtual Machines
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/virtual-machines
+    url: http://{{leo_url}}/v2/iaas/cron/sync/virtual-machines
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -16,7 +16,7 @@
 
 - name: Sync. Virtual Disk Images
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/virtual-disk-images
+    url: http://{{leo_url}}/v2/iaas/cron/sync/virtual-disk-images
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -31,7 +31,7 @@
 
 - name: Sync. Virtual Network Cards
   uri:
-    url: http://{leo_url}/v2/iaas/cron/sync/virtual-network-cards
+    url: http://{{leo_url}}/v2/iaas/cron/sync/virtual-network-cards
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
