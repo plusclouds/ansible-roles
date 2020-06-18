@@ -1,0 +1,29 @@
+---
+- name: Install nmap if not installed
+  apt:
+    name: nmap
+    state: present
+
+- name: Discover Ip Adresses
+  shell: nmap -n -sn {{ network_ip_addr }}{{ network_subnet }} -oG - | awk '/Up$/{print $2}'
+  register: ip_addresses
+
+- name: Search for mac address of related ip
+  shell: arping -I eth0 -c 1 {{ item }}
+  register: arping_result
+
+- set_fact:
+    mac_address: "{{ arping_result.stdout | regex_search('([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])') }}"
+
+- name: Store ip address as reserved
+  uri:
+    url: http://apiv2.plusclouds/v2/packetbender/ip/set-mac-and-ip
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "allow=1&auto_configuration=0&ip_addr={{ item }}&mac_addr={{ mac_address }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  delegate_to: localhost
+  ignore_errors: yes
