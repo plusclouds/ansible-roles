@@ -1,0 +1,8 @@
+---
+# defaults file for plusclouds.netgateway.dhcp.add.ip
+
+network_ip_addr: 192.168.200.0 #Must be unique
+network_subnet: /25
+network_interface: eth0
+mac_conf_path: /home/mac.conf
+host_name: plusclouds-kktc-internalPIF
