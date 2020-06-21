@@ -15,7 +15,7 @@
 
 - name: Store ip address as reserved
   uri:
-    url: http://apiv2.plusclouds/v2/packetbender/ip
+    url: http://{{leo_url}}/v2/packetbender/ip
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -44,7 +44,7 @@
 
 - name: Store ip address as reserved
   uri:
-    url: http://apiv2/v2/packetbender/ip/set-mac-and-ip
+    url: http://{{leo_url}}/v2/packetbender/ip/set-mac-and-ip
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
