@@ -8,14 +8,26 @@
   shell: nmap -n -sn {{ network_ip_addr }}{{ network_subnet }} -oG - | awk '/Up$/{print $2}'
   register: ip_addresses
 
-- debug:
-    var: ip_addresses.stdout_lines
-
 - set_fact:
     ip_addr: "{{ ip_addresses.stdout_lines }}"
 
-- debug:
-    var: ip_addr
+# STORING IP ADDRESSES
+
+- name: Store ip address as reserved
+  uri:
+    url: http://apiv2.plusclouds/v2/packetbender/ip
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "is_reserved=1&ip_addr={{ item }}&network_ref={{ network.id }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  with_items: "{{ ip_addr }}"
+  delegate_to: localhost
+  ignore_errors: yes
+
+# SEARCHING FOR MAC ADDRESS OF IP ADDRESS
 
 - name: Search for mac address of related ip
   shell: arping -I {{ network_interface }} -c 1 {{ item }} | grep from | awk {'print$4'} | sort -u
@@ -29,15 +41,6 @@
 - set_fact:
     host_network_info: "{{ host_network_info | default([]) + [dict(mac=item[0], ip=item[1])] }}"
   loop: "{{ macs | zip(ip_addr) | list }}"
-
-- debug: 
-    var: host_network_info
-
-- lineinfile:
-    path: "{{ mac_conf_path }}"
-    line: host {{ host_name }} {  hardware ethernet {{ item.mac }}; fixed-address {{ item.ip }};
-    create: yes
-  with_items: "{{ host_network_info }}"
 
 - name: Store ip address as reserved
   uri:
