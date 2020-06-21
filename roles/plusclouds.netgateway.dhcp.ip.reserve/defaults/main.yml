@@ -3,4 +3,3 @@
 
 network_ip_addr: 192.168.200.0 #Must be unique
 network_subnet: /25
-network_interface: eth0
