@@ -19,7 +19,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "is_reserved=1&ip_addr={{ item }}&network_ref={{ network.id }}"
+    body: "is_reserved=1&ip_addr={{ item }}&network_ref={{ network }}"
     return_content: yes
     status_code: 201
     timeout: 300
