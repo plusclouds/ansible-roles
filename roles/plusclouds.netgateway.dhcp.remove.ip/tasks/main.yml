@@ -1,0 +1,6 @@
+---
+- name: Remove ip address from config file
+  lineinfile:
+    path: /home/mac.conf
+    state: absent
+    regexp: 'fixed-address {{ ip_addr }};'
