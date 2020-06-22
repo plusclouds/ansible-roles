@@ -8,14 +8,26 @@
   shell: nmap -n -sn {{ network_ip_addr }}{{ network_subnet }} -oG - | awk '/Up$/{print $2}'
   register: ip_addresses
 
-- debug:
-    var: ip_addresses.stdout_lines
-
 - set_fact:
     ip_addr: "{{ ip_addresses.stdout_lines }}"
 
-- debug:
-    var: ip_addr
+# STORING IP ADDRESSES
+
+- name: Store ip address as reserved
+  uri:
+    url: http://apiv2.plusclouds/v2/packetbender/ip
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "is_reserved=1&ip_addr={{ item }}&network_ref={{ network }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  with_items: "{{ ip_addr }}"
+  delegate_to: localhost
+  ignore_errors: yes
+
+# SEARCHING FOR MAC ADDRESS OF IP ADDRESS
 
 - name: Search for mac address of related ip
   shell: arping -I {{ network_interface }} -c 1 {{ item }} | grep from | awk {'print$4'} | sort -u
@@ -30,15 +42,6 @@
     host_network_info: "{{ host_network_info | default([]) + [dict(mac=item[0], ip=item[1])] }}"
   loop: "{{ macs | zip(ip_addr) | list }}"
 
-- debug: 
-    var: host_network_info
-
-- lineinfile:
-    path: "{{ mac_conf_path }}"
-    line: host {{ host_name }} {  hardware ethernet {{ item.mac }}; fixed-address {{ item.ip }};
-    create: yes
-  with_items: "{{ host_network_info }}"
-
 - name: Store ip address as reserved
   uri:
     url: http://apiv2/v2/packetbender/ip/set-mac-and-ip
@@ -52,168 +55,3 @@
   with_items: "{{ host_network_info }}"
   delegate_to: localhost
   ignore_errors: yes
-
-##use case I: appending to LIST variable:
-#- name: my appender
-#  set_fact:
-#    my_list_var: '{{my_list_myvar + new_items_list}}'
-#
-#- debug: 
-#    var: my_list_var
-##use case II: appending to LIST variable one by one:
-#- name: my appender
-#  set_fact:
-#    my_list_var: '{{my_list_var + [item]}}'
-#  with_items: '{{my_new_items|list}}'
-#
-##se case III: appending more keys DICT variable in a "batch":
-#- name: my appender
-#  set_fact:
-#    my_dict_var: '{{my_dict_var|combine(my_new_keys_in_a_dict)}}'
-#
-#
-##use case IV: appending keys DICT variable one by one from tuples
-#- name: setup list of tuples (for 2.4.x and up
-#  set_fact:
-#    lot: >
-#      [('key1', 'value1',), ('key2', 'value2',), ..., ('keyN', 'valueN',)],
-#- name: my appender
-#  set_fact:
-#    my_dict_var: '{{my_dict_var|combine({item[0]: item[1]})}}'
-#  with_items: '{{lot}}'
-#
-#
-##use case V: appending keys DICT variable one by one from list of dicts (thanks to @ssc)
-#- name: add new key / value pairs to dict
-#  set_fact:
-#    my_dict_var: "{{ my_dict_var | combine({item.key: item.value}) }}"
-#  with_items:
-#  - { key: 'key01', value: 'value 01' }
-#  - { key: 'key02', value: 'value 03' }
-#  - { key: 'key03', value: 'value 04' }
-
-#
-#- name: Add IP Adresses to the dictionary
-#  set_fact:
-#     host_result: "{ {{ ip_addr }}: {{ macs }} }"
-#
-#- name: Debug dictionary
-#  debug:
-#     var: host_result
-#
-#- name: Add Mac devices to the dictionary
-#  set_fact:
-#     host_result: "{{ host_result | combine({item: 'Mac'}) }}"
-#  with_items: "{{ macs }}"
-#
-#- name: Debug dictionary
-#  debug:
-#     var: devices
-#     verbosity: 0
-
-
-
-#- name: set_fact one by one
-#  set_fact:
-#      host_result: "{{host_result|default([]) + [{'ip': item}] }}"
-#  with_items: "{{ ip_addr }}"
-#
-#- name: set_fact one by one
-#  set_fact:
-#      host_result: "{{host_result|default([]) + [{'mac': item}] }}"
-#  with_items: "{{ macs }}"
-
-#- name: show result
-#  debug:
-#    var: host_result
-
-#- set_fact:
-#     tmp_user:
-#       password: "{{ passwords[item.login] }}"
-#       age: "{{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')
-#                - (item.birth | to_datetime('%Y-%m-%d'))).days/365) | int }}"
-#   with_items: "{{ users }}"
-#   register: tmp_users
-#   # Join original items with temporary ones
-#- set_fact:
-#     tmp_user: "{{ item.item | combine(item.ansible_facts.tmp_user) }}"
-#   with_items: "{{ tmp_users.results }}"
-#   register: tmp_users
-#   # Get clean results my mapping only one key from tmp_user.results
-#- debug:
-#     msg: "{{ tmp_users.results | map(attribute='ansible_facts.tmp_user') | list }}"
-
-
-#- set_fact:
-#    app_result: >-
-#      {{
-#        app_result
-#        | default([])
-#        +
-#        [{
-#          'ip_addr': item.0,
-#          'mac_address': item.1
-#        }]
-#      }}
-#  loop: "{{ lookup('subelements', '{{ ip_addr }}', '{{ macs }}') }}"
-#
-#- name: show result
-#  debug:
-#    var: app_result
-#
-#
-#
-#
-#
-#
-#- debug:
-#    msg: |
-#      {% for x in item.1 %}
-#        item {{ x }}
-#      {% endfor %}
-#      list 2
-#      {% for x in item.2 %}
-#        another item from different var {{ x }}
-#      {% endfor %}
-#  with_items:
-#    - { 1: "{{ macs }}", 2: "{{ ip_addr }}" }
-##
-
-#- shell: |
-#    >/tmp/output.txt # truncate file
-#    {% for x in item.1 %}
-#    echo item {{x.name}} >>/tmp/output.txt
-#    {% endfor %}
-#    {% for x in item.2 %}
-#    echo another item from different var {{x.id}} >>/tmp/output.txt
-#    {% endfor %}
-#  with_items:
-#    - { 1: "{{var1}}", 2: "{{var2}}" }
-#
-#- name: Add a line to a file if the file does not exist, without passing regexp
-#  lineinfile:
-#    path: /home/mac.conf
-#    line: host server {  hardware ethernet {{ item[1] }}; fixed-address {{ item[0] }};
-#    create: yes
-#  with_subelements:
-#    - "{{ ip_addr }}"
-#    - "{{ macs }}"
-#
-#
-#
-#- name: add new ip address
-#  shell: echo echo {{ POOL_PASSWORD }} | sudo -S echo "host {{ host_name }} {  hardware ethernet {{ hardware_ethernet }}; fixed-address {{ fixed_address }}; }"  >> /etc/dhcp/mac.conf
-
-
-#- shell: echo ""{{ item }}"" | grep from | awk {'print$4'} | sort -u
-#  register: cocobombo
-#  with_items: "{{ arping_results }}"
-#
-#- debug: 
-#    var: cocobombo
-#
-#- set_fact:
-#    mac_address: "{{ arping_result.stdout | regex_search('([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])') }}"
-#
-#- debug: 
-#    var: mac_address
