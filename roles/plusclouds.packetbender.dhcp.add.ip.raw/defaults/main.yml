@@ -1,5 +1,4 @@
 ---
-POOL_PASSWORD: ""
 host_name: ""
 hardware_ethernet: ""
 fixed_address: ""
