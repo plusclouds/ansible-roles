@@ -1,14 +1,6 @@
 ---
-- debug:
-    var: "{{ item }}"
-  with_items:
-    - POOL_PASSWORD
-    - host_name
-    - hardware_ethernet
-    - fixed_address
-
 - name: add new ip address
-  raw: echo echo {{ POOL_PASSWORD }} | sudo -S echo "host {{ host_name }} {  hardware ethernet {{ hardware_ethernet }}; fixed-address {{ fixed_address }}; }"  >> /etc/dhcp/mac.conf
+  raw: sudo -S echo "host {{ host_name }} {  hardware ethernet {{ hardware_ethernet }}; fixed-address {{ fixed_address }}; }"  >> /etc/dhcp/mac.conf
 
 - name: restart dhcp service
   raw: service isc-dhcp-server restart
