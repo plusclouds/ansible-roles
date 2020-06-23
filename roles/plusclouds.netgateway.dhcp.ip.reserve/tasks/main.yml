@@ -15,7 +15,7 @@
 
 - name: Store ip address as reserved
   uri:
-    url: http://apiv2.plusclouds/v2/packetbender/ip
+    url: http://{{leo_url}}/v2/packetbender/ip
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
@@ -30,7 +30,7 @@
 # SEARCHING FOR MAC ADDRESS OF IP ADDRESS
 
 - name: Search for mac address of related ip
-  shell: arping -I {{ network_interface }} -c 1 {{ item }} | grep from | awk {'print$4'} | sort -u
+  shell: arping -c 1 {{ item }} | grep from | awk {'print$4'} | sort -u
   register: mac_address
   with_items: "{{ ip_addr }}"
   ignore_errors: yes
@@ -44,7 +44,7 @@
 
 - name: Store ip address as reserved
   uri:
-    url: http://apiv2/v2/packetbender/ip/set-mac-and-ip
+    url: http://{{leo_url}}/v2/packetbender/ip/set-mac-and-ip
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
