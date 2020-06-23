@@ -1,0 +1,4 @@
+---
+# defaults file for plusclouds.netgateway.dhcp.add.ip
+ip_addr: 192.168.200.29
+default_path: /etc/dhcp/mac.conf
