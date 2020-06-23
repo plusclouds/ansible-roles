@@ -84,7 +84,7 @@ redis_save:
   - 900 1
   - 300 10
   - 60 10000
-redis_stop_writes_on_bgsave_error: "yes"
+redis_stop_writes_on_bgsave_error: "no"
 redis_rdbcompression: "yes"
 redis_rdbchecksum: "yes"
 redis_appendonly: "no"
