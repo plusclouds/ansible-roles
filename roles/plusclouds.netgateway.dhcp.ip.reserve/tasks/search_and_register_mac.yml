@@ -1,17 +1,9 @@
 ---
 # SEARCHING FOR MAC ADDRESS OF IP ADDRESS
-
 - name: Search for mac address of related ip
   shell: arping -c 1 {{ ip }} | grep from | awk {'print$4'} | sort -u
   register: mac_address
   ignore_errors: yes
-
-- set_fact:
-     macs: "{{ mac_address.results | map(attribute='stdout') | list }}"
-
-- set_fact:
-    host_network_info: "{{ host_network_info | default([]) + [dict(mac=item[0], ip=item[1])] }}"
-  loop: "{{ macs | zip(ip_addr) | list }}"
 
 - name: Store ip address as reserved
   uri:
@@ -19,10 +11,11 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "allow=1&auto_configuration=0&ip_addr={{ item.ip }}&mac_addr={{ item.mac }}"
+    body: "allow=0&auto_configuration=0&ip_addr={{ ip }}&mac_addr={{ mac_address.stdout_lines[0] }}"
     return_content: yes
     status_code: 201
     timeout: 300
-  with_items: "{{ host_network_info }}"
   delegate_to: localhost
+  when: mac_address.stdout_lines|length > 0
   ignore_errors: yes
+
