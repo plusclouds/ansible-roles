@@ -1,0 +1,54 @@
+- name: Copy file with owner and permissions
+  copy:
+    src: "sources.list.cfg"
+    dest: "/etc/apt/sources.list"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: Update repository and Upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: yes
+  tags: [ update ]
+
+
+- name: Install APT extras
+  become: yes
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: latest
+  vars:
+    packages:
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - python-pip
+      - python3-pip
+      - dirmngr
+      - debconf
+      - debconf-utils
+      - lsb-release
+      - python-apt
+      - python3-apt
+      - xz-utils
+      - python-mysqldb
+
+
+- name: Update repository and Upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: yes
+  tags: [ update ]
+
+  #Setup the switch time zone (Note this will always report changed if re-run after the dpkg-reconfigure)
+  #For a list of time zones check: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+- name: Set time zone /etc/timezone
+  copy: content="Europe/Istanbul" dest=/etc/timezone
+
+#Update switch tzdata for the new time zone using dpkg-reconfigure
+- name: Update tzdata with new time zone information
+  command: dpkg-reconfigure -f noninteractive tzdata
