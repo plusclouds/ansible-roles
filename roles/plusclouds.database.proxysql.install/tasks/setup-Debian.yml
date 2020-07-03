@@ -1,0 +1,58 @@
+---
+- name: Add official ProxySQL package authentication key
+  apt_key:
+    url: https://repo.proxysql.com/ProxySQL/repo_pub_key
+    state: present
+
+
+- name: Add official ProxySQL APT repository
+  apt_repository:
+    repo: 'deb https://repo.proxysql.com/ProxySQL/proxysql-2.0.x/{{ ansible_distribution_release }} ./'
+    state: present
+    filename: proxysql
+    update_cache: yes
+
+- name: Installs proxysql
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: latest
+  vars:
+    packages:
+    - proxysql
+
+- name: Installs mysql-common & client
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: latest
+  vars:
+    packages:
+    - mysql-common
+    - mysql-client
+
+
+- name: Configures proxysql
+  template:
+    src: proxysql.cnf.j2
+    dest: /etc/proxysql.cnf
+    mode: 0644
+    backup: true
+  notify:
+    - Load config from file to memory
+
+- name: Ensures proxysql is started
+  service:
+    name: proxysql
+    state: started
+
+- name: Creates log dir
+  file:
+    path: /var/log/proxysql/
+    state: directory
+
+- name: Adds logrotate
+  template:
+    src: proxysql.logrotate.conf.j2
+    dest: /etc/logrotate.d/etc/logrotate.d/proxysql
+    mode: 0644

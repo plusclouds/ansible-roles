@@ -1,0 +1,50 @@
+---
+- shell: apt update
+
+- name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - curl
+    - software-properties-common
+    - python-pycurl
+    - python-mysqldb
+    - perl-modules
+
+- name: Download sourcelist
+  shell: wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb -O /home/mysql8.deb
+
+- shell: apt-key adv --keyserver keys.gnupg.net --recv-keys 8C718D3B5072E1F5
+
+- name: debian | set license as accepted
+  debconf:
+    name="mysql-apt-config"
+    question="mysql-apt-config/select-product"
+    value='Ok'
+    vtype='select'
+
+- name: Install
+  apt:
+    deb: https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb
+
+- shell: apt update
+
+- name: Install MYsql Server and Client
+  apt: pkg={{ item }} state=present update_cache=yes force=yes
+  with_items:
+    - mysql-server
+    - mysql-client
+
+- name: Create .my.cnf for ansible user
+  template: src=.my.cnf.j2 dest=~/.my.cnf
+
+- shell: mysql -e "alter user 'root'@'localhost' identified with mysql_native_password by ''"
+
+- name: update mysql root password for all root accounts
+  mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password=''
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+
+- debug:
+    msg: "mysql root password is {{ mysql_root_password }}"
