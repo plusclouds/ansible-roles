@@ -1,0 +1,73 @@
+---
+
+- name: Add an Apt signing key for MongoDB
+  apt_key:
+    url: 'https://www.mongodb.org/static/pgp/server-4.2.asc'
+    state: present
+
+- name: Setup Debian MongoDB 4.2 repository
+  copy:
+    dest: /etc/apt/sources.list.d/mongodb-org-4.2.list
+    content: "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/4.2 main"
+  when: ansible_distribution == 'Debian'
+
+- name: Install MongoDB
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
+  vars:
+    packages:
+    - mongodb-org
+
+- name: "reload systemd configuration"
+  systemd:
+    daemon_reload: yes
+
+- name: "MongoDB should be configured"
+  template:
+    src: "mongodb.conf.j2"
+    dest: "/etc/mongod.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify: "restart mongod"
+
+- name: "Wait for MongoDB to startup"
+  wait_for:
+    host: "127.0.0.1"
+    port: 27017
+    delay: 5
+    connect_timeout: 1
+
+- name: Run a command setFeatureCompatibilityVersion 4
+  command: 'mongo --eval " db.adminCommand( { setFeatureCompatibilityVersion: \"4.0\" } ) "'
+
+- name: Run a command
+  command: 'mongo --eval " db.adminCommand( { getParameter : 1, "featureCompatibilityVersion" : 1 } ) "'
+  register: result
+  notify: "restart mongod"
+- debug: var=result
+
+#- name: Restart mongod normal
+#  service:
+#    name: mongod
+#    state: restarted
+
+
+#- name: Run a command setFeatureCompatibilityVersion 4
+#  shell: 'mongo --eval " db.adminCommand( { setFeatureCompatibilityVersion: \"4.0\" } ) "'
+#  args:
+#    executable: /bin/bash
+
+#- name: Wait for port 8000 to become open on the host, don't start checking for 10 seconds
+#  wait_for:
+#    port: 27017
+#    delay: 5
+
+#- name: Run a command
+#  shell: 'mongo --eval " db.adminCommand( { getParameter : 1, "featureCompatibilityVersion" : 1 } ) "'
+#  args:
+#    executable: /bin/bash
+#  register: result
+#- debug: var=result

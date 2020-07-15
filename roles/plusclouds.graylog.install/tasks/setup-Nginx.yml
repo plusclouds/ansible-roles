@@ -1,0 +1,31 @@
+---
+
+#- include_vars: all-vars.yml
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: latest
+
+- name: Setup nginx conf
+  template:
+      src: "nginx.conf.cfg"
+      dest: "/etc/nginx/nginx.conf"
+  register: copy_config
+
+#- debug: var=copy_config
+
+- name: Create Nginx virtual host
+  template:
+    src: "vhost.conf.cfg"
+    dest: "/etc/nginx/sites-enabled/graylog.conf"
+  register: copy_config
+  notify: "restart mongod"
+  notify: "restart graylog-server"
+  notify: "restart nginx"
+
+#- debug: var=copy_config
+
+#- name: restart nginx
+#  service:
+#      name: nginx
+#      state: restarted
