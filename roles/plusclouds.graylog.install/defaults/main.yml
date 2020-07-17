@@ -1,0 +1,4 @@
+---
+# graylog_password_secret:    "2jueVqZpwLLjaWxV"
+graylog_root_username:      "admin"
+graylog_root_password:      "admin"
