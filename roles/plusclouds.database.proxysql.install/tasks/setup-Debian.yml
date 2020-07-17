@@ -31,6 +31,10 @@
     - mysql-common
     - mysql-client
 
+- name: Restart proxysql normal
+  service:
+    name: proxysql
+    state: stopped
 
 - name: Configures proxysql
   template:
@@ -38,8 +42,8 @@
     dest: /etc/proxysql.cnf
     mode: 0644
     backup: true
-  notify:
-    - Load config from file to memory
+#  notify:
+#    - Load config from file to memory
 
 - name: Ensures proxysql is started
   service:
@@ -56,3 +60,8 @@
     src: proxysql.logrotate.conf.j2
     dest: /etc/logrotate.d/etc/logrotate.d/proxysql
     mode: 0644
+
+- name: Restart proxysql normal
+  service:
+    name: proxysql
+    state: restarted

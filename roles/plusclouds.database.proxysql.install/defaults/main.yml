@@ -1,15 +1,15 @@
 ---
-proxysql_admin_user: ""
-proxysql_admin_password: ""
+proxysql_admin_user: "admin"
+proxysql_admin_password: "admin"
 
-proxysql_admin_interface: ""
-proxysql_admin_port: ""
+proxysql_admin_interface: "127.0.0.1"
+proxysql_admin_port: "6032"
 
 # Force database wipe
 proxysql_initial: false
 
-proxysql_mysql_interface: ""
-proxysql_mysql_port: ""
+proxysql_mysql_interface: "0.0.0.0"
+proxysql_mysql_port: "6033"
 
 # Query rules
 # Format:
@@ -44,4 +44,4 @@ proxysql_mysql_port: ""
 #proxysql_cluster_name: false
 #proxysql_cluster_password: false
 
-proxysql_mysql_server_version: ""
+proxysql_mysql_server_version: "5.5.30"
