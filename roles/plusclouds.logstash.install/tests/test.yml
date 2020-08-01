@@ -1,5 +1,7 @@
 ---
-- hosts: localhost
-  remote_user: root
+- name: Deploy Logstash Requirements
+  hosts: test_server
+  become: yes
+  gather_facts: yes
   roles:
-    - installlogstash
+    - role: plusclouds.logstash.install
