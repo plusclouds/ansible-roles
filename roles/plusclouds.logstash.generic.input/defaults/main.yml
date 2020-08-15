@@ -1,0 +1,6 @@
+---
+# defaults file for installlogstash
+
+input: "beats, nginx, apache"
+output: "elasticsearch"
+elasticsearch_host: "http://localhost:9200"

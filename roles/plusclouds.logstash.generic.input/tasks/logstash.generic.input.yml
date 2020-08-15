@@ -1,0 +1,43 @@
+---
+
+#- name: Create logstash beats input default conf
+#  template:
+#    src: "02-beats-input.conf.j2"
+#    dest: "/etc/logstash/conf.d/02-beats-input.conf"
+#  when: input.find("beats") != -1
+#  #notify: 'restart logstash'
+#
+#- name: Create logstash nginx input default conf
+#  template:
+#    src: "03-nginx-input.conf.j2"
+#    dest: "/etc/logstash/conf.d/03-nginx-input.conf"
+#  when: input.find("nginx") != -1
+#  #notify: 'restart logstash'
+#
+#- name: Create logstash apache input default conf
+#  template:
+#    src: "04-apache-input.conf.j2"
+#    dest: "/etc/logstash/conf.d/04-apache-input.conf"
+#  when: input.find("apache") != -1
+#  #notify: 'restart logstash'
+
+
+- name: Create logstash beats input default conf
+  template: src="{{ item.src }}" dest="{{ item.dest }}"
+  with_items:
+      - { src: '02-beats-input.conf.j2', dest: '/etc/logstash/conf.d/02-beats-input.conf' }
+  when: input.find("beats") != -1
+
+- name: Create logstash nginx input default conf
+  template: src="{{ item.src }}" dest="{{ item.dest }}"
+  with_items:
+      - { src: '03-nginx-input.conf.j2', dest: '/etc/logstash/conf.d/03-nginx-input.conf' }
+      - { src: '10-nginx-filter.conf.j2', dest: '/etc/logstash/conf.d/10-nginx-filter.conf' }
+  when: input.find("nginx") != -1
+
+- name: Create logstash apache input default conf
+  template: src="{{ item.src }}" dest="{{ item.dest }}"
+  with_items:
+      - { src: '04-apache-input.conf.j2', dest: '/etc/logstash/conf.d/04-apache-input.conf' }
+      - { src: '11-apache-filter.conf.j2', dest: '/etc/logstash/conf.d/11-apache-filter.conf' }
+  when: input.find("apache") != -1
