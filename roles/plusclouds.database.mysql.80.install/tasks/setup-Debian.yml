@@ -20,9 +20,6 @@
     msg: "MySQL Server is installed already"
   when: installed == 1
 
-- meta: end_play
-  when: installed == 1
-
 - name: Update Package and Install curl, python-mysqldb, python-pycurl, software-properties-common
   apt: pkg={{ item }} state=present update_cache=yes
   with_items:
@@ -31,11 +28,13 @@
     - python-pycurl
     - python-mysqldb
     - perl-modules
+  when: installed == 0
 
 - name: Add an apt key by id from a keyserver
   apt_key:
     keyserver: keys.gnupg.net
     id: 8C718D3B5072E1F5
+  when: installed == 0
 
 - name: debian | set license as accepted
   debconf:
@@ -43,57 +42,21 @@
     question="mysql-apt-config/select-product"
     value='Ok'
     vtype='select'
+  when: installed == 0
 
 - name: Install Config
   apt:
     deb: https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb
+  when: installed == 0
 
 - name: Update apt
   apt:
     update_cache: yes
+  when: installed == 0
 
 - name: Install MySQL Server and Client
   apt: pkg={{ item }} state=present update_cache=yes force=yes
   with_items:
     - mysql-server
     - mysql-client
-
-- name: Stop MySQL service if running
-  systemd:
-    name: mysql
-    state: stopped
-
-- name: Run MySQL on safe mode
-  shell: mysqld_safe --skip-grant-tables &
-
-- name: Wait for 5 secs for mysql to boot
-  wait_for:
-    timeout: 5
-
-- name: Flush privileges of mysql
-  shell: mysql -e "flush privileges; alter user 'root'@'localhost' identified with mysql_native_password"
-
-- name: Kill mysql safe mode
-  shell: pkill mysql
-
-- name: Wait for 5 secs for mysql for mysql to shutdown
-  wait_for:
-    timeout: 5
-
-- name: Start MySQL service if running
-  systemd:
-    name: mysql
-    state: running
-
-- name: update mysql root password for all root accounts
-  mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password=''
-  with_items:
-   - 127.0.0.1
-   - ::1
-   - localhost
-
-- name: Create .my.cnf for ansible user
-  template: src=.my.cnf.j2 dest=~/.my.cnf
-
-#- debug:
-#    msg: "mysql root password is {{ mysql_root_password }}"
+  when: installed == 0

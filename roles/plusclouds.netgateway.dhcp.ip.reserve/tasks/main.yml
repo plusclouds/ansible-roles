@@ -29,6 +29,6 @@
 
 - name: Find mac and register
   include_tasks: "search_and_register_mac.yml"
-  with_items: "{{ ip_addresses }}"
+  with_items: "{{ ip_addr }}"
   vars:
     ip: "{{ item }}"
