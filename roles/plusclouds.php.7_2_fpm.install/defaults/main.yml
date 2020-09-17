@@ -32,8 +32,7 @@ ubuntu16_php_pkgs:
   - php7.2-json
   - php7.2-intl
   - php7.2-gd
-  - php7.2-ldap
-
+  - php7.2-ldapy
 
 ubuntu18_php_pkgs:
   - php7.2
@@ -51,7 +50,6 @@ ubuntu18_php_pkgs:
   - php7.2-intl
   - php7.2-gd
   - php7.2-ldap
-
 
 centos7_php_pkgs:
   - php
