@@ -1,9 +1,9 @@
 ---
 - name: remove ip address and save it to temp file
-  raw: sed '/{{ fixed_address }}/d' mac.conf > temp.conf
+  raw: sed '/{{ fixed_address }}/d' /etc/dchp/mac.conf > /etc/dchp/temp.conf
 
 - name: remove ip address and save it to temp file
-  raw: mv temp.conf mac.conf
+  raw: mv /etc/dchp/temp.conf /etc/dchp/mac.conf
 
 - name: restart dhcp service
   raw: service isc-dhcp-server restart
