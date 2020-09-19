@@ -1,2 +1,6 @@
 ---
 # defaults file for installlogstash
+
+
+LS_JAVA_START_MEMORY: "256m"
+LS_JAVA_MAXIMUM_MEMORY: "512m"

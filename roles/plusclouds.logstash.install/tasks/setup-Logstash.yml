@@ -1,0 +1,40 @@
+---
+- name: get logstash apt repo key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: install logstash apt repo
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+    state: present
+    filename: elastic-7.x
+    update_cache: yes
+
+- name: install logstash
+  apt:
+    name: logstash
+    state: present
+    update_cache: yes
+
+- name: JVM Heap size (min) is set
+  lineinfile:
+    dest: /etc/logstash/jvm.options
+    regexp: "^-Xms"
+    line: "-Xms{{ LS_JAVA_START_MEMORY }}"
+
+- name: JVM Heap size (max) is set
+  lineinfile:
+    dest: /etc/logstash/jvm.options
+    regexp: "^-Xmx"
+    line: "-Xmx{{ LS_JAVA_MAXIMUM_MEMORY }}"
+
+#- name: Create logstash beats input default conf
+#  template:
+#    src: "02-beats-input.conf.j2"
+#    dest: "/etc/logstash/conf.d/02-beats-input.conf"
+
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+  notify: 'restart logstash'

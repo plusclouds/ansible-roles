@@ -1,0 +1,50 @@
+---
+- name: get elasticsearch apt repo key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: install elasticsearch apt repo
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/oss-6.x/apt stable main'
+    state: present
+    filename: elastic-6.x
+    update_cache: yes
+
+- name: install elasticsearch
+  apt:
+    name: elasticsearch-oss
+    state: present
+    update_cache: yes
+
+- name: elasticsearch default java config
+  lineinfile:
+    path: /etc/default/elasticsearch
+    regexp: '^#JAVA_HOME='
+    line: JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+- name: elasticsearch clustername config
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '^#cluster.name'
+    line: 'cluster.name: graylog'
+
+- name: elasticsearch auto create index config
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '^#action.destructive_requires_name: true '
+    insertafter: '^#action.destructive_requires_name: true '
+    line: 'action.auto_create_index: false'
+
+
+- name: reload systemd config
+  systemd: daemon_reload=yes
+
+#- name: enable service elasticsearch and ensure it is not masked
+#  systemd:
+#    name: elasticsearch
+#    enabled: yes
+#    masked: no
+
+- name: ensure elasticsearch is running
+  systemd: state=restarted name=elasticsearch

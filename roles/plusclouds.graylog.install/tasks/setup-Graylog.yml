@@ -1,0 +1,102 @@
+---
+
+- name: Download Graylog DEB
+  get_url:
+    url: https://packages.graylog2.org/repo/packages/graylog-3.3-repository_latest.deb
+    dest: /opt/graylog-3.3-repository_latest.deb
+    mode: '0755'
+
+- name: "Graylog repository package should be installed"
+  apt:
+    deb: "/opt/graylog-3.3-repository_latest.deb"
+    state: present
+    dpkg_options: "force-all"
+
+- name: "APT cache should be updated"
+  apt:
+    update_cache: yes
+
+- name: Installs GrayLog Server
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
+  vars:
+    packages:
+    - graylog-server
+    #- graylog-enterprise-plugins
+    #- graylog-integrations-plugins
+    #- graylog-enterprise-integrations-plugins
+  notify: "restart graylog-server"
+
+- name: "Directory should be created with correct ownership and privileges"
+  file:
+    path: "/etc/graylog/server"
+    owner: "graylog"
+    group: "graylog"
+    mode: 0750
+
+- name: "Graylog - Generate password secret"
+  command: pwgen -N 1 -s 96
+  register: password_secret
+
+- debug: var=password_secret
+
+- name: "Graylog - Generate admin password hash"
+  shell: "echo -n {{ graylog_root_password }} | shasum -a 256"
+  register: sha_password
+
+- debug: var=sha_password
+
+- name: "Graylog server should be configured"
+  template:
+    src: "graylog.server.conf.j2"
+    dest: "/etc/graylog/server/server.conf"
+    owner: "graylog"
+    group: "graylog"
+    mode: 0644
+  notify: "restart graylog-server"
+
+- name: "Graylog server defaults should be configured"
+  template:
+    src: "graylog.server.default.j2"
+    dest: "{{ graylog_server_defaults_file_path }}"
+    owner: "graylog"
+    group: "graylog"
+    mode: 0644
+  notify: "restart graylog-server"
+
+#- name: "Graylog server should start after reboot"
+#  file:
+#    path: "/etc/init/graylog-server.override"
+#    state: "absent"
+
+
+#- name: "Wait for Graylog server to startup"
+#  uri:
+#    url: "{{ graylog_http_publish_uri }}"
+#    status_code: 200
+#    validate_certs: False
+#  register: result
+#  until: result.status == 200
+#  retries: 60
+#  delay: 5
+#  when: graylog_not_testing
+
+
+
+#- name: "Graylog - Configure password secret"
+#  replace:
+#    path: /etc/graylog/server/server.conf
+#    regexp: ^password_secret =$
+#    replace: "password_secret = {{ password_secret.stdout }}"
+#  notify:
+#   - Graylog - restart service
+#
+#- name: "Graylog - Configure admin password hash"
+#  replace:
+#    path: /etc/graylog/server/server.conf
+#    regexp: "(?!.*{{ sha_password.stdout.split(' ')[0] }})^root_password_sha2 .+$"
+#    replace: "root_password_sha2 = {{ sha_password.stdout.split(' ')[0] }}"
+#  notify:
+#   - Graylog - restart service
