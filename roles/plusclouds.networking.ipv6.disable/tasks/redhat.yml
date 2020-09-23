@@ -1,0 +1,47 @@
+---
+
+- name: 'Check if grub is present'
+  stat:
+    path=/etc/default/grub
+  register: grub_file
+- name: 'Disable IPv6 - GRUB_CMD_LINE_LINUX'
+  replace:
+    path: /etc/default/grub
+    regexp:  '^GRUB_CMDLINE_LINUX="((:?(?!ipv6\.disable=1).)*?)"$'
+    replace: 'GRUB_CMDLINE_LINUX="\1 ipv6.disable=1"'
+  when: grub_file.stat.exists
+  register: updateGrub
+
+
+- name: 'Check if grub is present'
+  stat:
+    path=/boot/grub2/grub.cfg
+  register: grub_file_boot
+
+- name: 'grub2-mkconfig'
+  shell: 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+  when: grub_file_boot.stat.exists == true
+
+- name: 'Check if grub EFI is present'
+  stat:
+    path=/boot/efi/EFI/centos/grub.cfg
+  register: grub_file_EFI
+
+- name: 'grub2-mkconfig EFI'
+  shell: 'grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg'
+  when: grub_file_EFI.stat.exists == true
+
+- name: 'Check if grub EFI is present'
+  stat:
+    path=/etc/sysctl.d/98-disableipv6.conf
+  register: sysctl_ipv6
+
+- name: Write sysctl disable ipv6
+  shell: |
+    echo 'net.ipv6.conf.all.disable_ipv6=1
+    net.ipv6.conf.default.disable_ipv6=1
+    net.ipv6.conf.lo.disable_ipv6=1' >> /etc/sysctl.d/98-disableipv6.conf
+  when: sysctl_ipv6.stat.exists == false
+
+- name: 'sysctl restart'
+  shell: 'systemctl restart systemd-sysctl'
