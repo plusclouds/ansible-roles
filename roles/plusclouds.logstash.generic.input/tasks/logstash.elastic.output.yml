@@ -1,0 +1,27 @@
+---
+- name: Create logstash beats input default conf
+  template:
+    src: "30-beats-output.conf.j2"
+    dest: "/etc/logstash/conf.d/30-beats-output.conf"
+  when:
+    - input.find("beats") != -1
+    - output.find("elasticsearch") != -1
+  #notify: 'restart logstash'
+
+- name: Create logstash nginx input default conf
+  template:
+    src: "31-nginx-output.conf.j2"
+    dest: "/etc/logstash/conf.d/31-nginx-output.conf"
+  when:
+    - input.find("nginx") != -1
+    - output.find("elasticsearch") != -1
+  #notify: 'restart logstash'
+
+- name: Create logstash apache input default conf
+  template:
+    src: "32-apache-output.conf.j2"
+    dest: "/etc/logstash/conf.d/32-apache-output.conf"
+  when:
+    - input.find("apache") != -1
+    - output.find("elasticsearch") != -1
+  #notify: 'restart logstash'

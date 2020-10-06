@@ -1,0 +1,10 @@
+---
+
+- include: logstash.generic.input.yml
+  when: ansible_os_family == 'Debian'
+
+- include: logstash.elastic.output.yml
+  when: ansible_os_family == 'Debian'
+
+- name: restart logstash
+  service: name=logstash state=restarted
