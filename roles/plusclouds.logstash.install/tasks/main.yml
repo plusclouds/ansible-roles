@@ -1,9 +1,10 @@
 ---
-# tasks file for installlogstash
 
-- include: java.yml
-- include: ubuntu-logstash.yml
+- include: pre-install.yml
+  when: ansible_os_family == 'Debian'
 
+- include: setup-Java.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Start Logstsah
-  service: name=logstash state=started enabled=yes
+- include: setup-Logstash.yml
+  when: ansible_os_family == 'Debian'

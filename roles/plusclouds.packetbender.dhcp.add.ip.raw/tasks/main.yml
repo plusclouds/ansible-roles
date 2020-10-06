@@ -1,6 +1,0 @@
----
-- name: add new ip address
-  raw: sudo -S echo "host {{ host_name }} {  hardware ethernet {{ hardware_ethernet }}; fixed-address {{ fixed_address }}; }"  >> /etc/dhcp/mac.conf
-
-- name: restart dhcp service
-  raw: service isc-dhcp-server restart

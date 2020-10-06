@@ -1,0 +1,21 @@
+---
+# SEARCHING FOR MAC ADDRESS OF IP ADDRESS
+- name: Search for mac address of related ip
+  shell: arping -c 1 {{ ip }} | grep from | awk {'print$4'} | sort -u
+  register: mac_address
+  ignore_errors: yes
+
+- name: Store ip address as reserved
+  uri:
+    url: http://{{leo_url}}/v2/packetbender/ip/set-mac-and-ip
+    method: POST
+    headers:
+      Authorization: "Bearer {{ user_token }}"
+    body: "allow=0&auto_configuration=0&ip_addr={{ ip }}&mac_addr={{ mac_address.stdout_lines[0] }}"
+    return_content: yes
+    status_code: 201
+    timeout: 300
+  delegate_to: localhost
+  when: mac_address.stdout_lines|length > 0
+  ignore_errors: yes
+

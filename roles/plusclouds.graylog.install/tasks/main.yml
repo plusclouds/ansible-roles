@@ -1,0 +1,20 @@
+---
+- include_vars: Debian.yml
+
+- include: pre-install.yml
+  when: ansible_os_family == 'Debian'
+
+- include: setup-Java.yml
+  when: ansible_os_family == 'Debian'
+
+- include: setup-MongoDB.yml
+  when: ansible_os_family == 'Debian'
+
+- include: setup-Elasticsearch.yml
+  when: ansible_os_family == 'Debian'
+
+- include: setup-Graylog.yml
+  when: ansible_os_family == 'Debian'
+
+- include: setup-Nginx.yml
+  when: ansible_os_family == 'Debian'
