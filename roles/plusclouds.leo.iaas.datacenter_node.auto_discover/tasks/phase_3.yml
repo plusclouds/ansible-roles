@@ -5,7 +5,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    body: "datacenter_node_ref={{ datacenter_node.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
@@ -20,7 +20,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    body: "datacenter_node_ref={{ datacenter_node.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
@@ -35,7 +35,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "datacenter_node_ref={{ datacenter_node.json.data.0.id }}"
+    body: "datacenter_node_ref={{ datacenter_node.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
