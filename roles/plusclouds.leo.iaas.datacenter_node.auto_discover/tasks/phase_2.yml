@@ -5,7 +5,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}"
+    body: "compute_pool_ref={{ compute_pool.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
@@ -20,7 +20,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}&storage_pool_ref={{ storage_pool.json.data.0.id }}"
+    body: "compute_pool_ref={{ compute_pool.id }}&storage_pool_ref={{ storage_pool.json.data.0.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
@@ -35,7 +35,7 @@
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
-    body: "compute_pool_ref={{ compute_pool.json.data.0.id }}&network_pool_ref={{ network_pool.json.data.0.id }}"
+    body: "compute_pool_ref={{ compute_pool.id }}&network_pool_ref={{ network_pool.json.data.0.id }}"
     return_content: yes
     status_code: 204
     timeout: 300
