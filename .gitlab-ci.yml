@@ -5,6 +5,8 @@ stages:
 
 build_environment:
   stage: build
+  tags:
+    - master
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
     - rm /var/www/$CI_PROJECT_NAME.latest.tar.gz -f
