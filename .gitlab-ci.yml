@@ -1,20 +1,14 @@
 stages:
-  - deploy
-  - scan
+  - build
+#  - deploy
+#  - scan
 
 build_environment:
-  stage: deploy
+  stage: build
   script:
-    - mkdir /home/ansible/repo -p
-    - rm /home/ansible/repo/* -fR
-    - rsync -ac * /home/ansible/repo
-  only:
-    - master
-
-test_environment:
-  stage: scan
-  script:
-    - chmod +x update-and-test.sh
-    - bash update-and-test.sh
+    - export COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
+    - rm /var/www/$CI_PROJECT_NAME.latest.tar.gz -f
+    - tar czf /var/www/$CI_PROJECT_NAME.latest.tar.gz .
+    - tar czf /var/www/$CI_PROJECT_NAME.$COMMIT_TIME.tar.gz .
   only:
     - master
