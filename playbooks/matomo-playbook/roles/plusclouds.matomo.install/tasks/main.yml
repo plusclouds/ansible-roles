@@ -1,0 +1,43 @@
+---
+# tasks file for Mautic
+- name: Download Matomo
+  get_url:
+    url: https://builds.matomo.org/matomo-latest.zip
+    dest: /var/www/html
+  become: yes
+
+- name: Install unzip
+  apt:
+    name: unzip
+    state: present
+  become: yes
+
+- name: Unzip the downloaded File
+  unarchive:
+    src: /var/www/html/matomo-latest.zip
+    dest: /var/www/html
+    remote_src: yes
+  become: yes
+
+- name: Remove zip file
+  file:
+    path: /var/www/html/matomo-latest.zip
+    state: absent
+  become: yes
+
+- name: Change file ownership and group
+  file:
+    path: /var/www/html/matomo
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+  become: yes
+
+- name: Change permissions
+  file:
+    path: /var/www/html/matomo
+    state: directory
+    mode: '755'
+    recurse: yes
+  become: yes
