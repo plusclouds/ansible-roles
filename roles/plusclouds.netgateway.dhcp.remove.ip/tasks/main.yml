@@ -1,6 +1,0 @@
----
-- name: Remove ip address from config file
-  lineinfile:
-    path: "{{ default_path }}"
-    state: absent
-    regexp: 'fixed-address {{ ip_addr }};'
