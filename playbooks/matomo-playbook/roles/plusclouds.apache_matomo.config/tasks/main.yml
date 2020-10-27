@@ -1,0 +1,41 @@
+---
+# tasks file for Apache_Config
+- name: Create Matomo Config File
+  file:
+    path: /etc/apache2/sites-available/matomo.conf
+    state: touch
+  become: yes
+
+- name: Fill the Matomo Config File
+  copy:
+    dest: /etc/apache2/sites-available/matomo.conf
+    content: |
+      <VirtualHost *:80>
+          ServerName 192.168.88.202
+          ServerAdmin admin@test.com
+          DocumentRoot /var/www/html/matomo
+          <Directory /var/www/html/matomo/>
+              Options +FollowSymlinks
+              AllowOverride All
+              Require all granted
+          </Directory>
+          ErrorLog ${APACHE_LOG_DIR}/error.log
+          CustomLog ${APACHE_LOG_DIR}/access.log combined
+      </VirtualHost>
+  become: yes
+
+- name: Disable default.Conf
+  command: a2dissite 000-default.conf
+  become: yes
+
+- name: Enable matomo.conf
+  command: a2ensite matomo.conf
+  become: yes
+
+- name: Enmod rewrite
+  command: a2enmod rewrite
+  become: yes
+
+- name: Apache restart
+  command: service apache2 restart
+  become: yes

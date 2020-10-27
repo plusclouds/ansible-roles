@@ -1,0 +1,17 @@
+---
+- name: Epel Release
+  yum:
+    name: 'epel-release'
+    state: installed
+
+- name: Add Repository 'remi-repo'
+  command: rpm -ih http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+
+
+
+- name: install php7.1
+  yum:
+    name: "{{ item }}"
+    enablerepo: epel,remi,remi-php71
+    state: installed
+  with_items: "{{ centos7_php_pkgs }}"

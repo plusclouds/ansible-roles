@@ -1,0 +1,19 @@
+- name: Install Mautic
+  hosts: mautic
+  become: true
+  gather_facts: true
+  roles:
+    - role: plusclouds.apache_python.install
+    - role: plusclouds.php.7_2_fpm.install
+    - role: plusclouds.database.mysql.80.install
+    - role: plusclouds.php.composer.install
+    - role: plusclouds.database.mysql.database.add
+    - role: plusclouds.database.mysql.user.add
+    - role: plusclouds.mautic.install
+    - role: plusclouds.apache_mautic.config
+  vars:
+    user_name: "demo"
+    user_password: "teset213"
+    database_name: "randomdb"
+    mysql_root_user: ""
+    mysql_root_password: ""
