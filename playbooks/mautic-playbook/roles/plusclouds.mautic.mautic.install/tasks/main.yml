@@ -1,0 +1,48 @@
+---
+# tasks file for plusclouds.mautic.mautic.install
+- name: Download Mautic
+  get_url:
+    url: https://github.com/mautic/mautic/releases/download/2.15.3/2.15.3.zip
+    dest: /var/www/html
+  become: yes
+
+- name: Install unzip
+  apt:
+    name: unzip
+    state: present
+  become: yes
+
+- name: Create Mautic project directory
+  file:
+    path: /var/www/html/mautic
+    state: directory
+
+- name: Unzip the downloaded File
+  unarchive:
+    src: /var/www/html/2.15.3.zip
+    dest: /var/www/html/mautic
+    remote_src: yes
+  become: yes
+
+- name: Remove zip file
+  file:
+    path: /var/www/html/2.15.3.zip
+    state: absent
+  become: yes
+
+- name: Change file ownership and group
+  file:
+    path: /var/www/html/mautic
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+  become: yes
+
+- name: Change permissions
+  file:
+    path: /var/www/html/mautic
+    state: directory
+    mode: '755'
+    recurse: yes
+  become: yes
