@@ -1,20 +1,20 @@
 ---
 - name: Create defauls network pool if Cloud Node does not have any
   uri:
-    url: http://{{ leo_url }}/v2/iaas/network-pools
+    url: "{{ leo_url }}/v2/iaas/network-pools"
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
     body: "\
-name={{ datacenter_node.json.data.0.name }} Network&\
+name={{ datacenter_node.name }} Network&\
 management_type=api&\
-ip_addr={{ compute_pool.json.data.0.master_ip_addr }}&\
-management_url={{ compute_pool.json.data.0.management_url }}&\
+ip_addr={{ compute_pool.master_ip_addr }}&\
+management_url={{ compute_pool.management_url }}&\
 port=443&\
-username={{ compute_pool.json.data.0.username }}&\
-password={{ compute_pool.json.data.0.password }}&\
+username={{ compute_pool.username }}&\
+password={{ compute_pool.password }}&\
 is_active=1&\
-datacenter_ref={{ datacenter_node.json.data.0.datacenter.data.id }}"
+datacenter_ref={{ datacenter_node.datacenter.data.id }}"
     return_content: yes
     status_code: 201
     timeout: 300

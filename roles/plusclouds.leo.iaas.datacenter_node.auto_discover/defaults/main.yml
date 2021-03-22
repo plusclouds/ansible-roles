@@ -2,8 +2,9 @@
 user_token: ""
 datacenter_node_slug: ""
 
+network_pool_id: "mkgLWxrxpB"
+storage_pool_id: "zVGNXorAoR"
+
 discover_cloud_components: true
 discover_physical_components: true
 discover_virtual_components: true
-
-leo_url: "apiv2"
