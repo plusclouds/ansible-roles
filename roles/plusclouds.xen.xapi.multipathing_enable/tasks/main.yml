@@ -1,0 +1,7 @@
+---
+
+- name: Enable Multipathing
+  raw: xe host-param-set other-config:multipathing=true uuid={{ host_uuid }}
+
+- name: Enable Multipathing DMP mode
+  raw: xe host-param-set other-config:multipathhandle=dmp uuid={{ host_uuid }}
