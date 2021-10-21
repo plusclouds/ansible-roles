@@ -10,6 +10,11 @@
 - name: Install docker compose
   include_tasks: docker_compose_install.yaml
 
+- name: Make sure folder_path exists
+  file:
+    path: "{{folder_path}}"
+    state: directory
+
 - name: Place the default template
   template:
     src: docker-compose.j2
