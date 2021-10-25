@@ -6,11 +6,11 @@ stages:
 build_environment:
   stage: build
   tags:
-    - master
+    - dev
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
     - rm /var/www/$CI_PROJECT_NAME.latest.tar.gz -f
     - tar czf /var/www/$CI_PROJECT_NAME.latest.tar.gz .
     - tar czf /var/www/$CI_PROJECT_NAME.$COMMIT_TIME.tar.gz .
   only:
-    - master
+    - dev
