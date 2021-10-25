@@ -1,0 +1,4 @@
+---
+
+- name: Disable Multipathing
+  raw: xe host-param-set other-config:multipathing=false uuid={{ host_uuid }}

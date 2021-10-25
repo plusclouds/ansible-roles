@@ -1,0 +1,4 @@
+---
+
+- name: Disable Maintanence Mode
+  raw: xe host-enable uuid={{ host_uuid }}
