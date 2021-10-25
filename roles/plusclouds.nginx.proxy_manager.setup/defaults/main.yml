@@ -1,0 +1,4 @@
+---
+# defaults file for plusclouds.nginx.proxy_manager.setup
+
+folder_path: /root/npm/
