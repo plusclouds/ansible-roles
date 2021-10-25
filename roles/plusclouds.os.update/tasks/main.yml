@@ -1,6 +1,13 @@
 ---
-- name: Update and upgrade
-  become: true
-  apt:
-    upgrade: yes
-    update_cache: yes
+
+- name: Update Debian based machine
+  include_tasks: debian.yaml
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Update Redhat based machine
+  include_tasks: redhat.yaml
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Update Windows based machine
+  include_tasks: windows.yaml
+  when: ansible_facts['os_family'] == "Windows"
