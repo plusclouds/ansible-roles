@@ -4,9 +4,10 @@ This role sets up the nginx proxy manager.
 
 ## Role Variables
 
-| Variable    | Required | Default | Choices | Comments                                     |
-| ----------- | -------- | ------- | ------- | -------------------------------------------- |
-| folder_path | yes      |         |         | Path to place default docker-compose file to |
+| Variable           | Required | Default | Choices | Comments                                          |
+| ------------------ | -------- | ------- | ------- | ------------------------------------------------- |
+| proxy_manager_port | yes      |         |         | Port that nginx proxy manager's UI will listen on |
+| folder_path        | yes      |         |         | Path to place default docker-compose file to      |
 
 ## Example Playbook
 
@@ -16,5 +17,6 @@ This role sets up the nginx proxy manager.
   roles:
     - plusclouds.nginx.proxy_manager.setup
   vars:
-    - folder_path: /root/dr1/
+    - proxy_manager_port: 81
+    - folder_path: /root/npm/
 ```
