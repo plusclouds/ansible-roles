@@ -1,3 +1,2 @@
-
-category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups"]
-upgrade: no
+upgrade: yes
+category_names: all # this variable can be set as CriticalUpdates,SecurityUpdates,UpdateRollups
