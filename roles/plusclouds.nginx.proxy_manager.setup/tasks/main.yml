@@ -5,17 +5,33 @@
   shell: apt update --allow-releaseinfo-change
 
 - name: Install docker
-  include_tasks: docker_install.yaml
+  include_tasks: docker_install.yml
 
 - name: Install docker compose
-  include_tasks: docker_compose_install.yaml
+  include_tasks: docker_compose_install.yml
 
 - name: Make sure folder_path exists
   file:
     path: "{{folder_path}}"
     state: directory
 
+- name: Folder path check input format
+  set_fact:
+    folder_path: "{{folder_path}}/"
+  when: folder_path[-1] != '/'
+     
+- name: Generate password for mysql
+  include_tasks: password_generate.yml
+
 - name: Place the default template
   template:
     src: docker-compose.j2
-    dest: "{{folder_path}}docker-compose.yaml"
+    dest: "{{folder_path}}docker-compose.yml"
+
+- name: Run docker-compose up
+  shell: docker-compose up -d
+  args:
+    chdir: "{{folder_path}}"
+
+- name: Set credentials
+  include_tasks: set_credentials.yml
