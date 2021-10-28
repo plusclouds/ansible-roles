@@ -11,7 +11,7 @@ services:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
-      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_PASSWORD: "{{mysql_npm_password}}"
       DB_MYSQL_NAME: "npm"
     volumes:
       - ./data:/data
@@ -20,9 +20,9 @@ services:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_ROOT_PASSWORD: '{{mysql_root_password}}'
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
+      MYSQL_PASSWORD: '{{mysql_npm_password}}'
     volumes:
       - ./data/mysql:/var/lib/mysql

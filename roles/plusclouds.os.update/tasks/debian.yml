@@ -3,5 +3,4 @@
   become: true
   apt:
     update_cache: yes
-    update_cache_retries: 10
     upgrade: "{{upgrade}}"

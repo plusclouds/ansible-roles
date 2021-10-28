@@ -23,7 +23,7 @@
 - name: Add repository
   shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 
-- name: Install docker
+- name: Update cache and Install docker
   apt:
     name: docker-ce
     state: present
