@@ -3,3 +3,6 @@
 
 folder_path: /root/npm/
 proxy_manager_port: 81
+proxy_manager_user_name: root
+proxy_manager_user_password: changethis
+proxy_manager_user_email: admin@plusclouds.com

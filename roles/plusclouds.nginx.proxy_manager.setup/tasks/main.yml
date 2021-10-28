@@ -32,3 +32,6 @@
   shell: docker-compose up -d
   args:
     chdir: "{{folder_path}}"
+
+- name: Set credentials
+  include_tasks: set_credentials.yml
