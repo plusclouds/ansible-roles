@@ -1,0 +1,3 @@
+---
+- name: Delete user on virtual machine
+  include_tasks: del_user.yml
