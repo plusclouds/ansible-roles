@@ -1,0 +1,5 @@
+---
+- name: Update bashrc for LEO API URL
+  lineinfile:
+    dest: /root/.bashrc
+    line: "export LEO_URL={{ api_url }}"
