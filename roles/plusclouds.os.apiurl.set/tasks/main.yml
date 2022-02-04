@@ -1,0 +1,3 @@
+---
+- name: Set API URL on virtual machine
+  include_tasks: apiurl_set.yml
