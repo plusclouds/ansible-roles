@@ -1,0 +1,89 @@
+---
+
+- name: Install python3-pip and sudo 
+  become: yes
+  apt:
+    name: ['python3','python3-pip','sudo']
+    state: present
+    update_cache: yes
+  register: apt_action
+  retries: 150
+  until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install python3-pip and sudo 
+  become: yes
+  yum:
+    name: ['python3','python3-pip','sudo']
+    state: present
+    update_cache: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- set_fact:
+    ansible_python_interpreter: /usr/bin/python3
+
+- pip:
+    name: ['setuptools']
+    executable: pip3
+
+- name: Install and upgrade pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+    executable: pip3
+
+- pip:
+    name: ['requests','distro']
+    executable: pip3
+
+- name: Creates Plusclouds directory
+  file:
+    path: /etc/plusclouds
+    state: directory
+
+- name: Copy file with owner and permissions
+  copy:
+    src: plusclouds_service.py
+    dest: /etc/plusclouds/plusclouds_service.py
+
+- lineinfile:
+    dest: /etc/hosts
+    line: "93.94.254.247 api.plusclouds"
+
+# rc.local operations start
+- name: Copy file with owner and permissions
+  copy:
+    src: rc_service_template
+    dest: /etc/systemd/system/rc-local.service
+
+
+- name: Copy file with owner and permissions
+  copy:
+    src: rc_local_template
+    dest: /etc/rc.local
+
+- name: Make rc.local executable
+  shell: sudo chmod +x /etc/rc.local
+
+- name: enable service rc-local
+  systemd:
+    name: rc-local
+    enabled: yes
+
+# rc.local operations end
+
+- set_fact:
+    croncmd: "sleep 0; timeout 30s  sudo /usr/bin/python3 /etc/plusclouds/plusclouds_service.py"
+    croncmd2: "sleep 30; timeout 30s  sudo /usr/bin/python3 /etc/plusclouds/plusclouds_service.py"
+
+- set_fact:
+    cronjob: "* * * * * {{croncmd}}"
+    cronjob2: "* * * * * {{croncmd2}}"
+
+- name: add crontab job
+  shell: ( crontab -l | grep -v -F '{{croncmd}}' ; echo '{{cronjob}}' ) | crontab -
+
+- name: add crontab job
+  shell: ( crontab -l | grep -v -F '{{croncmd2}}' ; echo '{{cronjob2}}' ) | crontab -
+
+
