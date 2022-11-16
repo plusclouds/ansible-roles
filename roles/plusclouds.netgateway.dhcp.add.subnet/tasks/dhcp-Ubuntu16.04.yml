@@ -13,5 +13,8 @@
     line: 'include "/etc/dhcp/subnets/{{start_ip_range}}-{{ finish_ip_range }}.conf";'
     backup: "{{ backup }}"
 
+- name: Remove pid file
+  command: "rm /var/run/dhcpd.pid"
+
 - name: Restart DHCP service
   command: "/etc/init.d/isc-dhcp-server restart"
