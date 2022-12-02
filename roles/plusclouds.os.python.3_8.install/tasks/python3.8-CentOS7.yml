@@ -1,0 +1,31 @@
+---
+# Tasks File for Centos7 Python3.8 Install
+- name: Install Dependencies
+  yum:
+    name:
+      - epel-release
+      - openssl-devel
+      - bzip2-devel
+      - libffi-devel
+      - xz-devel
+      - wget
+      - git
+      - curl
+    state: present
+
+- name: Install Development Tools
+  yum:
+    name:
+      - "@Development tools"
+    state: present
+
+- name: Extract latest leo files into /var/www
+  unarchive:
+    src: Python-3.8.2.tar.xz
+    dest: /tmp/
+    remote_src: no
+
+- name: Build Python3.8
+  shell: 
+    cmd: "./configure --enable-optimizations && make -j4 && make altinstall"
+    chdir: "/tmp/Python-3.8.2/"

@@ -1,0 +1,66 @@
+---
+# Tasks File for Ubuntu 16.04 Python3.8 Install
+
+- name: Apt Update
+  apt:
+    update_cache: yes
+
+- name: Install Dependencies
+  apt:
+    name:
+      - build-essential
+      - zlib1g-dev
+      - libncurses5-dev
+      - libgdbm-dev
+      - libnss3-dev
+      - libssl-dev
+      - libsqlite3-dev
+      - libreadline-dev
+      - libffi-dev
+      - curl
+      - libbz2-dev
+      - liblzma-dev
+      - git
+    state: present
+
+- name: Extract Openssl-1.1.1q Files Into /tmp Directory
+  unarchive:
+    src: openssl-1.1.1q.tar.gz
+    dest: /tmp/
+    remote_src: no
+
+- name: Build Openssl-1.1.1q
+  shell: 
+    cmd: "./config --prefix=/usr/local && make -j4 && make install"
+    chdir: "/tmp/openssl-1.1.1q/"
+
+- name: Download and Configure pyenv
+  shell: curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+- name: Send Source Script to Remote Machine
+  template:
+    src: source-script.j2
+    dest: /tmp/source-script.sh
+    owner: root
+    group: root
+    mode: '775'
+
+- name: Run the Source Script
+  shell: "/tmp/source-script.sh bash"
+
+- name: Install Plusclouds Python Service
+  shell: "/usr/bin/python3.8 -m pip install plusclouds-service"
+
+- name: Send Plusclouds Service to Remote Machine
+  template:
+    src: plusclouds-ubuntu.service.j2
+    dest: /etc/systemd/system/plusclouds-service.service
+    owner: root
+    group: root
+    mode: '775'
+
+- name: Restart service Plusclouds, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: plusclouds-service
