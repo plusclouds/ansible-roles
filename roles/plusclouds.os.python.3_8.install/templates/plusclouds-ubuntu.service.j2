@@ -1,0 +1,10 @@
+[Unit]
+Description=Plusclouds Python Service
+
+[Service]
+ExecStart=/usr/bin/python3.8 -m plusclouds-service
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.Target

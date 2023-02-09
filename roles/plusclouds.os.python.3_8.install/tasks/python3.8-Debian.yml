@@ -1,0 +1,52 @@
+---
+# Tasks File for Debian Python3.8 Install
+
+- name: Apt Update
+  apt:
+    update_cache: yes
+
+- name: Install Dependencies
+  apt:
+    name:
+      - build-essential
+      - zlib1g-dev
+      - libncurses5-dev
+      - libgdbm-dev
+      - libnss3-dev
+      - libssl-dev
+      - libsqlite3-dev
+      - libreadline-dev
+      - libffi-dev
+      - curl
+      - libbz2-dev
+      - liblzma-dev
+      - git
+    state: present
+
+- name: Extract latest leo files into /var/www
+  unarchive:
+    src: Python-3.8.2.tar.xz
+    dest: /tmp/
+    remote_src: no
+
+- name: Build Python3.8
+  shell: 
+    cmd: "./configure --enable-optimizations && make -j4 && make altinstall"
+    chdir: "/tmp/Python-3.8.2/"
+
+- name: Install Plusclouds Python Service
+  shell: "/usr/local/bin/python3.8 -m pip install plusclouds-service"
+
+- name: Send Plusclouds Service to Remote Machine
+  template:
+    src: plusclouds-debian.service.j2
+    dest: /etc/systemd/system/plusclouds-service.service
+    owner: root
+    group: root
+    mode: '775'
+
+- name: Restart service Plusclouds, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: plusclouds-service
