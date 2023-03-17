@@ -1,0 +1,4 @@
+---
+- hosts: all
+  roles:
+    - plusclouds.netgateway.dhcp.ip.reserve

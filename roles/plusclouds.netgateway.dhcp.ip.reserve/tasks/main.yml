@@ -4,6 +4,11 @@
     name: nmap
     state: present
 
+- name: Install nmap if not installed
+  apt:
+    name: arping
+    state: present
+
 - name: Discover Ip Adresses
   shell: nmap -n -sn {{ network_ip_addr }}{{ network_subnet }} -oG - | awk '/Up$/{print $2}'
   register: ip_addresses
@@ -11,11 +16,14 @@
 - set_fact:
     ip_addr: "{{ ip_addresses.stdout_lines }}"
 
+- debug:
+    var: user_token
+
 # STORING IP ADDRESSES
 
 - name: Store ip address as reserved
   uri:
-    url: http://{{leo_url}}/v2/packetbender/ip
+    url: "{{leo_url}}/v2/packetbender/ip"
     method: POST
     headers:
       Authorization: "Bearer {{ user_token }}"
