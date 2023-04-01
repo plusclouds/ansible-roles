@@ -1,0 +1,32 @@
+---
+# tasks file for python3.8-install
+- name: Setup Ubuntu 14.04 python3.8
+  include_tasks: python3.8-Ubuntu14.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+
+- name: Setup Ubuntu 16.04 python3.8
+  include_tasks: python3.8-Ubuntu16.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+
+- name: Setup Ubuntu 18.04 python3.8
+  include_tasks: python3.8-Ubuntu18.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- name: Setup Ubuntu 20.04 python3.8
+  include_tasks: python3.8-Ubuntu20.04.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
+
+- name: Setup Debian python3.8
+  include_tasks: python3.8-Debian.yml
+  when: ansible_distribution == 'Debian'
+
+- name: Setup CentOS 7 python3.8
+  include_tasks: python3.8-CentOS7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
+
+
+- name: Setup CentOS 8 python3.8
+  include_tasks: python3.8-CentOS8.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'

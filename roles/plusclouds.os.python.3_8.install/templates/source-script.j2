@@ -1,0 +1,9 @@
+#! /bin/bash
+
+echo >> ~/.bashrc
+echo 'export PATH="/root/.pyenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+source ~/.bashrc
+LDFLAGS="-Wl,-rpath,/usr/local/lib" CONFIGURE_OPTS="-with-openssl=/usr/local" /root/.pyenv/bin/pyenv install -v 3.8.3
+/root/.pyenv/bin/pyenv global 3.8.3

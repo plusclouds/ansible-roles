@@ -1,0 +1,37 @@
+---
+# Tasks File for Ubuntu 20.04 Python3.8 Install
+
+- name: Apt Update
+  apt:
+    update_cache: yes
+
+- name: Install Dependencies
+  apt:
+    name: software-properties-common
+    state: present
+
+- name: Add Python PPA Repo
+  apt_repository:
+    repo: ppa:deadsnakes/ppa
+
+- name: Install Python3.8
+  apt:
+    name: python3.8
+    state: present
+
+- name: Install Plusclouds Python Service
+  shell: "/usr/bin/python3.8 -m pip install plusclouds-service"
+
+- name: Send Plusclouds Service to Remote Machine
+  template:
+    src: plusclouds-ubuntu.service.j2
+    dest: /etc/systemd/system/plusclouds-service.service
+    owner: root
+    group: root
+    mode: '775'
+
+- name: Restart service Plusclouds, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: plusclouds-service
