@@ -1,3 +1,5 @@
+- name: Allow release info change update
+  shell: apt-get --allow-releaseinfo-change update
 
 - name: Update cache and upgrade if specified.
   become: true
