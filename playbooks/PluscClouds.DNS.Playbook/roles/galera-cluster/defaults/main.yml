@@ -1,6 +1,0 @@
----
-# defaults file for galera-cluster
-mysql_root_password: "" #root password
-bind_address: "" #Bind adresi
-wsrep_cluster_name: "" #Cluster yapısının adı
-wsrep_cluster_address: "" #Cluster yapıdaki tüm nodelar yazılacak

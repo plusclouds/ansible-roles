@@ -1,4 +1,0 @@
-- hosts: ldap
-  become: true
-  roles:
-    - ldap

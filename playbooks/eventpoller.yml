@@ -1,9 +1,0 @@
----
-- hosts: all
-  tasks:
-  - include: roles/event-poller/tasks/logstash-poller.yml
-  vars:
-  - incoming_ip: 10.100.0.93
-  - log_type: "Blitz"
-  - listen_port: 9982
-

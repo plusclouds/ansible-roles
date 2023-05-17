@@ -1,6 +1,0 @@
----
-  - hosts: redhat
-    become: yes
-    roles:
-      - RHEL7-CIS
-      - ansible-openssh-openldap

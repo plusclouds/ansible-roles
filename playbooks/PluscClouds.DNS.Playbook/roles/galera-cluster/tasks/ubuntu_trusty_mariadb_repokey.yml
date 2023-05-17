@@ -1,6 +1,0 @@
-- name: shell repo key
-  shell: apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-
-- name: Add MariaDB Repo Ubuntu 14.04 trusty
-  shell: add-apt-repository 'deb [arch=amd64,i386,ppc64el] ftp://ftp.ulak.net.tr/pub/MariaDB/repo/10.1/ubuntu trusty main'
-

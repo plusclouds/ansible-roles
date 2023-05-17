@@ -1,5 +1,0 @@
-- hosts: backend 
-  become: yes
-  become_user: root
-  roles:
-    - { role: deployapp, tags: ['deployapp'], app_type: 'spring'}
