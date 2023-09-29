@@ -1,29 +1,16 @@
 ---
-- name: Check required variables
-  fail: msg="Variable {{ item }} is not defined"
-  when: item is not defined
-  with_items: "{{ blitz_server_bilgileri }}"
-
-- name: Check required variables
-  fail: msg="Variable {{ item }} is not defined"
-  when:  item is not defined
-  with_items: "{{ blitz_server_bilgileri }}"
+# - name: Check required variables
+#   fail: msg="Variable {{ item }} is not defined"
+#   when: item is not defined
+#   with_items: "{{ blitz_server_bilgileri }}"
 
 - name: Debian zabbix-agent install 
   include_tasks: Debian.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+  when: ansible_facts['os_family'] == "Debian"
 
 - name: Debian zabbix-agent install 
-  include_tasks: CentOS6.yml
-  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '6'
-
-- name: Debian zabbix-agent install 
-  include_tasks: CentOS7.yml
-  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '7'
-
-- name: Debian zabbix-agent install 
-  include_tasks: Debian.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+  include_tasks: CentOS.yml
+  when: ansible_facts['os_family'] == "RHEL"
 
 - name: Firewall configuration 
   include_tasks: applyfirewall.yml

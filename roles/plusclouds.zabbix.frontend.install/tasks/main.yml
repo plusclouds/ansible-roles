@@ -1,4 +1,0 @@
----
-# tasks file for plusclouds.zabbix-frontend-install
-- name: Include Zabbix installing file
-  import_tasks: Ubuntu-zabbix.yml

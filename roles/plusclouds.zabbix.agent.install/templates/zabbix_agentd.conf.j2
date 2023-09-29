@@ -3,9 +3,9 @@
 PidFile=/var/run/zabbix/zabbix_agentd.pid
 LogFile=/var/log/zabbix/zabbix_agentd.log
 LogFileSize=0
-Server={{ blitz_server_bilgileri.blitz_monitoring_server_ip }}
-ServerActive=127.0.0.1
-Hostname={{ agent_bilgileri.agent_name }}
+Server={{ blitz_host.server_ip }},{{ agent_server.agent_server_ip }}, 127.0.0.1
+ServerActive={{ blitz_host.server_ip }}
+Hostname={{ agent_server.agent_name }}
 Include=/etc/zabbix/zabbix_agentd.d/
 UnsafeUserParameters=1
 

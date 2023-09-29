@@ -1,12 +1,21 @@
 ---
 # tasks file for plusclouds.zabbix-install
+
+- name: System details
+  debug: msg="{{ item }}"
+  with_items: 
+  - "{{ ansible_facts['os_family'] }}"
+  - "{{ ansible_distribution }}"
+  - "{{ ansible_distribution_version }}"
+  - "{{ ansible_distribution_major_version }}"
+
 - name: Include Debian specific tasks
   import_tasks: debian-zabbix.yml
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Include RHEL specific tasks
   import_tasks: rhel-zabbix.yml
-  when: ansible_facts['os_family'] == "RHEL"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Include SUSE specific tasks
   import_tasks: suse-zabbix.yml

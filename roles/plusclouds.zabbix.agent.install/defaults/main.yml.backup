@@ -1,17 +1,17 @@
 ---
 #Agent'in konfigurasyonu için blitz server'ın ip adresi portu ve web url bilgisi girilmelidir.
 blitz_host:
-  server_ip: "100.105.6.1" # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: mon1.blitz.plusclouds.com)
-  server_port: 8080 # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: 10050)
-  web_url: "http://100.105.6.1:8080" # Blitz Monitoring Web URL Adresi girilir. (default: http://blitz.plusclouds.com/blitz)
+  server_ip: "10.8.1.251" # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: mon1.blitz.plusclouds.com)
+  server_port: 10050 # Agent'ın bağlanacağı monitoring server ip adresi girilir. (default: 10050)
+  web_url: "http://10.8.2.46/blitz" # Blitz Monitoring Web URL Adresi girilir. (default: http://blitz.plusclouds.com/blitz)
 
 # Kurulumun devamı için Plusclouds.com Paneli üzerinden oluşturduğunuz Monitoring kullanıcı bilgileri girilmelidir.
 blitz_user:
-  user_name: "Admin"  # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı adı girilir. (Api'den gelen veri)
-  user_pass: "sifre123" # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı şifresi girilir. (Api'den gelen veri)
+  user_name: "agent-test@72b63910-bb6a-45ac-a27d-f35f69b8caf7"  # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı adı girilir. (Api'den gelen veri)
+  user_pass: "H0oRJKqmfQ" # Plusclouds hesabınızın Blitz Monitoring Service kullanıcı şifresi girilir. (Api'den gelen veri)
 
 # Agent Server tarafında, Monitoring Server'a bağlantı izni için firewall kuralı yazılsın mı? (true/false)
-apply_firewall_rules: false
+apply_firewall_rules: true
 #Firewall kuralı yazılabilmesi Agent eth bilgisi doldurulmalıdır.
 firewall_biligileri:
   agent_eth: "eth1" #Firewall izinleri için agent server'ın hangi eth üzerinden Blitz Monitoring servera gideceği bilgisi
@@ -20,9 +20,9 @@ firewall_biligileri:
 host_ekle: false
 #Host ekleme işlemi gerçekleştirilebilmesi için aşağıdaki bilgiler doldurulmalıdır.
 agent_server:
-  agent_server_ip: "{{ ansible_ssh_host }}" # Host olarak eklenecek olan agent serverın ip adresi
+  agent_server_ip: "10.8.2.32" # Host olarak eklenecek olan agent serverın ip adresi
   agent_name: "ansible-agent-test" # Host olarak eklenecek olan agent isimi
-  agent_host_groups: "test" # Host olarak eklenecek agent group bilgisi (Api'den gelen veri)
+  agent_host_groups: "HG@72b63910-bb6a-45ac-a27d-f35f69b8caf7" # Host olarak eklenecek agent group bilgisi (Api'den gelen veri)
 
 # Agent'a monitoring için eklenecek olan Blitz templateleri girilir. Örneğin;
 # - blitz_templates: #Hosta eklenecek olan templateler
@@ -35,7 +35,7 @@ agent_server:
 
 blitz_templates: #Hosta eklenecek olan templateler
    - "Template OS Linux"
-  #  - "Template App Nginx"
+   - "Template App Nginx"
    - "Template Disk Performance"
 
 # Software Monitoring yaptırmak istediğiniz uygulama değerini ayarlayın(true/false).
