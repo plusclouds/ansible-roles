@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: 100.105.6.1
   remote_user: root
   roles:
-    - plusclouds.zabbix-install
+    - ../../../plusclouds.zabbix.server.install.mono

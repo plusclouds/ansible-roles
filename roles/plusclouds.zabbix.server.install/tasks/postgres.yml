@@ -1,0 +1,28 @@
+---
+- name: Add Zabbix user
+  community.postgresql.postgresql_user:
+    name: zabbix
+    password: sifre123
+  become: true
+  become_user: postgres
+
+- name: Create Zabbix database
+  community.postgresql.postgresql_db:
+    name: zabbix
+    owner: zabbix
+  become: true
+  become_user: postgres
+
+- name: Decompress server.sql file
+  ansible.builtin.shell: gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
+  ignore_errors: true
+
+- name: Run zabbix-sql-scripts
+  community.postgresql.postgresql_script:
+    db: zabbix
+    path: /usr/share/zabbix-sql-scripts/postgresql/server.sql
+    login_user: zabbix
+    login_password: sifre123
+  become: true
+  become_user: zabbix
+

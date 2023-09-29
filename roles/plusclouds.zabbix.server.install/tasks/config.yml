@@ -1,0 +1,10 @@
+- name: Copy template zabbix_server.conf
+  template: src=zabbix-server.conf.j2 dest=/etc/zabbix/zabbix_server.conf
+  notify: Restart zabbix-server
+- name: Copy template nginx.conf
+  template: src=nginx.conf.j2 dest=/etc/zabbix/nginx.conf
+  notify: Restart nginx
+- name: Remove default sites in nginx
+  ansible.builtin.shell: rm -rf  /etc/nginx/sites-enabled/default
+  ignore_errors: true
+  notify: Restart nginx

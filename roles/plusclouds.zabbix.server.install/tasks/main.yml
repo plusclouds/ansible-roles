@@ -1,8 +1,19 @@
 ---
 # tasks file for plusclouds.zabbix-install
+- name: Include Debian specific tasks
+  import_tasks: debian-zabbix.yml
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: Include OS - specific tasks
-  import_tasks: ubuntu-zabbix.yml
+- name: Include RHEL specific tasks
+  import_tasks: rhel-zabbix.yml
+  when: ansible_facts['os_family'] == "RHEL"
 
-- name: Include Zabbix3 configuration
-  import_tasks: zabbix.yml
+- name: Include SUSE specific tasks
+  import_tasks: suse-zabbix.yml
+  when: ansible_facts['os_family'] == "Suse"
+
+- name: Include Zabbix6 and Nginx configuration
+  import_tasks: config.yml
+
+- name: Create zabbix DB and user
+  import_tasks: postgres.yml
