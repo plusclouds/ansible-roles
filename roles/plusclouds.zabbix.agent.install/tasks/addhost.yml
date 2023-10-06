@@ -2,10 +2,17 @@
 - name: Check required variables
   fail: msg="Variable {{ item }} is not defined"
   when: item is not defined
-  with_items: "{{ agent_bilgileri }}"
+  with_items: "{{ agent_server }}"
 
 
 - name: Create a new host
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 443
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbixeu"  # If Zabbix WebUI runs on non-default (zabbix) path ,e.g. 
   local_action:
     module: zabbix_host
     server_url: '{{ blitz_host.web_url }}'
@@ -14,7 +21,7 @@
     host_name: '{{ agent_server.agent_name }}'
     visible_name: '{{ agent_server.agent_name }}'
     host_groups: 
-      - '{{ agent_server.host_groups }}'
+      - '{{ agent_server.agent_host_groups }}'
     link_templates:
       - '{{ blitz_templates }}'
     status: enabled

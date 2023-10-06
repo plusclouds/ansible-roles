@@ -17,10 +17,10 @@ firewall_biligileri:
   agent_eth: "eth1" #Firewall izinleri için agent server'ın hangi eth üzerinden Blitz Monitoring servera gideceği bilgisi
 
 # Agent'ı Blitz Server'a host olarak eklemek ister misiniz? (true/false)
-host_ekle: false
+host_ekle: true
 #Host ekleme işlemi gerçekleştirilebilmesi için aşağıdaki bilgiler doldurulmalıdır.
 agent_server:
-  agent_server_ip: "{{ ansible_ssh_host }}" # Host olarak eklenecek olan agent serverın ip adresi
+  agent_server_ip: "{{ ansible_default_ipv4.address }}" # Host olarak eklenecek olan agent serverın ip adresi
   agent_name: "ansible-agent-test" # Host olarak eklenecek olan agent isimi
   agent_host_groups: "test" # Host olarak eklenecek agent group bilgisi (Api'den gelen veri)
 
