@@ -1,5 +1,5 @@
 ---
-- hosts: 100.105.6.12
+- hosts: all,!zabbixserver
   remote_user: root
   roles:
     - ../../../plusclouds.zabbix.agent.install

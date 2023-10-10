@@ -1,0 +1,350 @@
+[
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "os.path",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os.path",
+        "description": "os.path",
+        "detail": "os.path",
+        "documentation": {}
+    },
+    {
+        "label": "string_types",
+        "importPath": "six",
+        "description": "six",
+        "isExtraImport": true,
+        "detail": "six",
+        "documentation": {}
+    },
+    {
+        "label": "fileinput",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "fileinput",
+        "description": "fileinput",
+        "detail": "fileinput",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "random,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random.",
+        "description": "random.",
+        "detail": "random.",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "ansible.module_utils.basic",
+        "description": "ansible.module_utils.basic",
+        "isExtraImport": true,
+        "detail": "ansible.module_utils.basic",
+        "documentation": {}
+    },
+    {
+        "label": "XenAPI",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "XenAPI",
+        "description": "XenAPI",
+        "detail": "XenAPI",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "pprint",
+        "importPath": "pprint",
+        "description": "pprint",
+        "isExtraImport": true,
+        "detail": "pprint",
+        "documentation": {}
+    },
+    {
+        "label": "urllib.request",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib.request",
+        "description": "urllib.request",
+        "detail": "urllib.request",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "getopt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "getopt",
+        "description": "getopt",
+        "detail": "getopt",
+        "documentation": {}
+    },
+    {
+        "label": "urllib2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib2",
+        "description": "urllib2",
+        "detail": "urllib2",
+        "documentation": {}
+    },
+    {
+        "label": "ssl",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ssl",
+        "description": "ssl",
+        "detail": "ssl",
+        "documentation": {}
+    },
+    {
+        "label": "FilterModule",
+        "kind": 6,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "class FilterModule(object):\n    def filters(self):\n        return {\n            \"modify_list\": modify_list,\n            \"append_to_list\": append_to_list,\n            \"filter_reserved\": filter_reserved,\n            \"array_to_str\": array_to_str,\n            \"extract_role_users\": extract_role_users,\n            \"remove_reserved\": remove_reserved,\n            \"filename\": filename,",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "modify_list",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def modify_list(values=[], pattern=\"\", replacement=\"\", ignorecase=False):\n    \"\"\" Perform a `re.sub` on every item in the list\"\"\"\n    if ignorecase:\n        flags = re.I\n    else:\n        flags = 0\n    _re = re.compile(pattern, flags=flags)\n    return [_re.sub(replacement, value) for value in values]\ndef append_to_list(values=[], suffix=\"\"):\n    if isinstance(values, string_types):",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "append_to_list",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def append_to_list(values=[], suffix=\"\"):\n    if isinstance(values, string_types):\n        values = values.split(\",\")\n    return [str(value + suffix) for value in values]\ndef array_to_str(values=[], separator=\",\"):\n    return separator.join(values)\ndef extract_role_users(users={}, exclude_users=[]):\n    role_users = []\n    for user, details in users.items():\n        if user not in exclude_users and \"roles\" in details:",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "array_to_str",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def array_to_str(values=[], separator=\",\"):\n    return separator.join(values)\ndef extract_role_users(users={}, exclude_users=[]):\n    role_users = []\n    for user, details in users.items():\n        if user not in exclude_users and \"roles\" in details:\n            for role in details[\"roles\"]:\n                role_users.append(role + \":\" + user)\n    return role_users\ndef filename(filename=\"\"):",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "extract_role_users",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def extract_role_users(users={}, exclude_users=[]):\n    role_users = []\n    for user, details in users.items():\n        if user not in exclude_users and \"roles\" in details:\n            for role in details[\"roles\"]:\n                role_users.append(role + \":\" + user)\n    return role_users\ndef filename(filename=\"\"):\n    return os.path.splitext(os.path.basename(filename))[0]\ndef remove_reserved(user_roles={}):",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "filename",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def filename(filename=\"\"):\n    return os.path.splitext(os.path.basename(filename))[0]\ndef remove_reserved(user_roles={}):\n    not_reserved = []\n    for user_role, details in user_roles.items():\n        if (\n            not \"metadata\" in details\n            or not \"_reserved\" in details[\"metadata\"]\n            or not details[\"metadata\"][\"_reserved\"]\n        ):",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "remove_reserved",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def remove_reserved(user_roles={}):\n    not_reserved = []\n    for user_role, details in user_roles.items():\n        if (\n            not \"metadata\" in details\n            or not \"_reserved\" in details[\"metadata\"]\n            or not details[\"metadata\"][\"_reserved\"]\n        ):\n            not_reserved.append(user_role)\n    return not_reserved",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "filter_reserved",
+        "kind": 2,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "def filter_reserved(users_role={}):\n    reserved = []\n    for user_role, details in users_role.items():\n        if (\n            \"metadata\" in details\n            and \"_reserved\" in details[\"metadata\"]\n            and details[\"metadata\"][\"_reserved\"]\n        ):\n            reserved.append(user_role)\n    return reserved",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "__author__",
+        "kind": 5,
+        "importPath": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "description": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "peekOfCode": "__author__ = \"dale mcdiarmid\"\nimport re\nimport os.path\nfrom six import string_types\ndef modify_list(values=[], pattern=\"\", replacement=\"\", ignorecase=False):\n    \"\"\" Perform a `re.sub` on every item in the list\"\"\"\n    if ignorecase:\n        flags = re.I\n    else:\n        flags = 0",
+        "detail": "community.galaxy.elasticsearch.filter_plugins.custom",
+        "documentation": {}
+    },
+    {
+        "label": "old_versions",
+        "kind": 5,
+        "importPath": "community.galaxy.elasticsearch.helpers.bumper",
+        "description": "community.galaxy.elasticsearch.helpers.bumper",
+        "peekOfCode": "old_versions = {\n    6: '6.8.5',\n    7: '7.5.0',\n}\nnew_versions = {\n    6: '6.8.6',\n    7: '7.5.1',\n}\nfiles = [\n    'README.md',",
+        "detail": "community.galaxy.elasticsearch.helpers.bumper",
+        "documentation": {}
+    },
+    {
+        "label": "new_versions",
+        "kind": 5,
+        "importPath": "community.galaxy.elasticsearch.helpers.bumper",
+        "description": "community.galaxy.elasticsearch.helpers.bumper",
+        "peekOfCode": "new_versions = {\n    6: '6.8.6',\n    7: '7.5.1',\n}\nfiles = [\n    'README.md',\n    'defaults/main.yml',\n    '.kitchen.yml',\n]\nfor major, version in old_versions.items():",
+        "detail": "community.galaxy.elasticsearch.helpers.bumper",
+        "documentation": {}
+    },
+    {
+        "label": "files",
+        "kind": 5,
+        "importPath": "community.galaxy.elasticsearch.helpers.bumper",
+        "description": "community.galaxy.elasticsearch.helpers.bumper",
+        "peekOfCode": "files = [\n    'README.md',\n    'defaults/main.yml',\n    '.kitchen.yml',\n]\nfor major, version in old_versions.items():\n    for file in files:\n        print(file)\n        for line in fileinput.input([file], inplace=True):\n            print(line.replace(version, new_versions[major]), end='')",
+        "detail": "community.galaxy.elasticsearch.helpers.bumper",
+        "documentation": {}
+    },
+    {
+        "label": "gen_pass",
+        "kind": 2,
+        "importPath": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "description": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "peekOfCode": "def gen_pass(size=16, chars=string.ascii_letters + string.digits):\n    return ''.join(random.choice(chars) for _ in range(size))\ndef gen_salt(salt):\n    '''Generate a random salt.'''\n    ret = ''\n    if not salt:\n        with open('/dev/urandom', 'rb') as urandom:\n            while True:\n                byte = urandom.read(1)\n                if byte in ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'",
+        "detail": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "documentation": {}
+    },
+    {
+        "label": "gen_salt",
+        "kind": 2,
+        "importPath": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "description": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "peekOfCode": "def gen_salt(salt):\n    '''Generate a random salt.'''\n    ret = ''\n    if not salt:\n        with open('/dev/urandom', 'rb') as urandom:\n            while True:\n                byte = urandom.read(1)\n                if byte in ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'\n                            './0123456789'):\n                    ret += byte",
+        "detail": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "description": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "peekOfCode": "def main():\n    module = AnsibleModule(\n            argument_spec = dict(\n                salt = dict(required=False, default=None),\n                password = dict(no_log=True, required=False, default='random', type='str'),\n                )\n            )\n    salt = module.params['salt']\n    password = module.params['password']\n    if password == 'random':",
+        "detail": "community.galaxy.os.rhel7_cis.library.grub_crypt",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "description": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "peekOfCode": "def main(session):\n    try:\n        call_timeout = 30.0\n        polling_interval = 1\n        token = ''\n        event_types = [\"*\"]\n        while True:\n            try:\n                print \"Polling for events...\"\n                output = session.xenapi.event_from(event_types, token, call_timeout)",
+        "detail": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "documentation": {}
+    },
+    {
+        "label": "print_usage",
+        "kind": 2,
+        "importPath": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "description": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "peekOfCode": "def print_usage():\n    print \"\"\"\nUsage:\n    %s <url> <username> <password>\nor\n    %s [http://]localhost [<username>] [<password>]\n\"\"\" % (sys.argv[0], sys.argv[0])\nif __name__ == \"__main__\":\n    if len(sys.argv) < 2:\n        print_usage()",
+        "detail": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "documentation": {}
+    },
+    {
+        "label": "iso8601",
+        "kind": 5,
+        "importPath": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "description": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "peekOfCode": "iso8601 = \"%Y%m%dT%H:%M:%SZ\"\ndef main(session):\n    try:\n        call_timeout = 30.0\n        polling_interval = 1\n        token = ''\n        event_types = [\"*\"]\n        while True:\n            try:\n                print \"Polling for events...\"",
+        "detail": "plusclouds.leo.iaas.compute_member.xenserver.configure.templates.watch-all-events",
+        "documentation": {}
+    },
+    {
+        "label": "url_repo",
+        "kind": 5,
+        "importPath": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "description": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "peekOfCode": "url_repo = 'https://raw.githubusercontent.com/plusclouds/vmOperations/main/plusclouds.py'\ndata_url = urllib.request.urlopen(url_repo).read()\nexec(data_url)",
+        "detail": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "documentation": {}
+    },
+    {
+        "label": "data_url",
+        "kind": 5,
+        "importPath": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "description": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "peekOfCode": "data_url = urllib.request.urlopen(url_repo).read()\nexec(data_url)",
+        "detail": "plusclouds.leo.iaas.vm.template.prepare.files.plusclouds_service",
+        "documentation": {}
+    },
+    {
+        "label": "usage",
+        "kind": 2,
+        "importPath": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "description": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "peekOfCode": "def usage():\n    print \"usage: nginx-stat.py -h 127.0.0.1 -p 80 -a [active|accepted|handled|request|reading|writing|waiting]\"\n    sys.exit(2)\ndef main():\n    # Default values\n    host = \"localhost\"\n    port = \"80\"\n    getInfo = \"None\"\n    proto = \"http\"\n    _headers = {}",
+        "detail": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "description": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "peekOfCode": "def main():\n    # Default values\n    host = \"localhost\"\n    port = \"80\"\n    getInfo = \"None\"\n    proto = \"http\"\n    _headers = {}\n    gcontext = \"\"\n    if len(sys.argv) < 2:\n        usage()",
+        "detail": "plusclouds.zabbix.agent.install.files.nginx-stat",
+        "documentation": {}
+    }
+]

@@ -9,22 +9,23 @@
   vars:
     ansible_network_os: community.zabbix.zabbix
     ansible_connection: httpapi
-    ansible_httpapi_port: 443
-    ansible_httpapi_use_ssl: true
+    ansible_httpapi_port: "{{ blitz_host.server_port }}"
+    ansible_httpapi_use_ssl: false
     ansible_httpapi_validate_certs: false
-    ansible_zabbix_url_path: "zabbixeu"  # If Zabbix WebUI runs on non-default (zabbix) path ,e.g. 
+    ansible_zabbix_url_path: "blitz"  # If Zabbix WebUI runs on non-default (zabbix) path ,e.g. 
     become: false
+    ansible_host: "{{ blitz_host.server_ip }}"
+    ansible_user: "{{ blitz_user.user_name }}"
+    ansible_httpapi_pass: "{{ blitz_user.user_pass }}"
   community.zabbix.zabbix_host:
 #   server_url: '{{ blitz_host.web_url }}'
-    http_login_user: "{{ blitz_user.user_name }}"
-    http_login_password: "{{ blitz_user.user_pass }}"
+    # http_login_user: "{{ blitz_user.user_name }}"
+    # http_login_password: "{{ blitz_user.user_pass }}"
     host_name: "{{ agent_server.agent_name }}"
     visible_name: "{{ agent_server.agent_name }}"
     description: "{{ agent_server.agent_name }}"
-    host_groups:
-      - "{{ agent_server.agent_host_groups }}"
-    link_templates:
-      - "{{ blitz_templates }}"
+    host_groups: "{{ agent_server.agent_host_groups }}"
+    link_templates: "{{ blitz_templates }}"
     status: enabled
     state: present
     inventory_mode: automatic
@@ -34,4 +35,4 @@
         useip: 1
         ip: '{{ agent_server.agent_server_ip }}'
         dns: ""
-        port: '{{ blitz_host.server_port }}'
+        port: '{{ blitz_host.agent_port }}'
