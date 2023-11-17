@@ -1,0 +1,83 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "getopt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "getopt",
+        "description": "getopt",
+        "detail": "getopt",
+        "documentation": {}
+    },
+    {
+        "label": "urllib2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib2",
+        "description": "urllib2",
+        "detail": "urllib2",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "ssl",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ssl",
+        "description": "ssl",
+        "detail": "ssl",
+        "documentation": {}
+    },
+    {
+        "label": "usage",
+        "kind": 2,
+        "importPath": "files.nginx-stat",
+        "description": "files.nginx-stat",
+        "peekOfCode": "def usage():\n    print \"usage: nginx-stat.py -h 127.0.0.1 -p 80 -a [active|accepted|handled|request|reading|writing|waiting]\"\n    sys.exit(2)\ndef main():\n    # Default values\n    host = \"localhost\"\n    port = \"80\"\n    getInfo = \"None\"\n    proto = \"http\"\n    _headers = {}",
+        "detail": "files.nginx-stat",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "files.nginx-stat",
+        "description": "files.nginx-stat",
+        "peekOfCode": "def main():\n    # Default values\n    host = \"localhost\"\n    port = \"80\"\n    getInfo = \"None\"\n    proto = \"http\"\n    _headers = {}\n    gcontext = \"\"\n    if len(sys.argv) < 2:\n        usage()",
+        "detail": "files.nginx-stat",
+        "documentation": {}
+    }
+]

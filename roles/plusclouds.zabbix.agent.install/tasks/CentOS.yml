@@ -1,21 +1,22 @@
 ---
 
 - name: Add Zabbix Repository
-  ansible.builtin.apt:
+  ansible.builtin.yum:
     deb: https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb
  
-- name: update_cache
-  apt:
+- name: Dist Upgrade
+  ansible.builtin.yum:
+    upgrade: dist
     update_cache: yes
 
 - name: Install packages
-  apt: 
-    name: '{{ item }}'
+  yum: 
+    name: "{{ item }}"
     state: present
-  with_items:
-    - software-properties-common
+    update_cache: yes
+  with_items: 
     - zabbix-agent
-
+  
 - name: Restart services
   service:
     name: "{{ item }}"

@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- hosts: all,!zabbixserver
   remote_user: root
   roles:
-    - plusclouds.zabbix-install
+    - ../../../plusclouds.zabbix.agent.install
+    #- ../../../plusclouds.zabbix.server.install

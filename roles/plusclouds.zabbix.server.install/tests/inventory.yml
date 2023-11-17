@@ -1,0 +1,10 @@
+---
+all:
+  hosts:
+    100.105.9.57: # OL8 Server
+      ansible_host: 100.105.9.57 
+    100.105.6.1: # Debian12 Server
+      ansible_host: 100.105.6.1
+    100.105.6.12: # Debian12 Agent
+      ansible_host: 100.105.6.12
+

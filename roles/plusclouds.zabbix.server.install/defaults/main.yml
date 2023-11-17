@@ -1,7 +1,9 @@
 ---
 # defaults file for plusclouds.zabbix-install
-DB_Host: 'db_ip_adresi'
+DB_Host: '127.0.0.1'
 DB_User: 'zabbix'
 DB_Password: 'sifre123'
 DB_Name: 'zabbix'
-DB_Port: '3306'
+DB_Port: '5432'
+listen_port: '8080'
+server_name: 'zabbix.plusclouds.com'

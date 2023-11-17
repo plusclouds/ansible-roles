@@ -1,0 +1,21 @@
+
+- name: Update all packages on SLES based servers
+  zypper:
+    name: '*'
+    state: latest
+    update_cache: yes
+    allow_vendor_change: true
+    disable_gpg_check: true
+    extra_args: non-interactive
+  register: zypper_update
+  when: upgrade
+
+
+- name: Check if a reboot is needed on all SLES based servers
+  register: reboot_required_file
+  stat: path=/boot/do_purge_kernels get_md5=no 
+
+
+- name: Reboot the SLES based box if kernel updated
+  reboot:
+  when: reboot_required_file.stat.exists
